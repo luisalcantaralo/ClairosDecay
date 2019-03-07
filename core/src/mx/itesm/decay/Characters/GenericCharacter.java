@@ -6,44 +6,78 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class GenericCharacter {
+public abstract class GenericCharacter {
 
     private Sprite sprite;
     private float DX = 4;
     private float DY = 4;
+    private float timer;
+    private int NUM_COLUMNS;
+    private int NUM_ROWS;
 
     private Texture characterSheet;
-    private TextureRegion[] regions;
+    private Animation<TextureRegion> walkAnimation;
+    private Animation<TextureRegion> idleAnimation;
+    private Animation<TextureRegion> runAnimation;
 
-    public Animation<TextureRegion> walkAnimation;
-    Animation<TextureRegion> idleAnimation;
-    Animation<TextureRegion> runAnimation;
-
-    public float timer;
 
     public GenericCharacter(Texture texture, float x, float y){
         sprite = new Sprite(texture);
         sprite.setPosition(x,y);
         characterSheet = texture;
         walkAnimation = createAnimation(4,1);
-    }
+        timer = 0;
 
+    }
     public void render(SpriteBatch batch){
         sprite.draw(batch);
     }
-    public Animation createAnimation(int numColumns, int numRows){
+    // Takes a row from character sheet, divides it into texture regions and returns an animation
+    public Animation createAnimation(int numColumns, int numRow){
 
+        int lengthRow = characterSheet.getHeight() / NUM_ROWS;
+        TextureRegion[] regions = new TextureRegion[numColumns];
         for(int i = 0; i < numColumns; i++){
-            regions[i] = new TextureRegion(characterSheet, (i+1)*(characterSheet.getWidth()/numColumns),0,128,128);
+            regions[i] = new TextureRegion(characterSheet, i*128,(numRow-1)*lengthRow,128,128);
         }
-        Animation<TextureRegion> animation = new Animation<TextureRegion>(1/numColumns, regions);
-        timer = 0;
+        Animation<TextureRegion> animation = new Animation<TextureRegion>(0.25f, regions);
         return animation;
+    }
+    public float getTimer() {
+        return timer;
+    }
+
+    public Animation<TextureRegion> getWalkAnimation() {
+        return walkAnimation;
+    }
+
+    public Animation<TextureRegion> getIdleAnimation() {
+        return idleAnimation;
+    }
+
+    public Animation<TextureRegion> getRunAnimation() {
+        return runAnimation;
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
     }
     public void setDX(float DX) {
         this.DX = DX;
     }
     public void setDY(float DY) {
         this.DY = DY;
+    }
+
+    public void setWalkAnimation(Animation<TextureRegion> walkAnimation) {
+        this.walkAnimation = walkAnimation;
+    }
+
+    public void setIdleAnimation(Animation<TextureRegion> idleAnimation) {
+        this.idleAnimation = idleAnimation;
+    }
+
+    public void setRunAnimation(Animation<TextureRegion> runAnimation) {
+        this.runAnimation = runAnimation;
     }
 }
