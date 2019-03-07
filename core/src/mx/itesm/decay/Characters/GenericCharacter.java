@@ -16,23 +16,21 @@ public abstract class GenericCharacter {
     private int NUM_ROWS;
 
     private Texture characterSheet;
-    private Animation<TextureRegion> walkAnimation;
-    private Animation<TextureRegion> idleAnimation;
-    private Animation<TextureRegion> runAnimation;
+    private Animation<TextureRegion> animation;
 
 
     public GenericCharacter(Texture texture, float x, float y){
         sprite = new Sprite(texture);
         sprite.setPosition(x,y);
         characterSheet = texture;
-        walkAnimation = createAnimation(4,1);
+        animation = createAnimation(4,1);
         timer = 0;
 
     }
     public void render(SpriteBatch batch){
         sprite.draw(batch);
     }
-    // Takes a row from character sheet, divides it into texture regions and returns an animation
+    // Takes a row from character sheet, add textures regions to an array and returns the created animation
     public Animation createAnimation(int numColumns, int numRow){
 
         int lengthRow = characterSheet.getHeight() / NUM_ROWS;
@@ -47,18 +45,12 @@ public abstract class GenericCharacter {
         return timer;
     }
 
-    public Animation<TextureRegion> getWalkAnimation() {
-        return walkAnimation;
+    public Animation<TextureRegion> getAnimation() {
+        return animation;
     }
-
-    public Animation<TextureRegion> getIdleAnimation() {
-        return idleAnimation;
+    public void setAnimation(Animation<TextureRegion> animation) {
+        this.animation = animation;
     }
-
-    public Animation<TextureRegion> getRunAnimation() {
-        return runAnimation;
-    }
-
     public void setTimer(float timer) {
         this.timer = timer;
     }
@@ -69,15 +61,5 @@ public abstract class GenericCharacter {
         this.DY = DY;
     }
 
-    public void setWalkAnimation(Animation<TextureRegion> walkAnimation) {
-        this.walkAnimation = walkAnimation;
-    }
 
-    public void setIdleAnimation(Animation<TextureRegion> idleAnimation) {
-        this.idleAnimation = idleAnimation;
-    }
-
-    public void setRunAnimation(Animation<TextureRegion> runAnimation) {
-        this.runAnimation = runAnimation;
-    }
 }
