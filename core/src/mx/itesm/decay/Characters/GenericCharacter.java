@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public abstract class GenericCharacter {
 
@@ -34,9 +35,9 @@ public abstract class GenericCharacter {
     public Animation createAnimation(int numColumns, int numRow){
 
         int lengthRow = characterSheet.getHeight() / NUM_ROWS;
-        TextureRegion[] regions = new TextureRegion[numColumns];
+        Array<TextureRegion> regions = new Array<TextureRegion>();
         for(int i = 0; i < numColumns; i++){
-            regions[i] = new TextureRegion(characterSheet, i*128,(numRow-1)*lengthRow,128,128);
+            regions.add(new TextureRegion(characterSheet, i*128,(numRow-1)*lengthRow,128,128));
         }
         Animation<TextureRegion> animation = new Animation<TextureRegion>(0.25f, regions);
         return animation;
