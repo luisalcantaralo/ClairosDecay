@@ -5,16 +5,23 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-public abstract class GenericCharacter {
+public abstract class GenericCharacter extends Sprite{
 
+    // Images, specs, etc.
     private Sprite sprite;
+    private int NUM_COLUMNS;
+    private int NUM_ROWS;
+
+    // Distances, time, velocity
     private float DX = 4;
     private float DY = 4;
     private float timer;
-    private int NUM_COLUMNS;
-    private int NUM_ROWS;
+
+    // Box2d
+    private World world;
 
     private Texture characterSheet;
     private Animation<TextureRegion> animation;
@@ -31,9 +38,9 @@ public abstract class GenericCharacter {
     public void render(SpriteBatch batch){
         sprite.draw(batch);
     }
+
     // Takes a row from character sheet, add textures regions to an array and returns the created animation
     public Animation createAnimation(int numColumns, int numRow){
-
         int lengthRow = characterSheet.getHeight() / NUM_ROWS;
         Array<TextureRegion> regions = new Array<TextureRegion>();
         for(int i = 0; i < numColumns; i++){
