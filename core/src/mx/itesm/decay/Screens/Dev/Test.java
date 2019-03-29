@@ -17,7 +17,7 @@ public class Test extends GenericScreen {
     public void render(float delta) {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        //batch.draw(sampleBackground, 0, 0);
+        batch.draw(sampleBackground, 0, 0);
         batch.end();
     }
 
