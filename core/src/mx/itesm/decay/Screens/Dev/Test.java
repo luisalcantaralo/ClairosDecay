@@ -10,13 +10,14 @@ public class Test extends GenericScreen {
 
     @Override
     public void show() {
-        sampleBackground = new Texture("tilesets/cd-grey-tilesheet.png");
+        sampleBackground = new Texture("tilesets/cd-tilesheet-grey-32x32.png");
     }
 
     @Override
     public void render(float delta) {
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(sampleBackground, 0, 0);
+        //batch.draw(sampleBackground, 0, 0);
         batch.end();
     }
 

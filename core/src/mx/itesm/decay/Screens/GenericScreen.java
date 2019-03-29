@@ -5,14 +5,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class GenericScreen implements Screen
 {
     // Atributos disponibles en todas las clases del proyecto
-    public static final float WIDTH = 1280;
-    public static final float HEIGHT = 720;
+    public static final float WIDTH = 640;
+    public static final float HEIGHT = 360;
 
     // Atributos disponibles solo en las subclases
     // Todas las pantallas tienen una cámara y una view
