@@ -35,13 +35,13 @@ public abstract class GenericScreen implements Screen
     }
 
     // Borra la pantalla con fondo negro
-    protected void borrarPantalla() {
+    protected void deleteScreen() {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     // Borra la pantalla con el color RGB (r,g,b)
-    protected void borrarPantalla(float r, float g, float b) {
+    protected void deleteScreen(float r, float g, float b) {
         Gdx.gl.glClearColor(r,g,b,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
