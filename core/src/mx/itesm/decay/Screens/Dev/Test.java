@@ -16,7 +16,7 @@ public class Test extends GenericScreen {
     public void show() {
         sampleBackground = new Texture("menu/cd-menu-buildings.png");
         sampleBackgroundBack = new Texture("menu/cd-menu-background.png");
-        sampleLogo = new Texture("UI/simple-screen.png");
+        sampleLogo = new Texture("cd-logo.png");
         sampleBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
     }
