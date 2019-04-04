@@ -12,8 +12,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public abstract class GenericScreen implements Screen
 {
     // Atributos disponibles en todas las clases del proyecto
-    public static final float WIDTH = 640;
-    public static final float HEIGHT = 360;
+    public static final float WIDTH = 1280;
+    public static final float HEIGHT = 720;
 
     // Atributos disponibles solo en las subclases
     // Todas las pantallas tienen una cámara y una view
@@ -35,13 +35,13 @@ public abstract class GenericScreen implements Screen
     }
 
     // Borra la pantalla con fondo negro
-    protected void borrarPantalla() {
+    protected void deleteScreen() {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     // Borra la pantalla con el color RGB (r,g,b)
-    protected void borrarPantalla(float r, float g, float b) {
+    protected void deleteScreen(float r, float g, float b) {
         Gdx.gl.glClearColor(r,g,b,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
