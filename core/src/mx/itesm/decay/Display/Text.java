@@ -11,7 +11,7 @@ public class Text {
     GlyphLayout glyph = new GlyphLayout();
 
     public Text() {
-        font = new BitmapFont(Gdx.files.internal("font.fnt"));
+        font = new BitmapFont(Gdx.files.internal("fonts/dialogue.fnt"));
     }
 
     public void showText(SpriteBatch batch, String message, float x, float y) {

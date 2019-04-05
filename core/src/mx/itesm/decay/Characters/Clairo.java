@@ -42,6 +42,7 @@ public class Clairo extends Sprite {
     // Animation Details
     public float timer;
     public boolean isRunningRight;
+    public boolean disableControls = false;
 
     private final TestScreen screen;
 
@@ -78,7 +79,7 @@ public class Clairo extends Sprite {
              frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 0, 288, 288));
         clairoShoot = new Animation(0.1f, frames);
 
-        setBounds(400,400,150, 150);
+        setBounds(400,200,150, 150);
 
         defineClairo();
 
@@ -107,30 +108,30 @@ public class Clairo extends Sprite {
     }
 
     private void updateMovement(float dt) {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if(!disableControls){
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+                if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+                    isRunningRight = true;
+                    body.applyLinearImpulse(new Vector2(80000f, 90000f), body.getWorldCenter(), true);
+                }
+                else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+                    isRunningRight = false;
+                    body.applyLinearImpulse(new Vector2(-80000f, 90000f), body.getWorldCenter(), true);
+                }
+                else{
+                    body.applyLinearImpulse(new Vector2(0, 90000f), body.getWorldCenter(), true);
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 80001f){
                 isRunningRight = true;
-                body.applyLinearImpulse(new Vector2(80000f, 90000f), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(80000f, 0), body.getWorldCenter(), true);
             }
-            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -80001f){
                 isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-80000f, 90000f), body.getWorldCenter(), true);
-            }
-            else{
-                body.applyLinearImpulse(new Vector2(0, 90000f), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-80000f, 0), body.getWorldCenter(), true);
             }
         }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 80001f){
-            isRunningRight = true;
-            body.applyLinearImpulse(new Vector2(80000f, 0), body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -80001f){
-            isRunningRight = false;
-            body.applyLinearImpulse(new Vector2(-80000f, 0), body.getWorldCenter(), true);
-        }
-
-
     }
 
     public TextureRegion getFrame(float dt){

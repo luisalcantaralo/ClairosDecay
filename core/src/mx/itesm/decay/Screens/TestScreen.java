@@ -24,6 +24,7 @@ import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
+import mx.itesm.decay.Display.Text;
 
 public class TestScreen extends GenericScreen{
 
@@ -35,6 +36,8 @@ public class TestScreen extends GenericScreen{
     Turret turret;
     FatGuy fatGuy;
 
+    Text text;
+
     // Box2d
     BodyDef bodyDef;
     Body body;
@@ -42,6 +45,10 @@ public class TestScreen extends GenericScreen{
     // Map
     private TiledMap map;
     private OrthoCachedTiledMapRenderer mapRenderer;
+
+    // Conversation
+    boolean talkBegin = false;
+    float talkTimer = 0;
 
     public TestScreen(){
         super();
@@ -62,7 +69,7 @@ public class TestScreen extends GenericScreen{
         clairo = new Clairo(this);
         turret = new Turret(this);
         fatGuy = new FatGuy(this);
-
+        text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         loadMap();
     }
@@ -101,6 +108,7 @@ public class TestScreen extends GenericScreen{
         Gdx.gl.glClearColor(1,1,1,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(clairo.getX() >= 883) talkBegin = true;
         updateCamera();
         clairo.update(time);
         turret.update(time);
@@ -112,13 +120,32 @@ public class TestScreen extends GenericScreen{
         mapRenderer.setView(camera);
         mapRenderer.render();
         batch.begin();
-        clairo.draw(batch);
         turret.draw(batch);
         fatGuy.draw(batch);
+        clairo.draw(batch);
+        if(talkBegin) talk(delta);
         batch.end();
 
         world.step(1/60f, 6,2);
 
+    }
+
+    private void talk(float dt) {
+        talkTimer += dt;
+        clairo.disableControls = true;
+
+        if(talkTimer < 3){
+            text.showText(batch, "Hey, have you seen a hooded girl? ", 900, 300);
+        }
+
+        if(talkTimer > 3 && talkTimer < 7){
+            text.showText(batch, "Yeah, she just ran passed me, \nif you hurry you might catch her up", 1300, 300);
+
+        }
+        if(talkTimer > 7){
+            talkBegin = false;
+            clairo.disableControls = false;
+        }
     }
 
     private void updateCamera() {
