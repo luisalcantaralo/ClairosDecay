@@ -149,7 +149,8 @@ public class TestScreen extends GenericScreen{
         mapRenderer.render();
         batch.begin();
         batch.draw(graffiti,2400,300);
-        batch.draw(healthBar,healthBar.getWidth(),HEIGHT-healthBar.getHeight());
+        if(clairo.getX() > WIDTH/2) batch.draw(healthBar, clairo.getX()-WIDTH/2, HEIGHT-healthBar.getHeight());
+        else  batch.draw(healthBar, 0, HEIGHT-healthBar.getHeight());
         turret.draw(batch);
         turret1.draw(batch);
         turret2.draw(batch);
