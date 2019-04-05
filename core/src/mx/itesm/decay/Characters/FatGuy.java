@@ -40,8 +40,7 @@ public class FatGuy extends Sprite {
         frames.clear();
         defineFatGuy();
         setRegion(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png")));
-    }
-
+    }//
     private void defineFatGuy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
