@@ -46,6 +46,12 @@ public class TestLevel1Screen extends GenericScreen{
 
     @Override
     public void show() {
+        camera = new OrthographicCamera(WIDTH , HEIGHT );
+        camera.position.set(WIDTH/2 , HEIGHT/2, 0);
+        camera.update();
+        view = new StretchViewport(WIDTH , HEIGHT, camera);
+        batch = new SpriteBatch();
+        background = new Texture("fondo.jpg");
         loadMap();
     }
     private void loadMap() {
@@ -80,8 +86,11 @@ public class TestLevel1Screen extends GenericScreen{
         float time = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1,1,1,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(background,0,0);
+        batch.end();
         mapRenderer.setView(camera);
         mapRenderer.render();
         //world.step(1/60f, 6,2);
