@@ -23,7 +23,7 @@ import mx.itesm.decay.Screens.TestScreen;
 public class Clairo extends Sprite {
 
     // Clairo's State
-    public enum State { IDLE, WALKING, RUNNING, DEAD, JUMPING}
+    public enum State { IDLE, WALKING, RUNNING, DEAD, JUMPING, SHOOTING}
     public State currentState;
     public State previousState;
 
@@ -43,6 +43,7 @@ public class Clairo extends Sprite {
     public float timer;
     public boolean isRunningRight;
     public boolean disableControls = false;
+    public boolean isShooting = false;
 
     private final TestScreen screen;
 
@@ -75,8 +76,8 @@ public class Clairo extends Sprite {
 
         frames.clear();
 
-         for(int i = 0; i < 10; i++)
-             frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 0, 288, 288));
+         for(int i = 1; i < 10; i++)
+             frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 50, 234, 268));
         clairoShoot = new Animation(0.1f, frames);
 
         setBounds(400,200,150, 150);
@@ -102,7 +103,7 @@ public class Clairo extends Sprite {
         else if (body.getLinearVelocity().x != 0) {
             currentState = State.RUNNING;
         }
-        else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0) {
+        else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting) {
             currentState = State.IDLE;
         }
     }
@@ -150,6 +151,9 @@ public class Clairo extends Sprite {
                 break;
             case JUMPING:
                 region = clairoJump.getKeyFrame(timer, true);
+                break;
+            case SHOOTING:
+                region = clairoShoot.getKeyFrame(timer, false);
                 break;
             default:
                 region = clairoRun.getKeyFrame(timer, true);

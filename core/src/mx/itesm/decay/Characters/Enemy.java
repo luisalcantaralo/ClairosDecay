@@ -35,6 +35,7 @@ public class Enemy extends Sprite {
     // Animation Details
     public float timer;
     public boolean isRunning;
+    public boolean surrender = false;
     public boolean disableControls = false;
 
     private final TestScreen screen;
@@ -58,6 +59,9 @@ public class Enemy extends Sprite {
 
         frames.clear();
 
+        for(int i = 0; i < 56; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Runnaway/Runnaway_Stop/Runnaway_Stop.png"), i * 284, 0, 268, 268));
+        enemySurrender = new Animation(0.1f, frames);
 
         setBounds(x,y,200, 200);
 
@@ -77,10 +81,13 @@ public class Enemy extends Sprite {
         TextureRegion region;
         timer += dt;
 
-        if(!isRunning){
-            region = enemyIdleRight;
+        if(surrender){
+            region = enemySurrender.getKeyFrame(timer, false);
         }
-        else region = enemyRun.getKeyFrame(timer, true);
+        else if(isRunning) {
+            region = enemyRun.getKeyFrame(timer, true);
+        }
+        else region = enemyIdleRight;
 
         return region;
     }

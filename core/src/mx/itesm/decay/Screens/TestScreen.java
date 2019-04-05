@@ -150,21 +150,29 @@ public class TestScreen extends GenericScreen{
     private void talkOne(float dt) {
         talkEnemy += dt;
         clairo.disableControls = true;
-        Gdx.app.log("Entro", "SI");
         if(talkEnemy < 1){
-            text.showText(batch, "Stop right there!", clairo.getX(), clairo.getY()+200);
+            text.showText(batch, "Stop right there!", clairo.getX()+40, clairo.getY()+200);
         }
 
-        if(talkEnemy > 1 && talkEnemy < 4){
+        if(talkEnemy > 1 && talkEnemy < 6){
             enemy.isRunning = true;
+            clairo.disableControls = true;
+            clairo.body.applyLinearImpulse(new Vector2(9999999f, 0), enemy.body.getWorldCenter(), true);
             enemy.body.applyLinearImpulse(new Vector2(9999999f, 0), enemy.body.getWorldCenter(), true);
         }
-        if(talkEnemy > 4){
+        if(talkEnemy > 2){
             clairo.disableControls = false;
             enemy.setPosition(3300,enemy.getY());
         }
-        talkTimer = 0;
-
+        if(talkEnemy > 6 && talkEnemy < 7){
+            enemy.isRunning = false;
+            enemy.surrender = true;
+            enemy.timer = 0;
+        }
+        if(talkEnemy > 6){
+            clairo.isShooting = true;
+            clairo.currentState = Clairo.State.SHOOTING;
+        }
     }
 
     private void talk(float dt) {
