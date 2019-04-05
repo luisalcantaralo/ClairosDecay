@@ -115,7 +115,10 @@ public class TestScreen extends GenericScreen{
         fatGuy.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(background, 0, 0);
+        if(clairo.getX() > WIDTH/2) batch.draw(background, clairo.getX()-WIDTH/2, 0);
+        else  batch.draw(background, 0, 0);
+
+
         batch.end();
         mapRenderer.setView(camera);
         mapRenderer.render();
@@ -157,15 +160,16 @@ public class TestScreen extends GenericScreen{
 
     private void updateCamera() {
         float xCamara = clairo.getX();
+        float dx = 0;
 
         float mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+
         if(clairo.getX() < WIDTH/2){
             xCamara = WIDTH/2;
         }
-        if(clairo.getX() > mapWidth-WIDTH/2){
+        else if(clairo.getX() > mapWidth-WIDTH/2){
             xCamara = mapWidth-WIDTH/2;
         }
-        xCamara+= 5;
         camera.position.x = xCamara;
         camera.update();
     }
