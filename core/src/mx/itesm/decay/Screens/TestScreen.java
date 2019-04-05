@@ -47,15 +47,15 @@ public class TestScreen extends GenericScreen{
     }
     @Override
     public void show() {
-        camera = new OrthographicCamera(WIDTH / Decay.PPM, HEIGHT / Decay.PPM);
-        camera.position.set(WIDTH/2/ Decay.PPM , HEIGHT/2/ Decay.PPM, 0);
+        camera = new OrthographicCamera(WIDTH , HEIGHT );
+        camera.position.set(WIDTH/2 , HEIGHT/2, 0);
         camera.update();
 
-        view = new StretchViewport(WIDTH / Decay.PPM, HEIGHT/ Decay.PPM, camera);
+        view = new StretchViewport(WIDTH , HEIGHT, camera);
         batch = new SpriteBatch();
 
         // Box 2d
-        world = new World(new Vector2(0,-10000f), true);
+        world = new World(new Vector2(0,-100000f), true);
 
         b2dr = new Box2DDebugRenderer();
         configureBodies();

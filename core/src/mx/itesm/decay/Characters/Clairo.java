@@ -35,6 +35,8 @@ public class Clairo extends Sprite {
     private Animation<TextureRegion> clairoRun;
     private Animation<TextureRegion> clairoJump;
     private Animation<TextureRegion> clairoWalk;
+    private Animation<TextureRegion> clairoShoot;
+
 
     // Animation Details
     public float timer;
@@ -56,17 +58,16 @@ public class Clairo extends Sprite {
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
-        /*for(int i = 1; i < 4; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("clairo_stand"), i * 16, 0, 16, 16));
+        for(int i = 0; i < 13; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 284, 0, 284, 268));
         clairoStand = new Animation(0.1f, frames);
-        */
 
-        // frames.clear();
+
+        frames.clear();
 
 
         for(int i = 0; i < 6; i++){
-            frames.add(new TextureRegion(new Texture("Characters/DetectiveRun.png"), i * 71, 0, 71, 67));
-
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 284, 0, 284, 268));
         }
         clairoRun = new Animation<TextureRegion>(0.1f, frames);
 
@@ -102,8 +103,7 @@ public class Clairo extends Sprite {
 
     private void updateMovement(float dt) {
         if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            body.applyLinearImpulse(new Vector2(0, 40000f), body.getWorldCenter(), true);
-
+            body.applyLinearImpulse(new Vector2(body.getLinearVelocity().y, 40000f), body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 1501f)
             body.applyLinearImpulse(new Vector2(1500f, 0), body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -1501)
@@ -115,7 +115,7 @@ public class Clairo extends Sprite {
         timer += dt;
         switch (currentState){
             case IDLE:
-                region = clairoRun.getKeyFrame(timer, true);
+                region = clairoStand.getKeyFrame(timer, true);
                 break;
             case WALKING:
                 region = clairoRun.getKeyFrame(timer, true);
