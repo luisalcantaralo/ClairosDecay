@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Screens.GenericScreen;
+import mx.itesm.decay.Screens.IntroScreen;
 import mx.itesm.decay.Screens.TestScreen;
 
 public class Home extends GenericScreen{
@@ -67,7 +68,9 @@ public class Home extends GenericScreen{
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 // response
-                game.setScreen(new TestScreen(game));
+                game.setScreen(new IntroScreen(game, "New threat: A new bug was detected disturbing peace.\n" +
+                        "Its last known location: ChinaTown \n" +
+                        "Your mission: Neutralize it.\n", 6, 400, HEIGHT-10));
 
             }
         });

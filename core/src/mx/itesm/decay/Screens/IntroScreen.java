@@ -3,15 +3,19 @@ package mx.itesm.decay.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
+import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
 
-public class BlackScreen extends GenericScreen{
+public class IntroScreen extends GenericScreen{
+    private final Decay game;
+
     float timer;
     String message;
     Text text;
     float x;
     float y;
-    public BlackScreen(String message, float time, float x, float y){
+    public IntroScreen(Decay game, String message, float time, float x, float y){
+        this.game = game;
         timer = time;
         this.message = message;
 
@@ -32,6 +36,10 @@ public class BlackScreen extends GenericScreen{
         batch.begin();
         text.showText(batch, message,x, y);
         batch.end();
+
+        if(timer > 8){
+            game.setScreen(new TestScreen(game));
+        }
     }
 
     @Override
