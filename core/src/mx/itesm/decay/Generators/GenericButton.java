@@ -2,20 +2,16 @@ package mx.itesm.decay.Generators;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
-import mx.itesm.decay.Decay;
-import mx.itesm.decay.Screens.Menu.Home;
 
 public class GenericButton {
 
     private ImageButton button;
+    private Texture textureButton;
 
     public GenericButton(String path){
-        Texture textureButton = new Texture(path);
+        textureButton = new Texture(path);
         TextureRegionDrawable trdButton = new TextureRegionDrawable(new TextureRegion(textureButton));
         button = new ImageButton(trdButton);
     }
@@ -28,5 +24,11 @@ public class GenericButton {
     }
     public void remove(){
         button.remove();
+    }
+    public float getWidth(){
+        return textureButton.getWidth();
+    }
+    public float getHeight(){
+        return textureButton.getHeight();
     }
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import mx.itesm.decay.Screens.Dev.Test;
 import mx.itesm.decay.Screens.TestLevel1Screen;
 import mx.itesm.decay.Screens.TestScreen;
+import mx.itesm.decay.Screens.Menu.Home;
 
 
 public class Decay extends Game{

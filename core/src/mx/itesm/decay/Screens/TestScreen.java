@@ -32,9 +32,11 @@ public class TestScreen extends GenericScreen{
     private World world;
     private Box2DDebugRenderer b2dr;
     private Texture background;
+    private Texture graffiti;
     Clairo clairo;
     Turret turret;
     FatGuy fatGuy;
+
 
     Text text;
 
@@ -71,6 +73,7 @@ public class TestScreen extends GenericScreen{
         fatGuy = new FatGuy(this);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
+        graffiti= new Texture("misc/cd-graffiti-ros.png");
         loadMap();
     }
 
@@ -123,6 +126,7 @@ public class TestScreen extends GenericScreen{
         mapRenderer.setView(camera);
         mapRenderer.render();
         batch.begin();
+        batch.draw(graffiti,2400,300);
         turret.draw(batch);
         fatGuy.draw(batch);
         clairo.draw(batch);
