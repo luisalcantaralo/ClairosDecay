@@ -16,6 +16,7 @@ public class Settings extends GenericScreen {
     private Texture settingsBackground;
     private Texture settingsBuildings;
     private Texture settingsMonitor;
+    private Texture settingsTitle;
     // buttons
     private GenericButton buttonBack;
     // stage
@@ -42,6 +43,7 @@ public class Settings extends GenericScreen {
         settingsBackground = new Texture("backgrounds/cd-simple-background.png");
         settingsBuildings = new Texture("menu/cd-menu-buildings.png");
         settingsMonitor = new Texture("menu/cd-settings-monitor.png");
+        settingsTitle = new Texture("menu/cd-settings-title.png");
 
         // back button
         buttonBack = new GenericButton("menu/cd-button-back.png");
@@ -66,6 +68,7 @@ public class Settings extends GenericScreen {
         batch.begin();
         batch.draw(settingsBackground, 0, 0);
         batch.draw(settingsBuildings, -640, 0);
+        batch.draw(settingsTitle, WIDTH/2 - settingsTitle.getWidth()/2, HEIGHT - settingsTitle.getHeight() * 1.5f);
         batch.draw(settingsMonitor, WIDTH/2 - settingsMonitor.getWidth()/2, HEIGHT/2 - settingsMonitor.getHeight()/2);
 
         batch.end();
@@ -88,6 +91,7 @@ public class Settings extends GenericScreen {
         settingsBackground.dispose();
         settingsBuildings.dispose();
         settingsMonitor.dispose();
+        settingsTitle.dispose();
         sceneSettings.dispose();
         batch.dispose();
     }

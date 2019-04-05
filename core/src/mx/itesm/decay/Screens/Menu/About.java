@@ -17,6 +17,7 @@ public class About extends GenericScreen {
     private Texture aboutBuildings;
     private Texture aboutMonitor;
     private Texture aboutInstructions;
+    private Texture aboutTitle;
     // buttons
     private GenericButton buttonBack;
     private GenericButton buttonNextInstructions;
@@ -47,6 +48,7 @@ public class About extends GenericScreen {
         aboutBuildings = new Texture("menu/cd-menu-buildings.png");
         aboutMonitor = new Texture("UI/simple-screen.png");
         aboutInstructions = new Texture("menu/cd-about-instructions.png");
+        aboutTitle = new Texture("menu/cd-about-title.png");
 
         // back button
         buttonBack = new GenericButton("menu/cd-button-back.png");
@@ -110,6 +112,7 @@ public class About extends GenericScreen {
         batch.draw(aboutBuildings, -640, 0);
         batch.draw(aboutMonitor, WIDTH/2 - aboutMonitor.getWidth()/2, HEIGHT/2 - aboutMonitor.getHeight()/2);
         batch.draw(aboutInstructions, WIDTH/2 - aboutMonitor.getWidth()/2, HEIGHT/2 - aboutMonitor.getHeight()/2);
+        batch.draw(aboutTitle, WIDTH/2 - aboutTitle.getWidth()/2, HEIGHT - aboutTitle.getHeight() * 1.5f);
 
         batch.end();
 
@@ -132,6 +135,7 @@ public class About extends GenericScreen {
         aboutBuildings.dispose();
         aboutMonitor.dispose();
         aboutInstructions.dispose();
+        aboutTitle.dispose();
         sceneAbout.dispose();
         batch.dispose();
     }
