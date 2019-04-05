@@ -75,28 +75,15 @@ public class TestScreen extends GenericScreen{
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
-        turret = new Turret(this, 1000, 200);
+        turret = new Turret(this, 10000, 200);
         fatGuy = new FatGuy(this);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
         loadMap();
-        //createTurrets();
     }
-    /*
-    private void createTurrets() {
-        arrTurret = new Array<Turret>();
-        float y = 250;
-        float x = 200;
-        float dx = 80;
-        for(int c=0; c<7; c++){
-            Turret turret = new Turret(this,x, y);
-            arrTurret.add(turret);
-            x+=dx;
-            }
-    }
-    */
+
     private void loadMap() {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
@@ -148,7 +135,7 @@ public class TestScreen extends GenericScreen{
         mapRenderer.render();
         batch.begin();
         batch.draw(graffiti,2400,300);
-
+        turret.draw(batch);
         fatGuy.draw(batch);
         clairo.draw(batch);
         enemy.draw(batch);
