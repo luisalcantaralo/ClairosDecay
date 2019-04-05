@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
@@ -38,7 +39,7 @@ public class TestScreen extends GenericScreen{
     Clairo clairo;
     Turret turret;
     FatGuy fatGuy;
-
+    Enemy enemy;
 
 
     Text text;
@@ -73,6 +74,7 @@ public class TestScreen extends GenericScreen{
         configureBodies();
         clairo = new Clairo(this);
         fatGuy = new FatGuy(this);
+        enemy = new Enemy(this, 700, 200);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
@@ -131,6 +133,7 @@ public class TestScreen extends GenericScreen{
         clairo.update(time);
         turret.update(time);
         fatGuy.update(time);
+        enemy.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         if(clairo.getX() > WIDTH/2) batch.draw(background, clairo.getX()-WIDTH/2, 0);
@@ -146,6 +149,7 @@ public class TestScreen extends GenericScreen{
         }
         fatGuy.draw(batch);
         clairo.draw(batch);
+        enemy.draw(batch);
         if(talkBegin) talk(delta);
         batch.end();
 
