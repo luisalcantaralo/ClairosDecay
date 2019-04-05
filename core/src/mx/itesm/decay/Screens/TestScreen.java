@@ -62,6 +62,7 @@ public class TestScreen extends GenericScreen{
         clairo = new Clairo(this);
         background = new Texture("fondo.jpg");
     }
+
     private void loadMap() {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
