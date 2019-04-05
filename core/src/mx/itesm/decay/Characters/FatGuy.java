@@ -14,33 +14,32 @@ import com.badlogic.gdx.utils.Array;
 
 import mx.itesm.decay.Screens.TestScreen;
 
-public class Turret extends Sprite {
-
+public class FatGuy extends Sprite {
     private final TestScreen screen;
     // Box2d
     public World world;
     public Body body;
 
     // Animation
-    private Animation<TextureRegion> turretIdle;
+    private Animation<TextureRegion> fatGuyIdle;
     public float timer;
 
 
-    public Turret(TestScreen screen){
+    public FatGuy(TestScreen screen){
         this.screen = screen;
         this.world = screen.getWorld();
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Turret/turret.png"), i * 150, 0, 150, 138));
-        turretIdle = new Animation(0.1f, frames);
+            frames.add(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png"), i * 71, 0, 71, 67));
+        fatGuyIdle = new Animation(0.1f, frames);
 
-        setBounds(150,150, 100, 100);
+        setBounds(600,200, 71, 67);
 
         frames.clear();
         defineTurret();
-        setRegion(new TextureRegion(new Texture("Turret/turret.png")));
+        setRegion(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png")));
     }
 
     private void defineTurret() {
@@ -65,7 +64,7 @@ public class Turret extends Sprite {
     private TextureRegion getFrame(float dt) {
         TextureRegion region;
         timer += dt;
-        region = turretIdle.getKeyFrame(timer, true);
+        region = fatGuyIdle.getKeyFrame(timer, true);
         return region;
     }
 }

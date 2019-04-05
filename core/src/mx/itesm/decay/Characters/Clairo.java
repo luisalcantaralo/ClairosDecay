@@ -171,7 +171,7 @@ public class Clairo extends Sprite {
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth(), getHeight());
+        shape.setAsBox(getWidth()/2, getHeight()/2);
         FixtureDef fix = new FixtureDef();
         fix.shape = shape;
         Fixture fixture = body.createFixture(fix);

@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
 
@@ -32,6 +33,7 @@ public class TestScreen extends GenericScreen{
     private Texture background;
     Clairo clairo;
     Turret turret;
+    FatGuy fatGuy;
 
     // Box2d
     BodyDef bodyDef;
@@ -59,6 +61,8 @@ public class TestScreen extends GenericScreen{
         configureBodies();
         clairo = new Clairo(this);
         turret = new Turret(this);
+        fatGuy = new FatGuy(this);
+
         background = new Texture("menu/cd-menu-background.png");
         loadMap();
     }
@@ -109,6 +113,7 @@ public class TestScreen extends GenericScreen{
         batch.begin();
         clairo.draw(batch);
         turret.draw(batch);
+        fatGuy.draw(batch);
         batch.end();
 
         world.step(1/60f, 6,2);
