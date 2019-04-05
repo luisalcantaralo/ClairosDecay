@@ -135,14 +135,21 @@ public class TestScreen extends GenericScreen{
         clairo.disableControls = true;
 
         if(talkTimer < 3){
-            text.showText(batch, "Hey, have you seen a hooded girl? ", 900, 300);
+            text.showText(batch, "Hey, have you seen a bug around here?", 950, 300);
         }
 
-        if(talkTimer > 3 && talkTimer < 7){
-            text.showText(batch, "Yeah, she just ran passed me, \nif you hurry you might catch her up", 1300, 300);
+        if(talkTimer > 3 && talkTimer < 6){
+            text.showText(batch, "Yeah, she just ran passed me, \nif you hurry you might catch her up.", 1300, 300);
 
         }
-        if(talkTimer > 7){
+        if(talkTimer > 6 && talkTimer < 10){
+            text.showText(batch, "These bugs are getting out of hand, \nyou ought to control the situation before panic\n overtakes the city.", 1300, 350);
+
+        }
+        if(talkTimer > 10 && talkTimer < 12){
+            text.showText(batch, "We're doing the best we can sir.", 950, 300);
+        }
+        if(talkTimer > 12){
             talkBegin = false;
             clairo.disableControls = false;
         }
