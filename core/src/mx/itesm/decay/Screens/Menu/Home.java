@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import mx.itesm.decay.Decay;
+import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Screens.GenericScreen;
 
 public class Home extends GenericScreen{
@@ -19,8 +20,9 @@ public class Home extends GenericScreen{
     private Texture menuBackground;
     private Texture menuLogo;
     // buttons
-    private ImageButton buttonStart;
-    private ImageButton buttonHelp;
+    private GenericButton buttonStart;
+    private GenericButton buttonHelp;
+
 
     // stage
     private Stage sceneMenu;
@@ -59,13 +61,9 @@ public class Home extends GenericScreen{
 
     public void loadButtons(){
         // press start button
-        Texture textureButtonStart = new Texture("menu/cd-button-start.png");
-        TextureRegionDrawable trdButtonStart = new TextureRegionDrawable(new TextureRegion(textureButtonStart));
-        buttonStart = new ImageButton(trdButtonStart);
-        buttonStart.setPosition(WIDTH/2 - textureButtonStart.getWidth()/2, HEIGHT/10 - textureButtonStart.getHeight()/2);
-        sceneMenu.addActor(buttonStart);
-
-        buttonStart.addListener(new ClickListener(){
+        buttonStart = new GenericButton("menu/cd-button-start.png");
+        buttonStart.setPosition(0,0);
+        buttonStart.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -74,15 +72,10 @@ public class Home extends GenericScreen{
 
             }
         });
-
         // help button
-        Texture textureButtonHelp = new Texture("menu/cd-button-help.png");
-        TextureRegionDrawable trdButtonHelp = new TextureRegionDrawable(new TextureRegion(textureButtonHelp));
-        buttonHelp = new ImageButton(trdButtonHelp);
-        buttonHelp.setPosition(WIDTH - textureButtonHelp.getWidth()*2, HEIGHT - textureButtonHelp.getHeight()*2);
-        sceneMenu.addActor(buttonHelp);
-
-        buttonHelp.addListener(new ClickListener(){
+        buttonHelp = new GenericButton("menu/cd-button-help.png");
+        buttonHelp.setPosition(0,0);
+        buttonHelp.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -91,13 +84,17 @@ public class Home extends GenericScreen{
 
             }
         });
+
+
+        sceneMenu.addActor(buttonStart.getImageButton());
+        sceneMenu.addActor(buttonHelp.getImageButton());
     }
 
     public void blinkButtonStart(){
         if(timeCounter > 0.75 && timeCounter < 1.5){
             buttonStart.remove();
         }else if(timeCounter > 1.5 && timeCounter < 2.25){
-            sceneMenu.addActor(buttonStart);
+            sceneMenu.addActor(buttonStart.getImageButton());
             timeCounter = 0;
         }
     }
@@ -137,7 +134,9 @@ public class Home extends GenericScreen{
 
     @Override
     public void dispose() {
+        menuBackground.dispose();
         menuBuildings.dispose();
+        menuLogo.dispose();
         batch.dispose();
     }
 
