@@ -61,6 +61,7 @@ public class TestScreen extends GenericScreen{
         configureBodies();
         clairo = new Clairo(this);
         turret = new Turret(this);
+        fatGuy = new FatGuy(this);
 
         background = new Texture("menu/cd-menu-background.png");
         loadMap();
@@ -103,6 +104,7 @@ public class TestScreen extends GenericScreen{
         updateCamera();
         clairo.update(time);
         turret.update(time);
+        fatGuy.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, 0, 0);
@@ -112,6 +114,7 @@ public class TestScreen extends GenericScreen{
         batch.begin();
         clairo.draw(batch);
         turret.draw(batch);
+        fatGuy.draw(batch);
         batch.end();
 
         world.step(1/60f, 6,2);

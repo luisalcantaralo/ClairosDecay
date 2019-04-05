@@ -32,10 +32,10 @@ public class FatGuy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png"), i * 71, 0, 71, 67));
+            frames.add(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png"), i * 212, 0, 212, 200));
         fatGuyIdle = new Animation(0.1f, frames);
 
-        setBounds(600,200, 200, 200);
+        setBounds(1200,210, 212, 200);
 
         frames.clear();
         defineFatGuy();
@@ -44,13 +44,14 @@ public class FatGuy extends Sprite {
     private void defineFatGuy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.KinematicBody;
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(getWidth()/2, getHeight()/2);
         FixtureDef fix = new FixtureDef();
         fix.shape = shape;
+        fix.isSensor = true;
         Fixture fixture = body.createFixture(fix);
     }
 
