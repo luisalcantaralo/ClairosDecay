@@ -17,6 +17,6 @@ public class Decay extends Game{
     public static float PPM = 100;
     @Override
     public void create(){
-        setScreen(new TestScreen());
+        setScreen(new Home(this));
     }
 }
