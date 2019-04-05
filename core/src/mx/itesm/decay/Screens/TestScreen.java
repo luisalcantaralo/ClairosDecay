@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -22,8 +21,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.itesm.decay.Characters.Clairo;
-import mx.itesm.decay.Config.MapConverter;
-import mx.itesm.decay.Decay;
+import mx.itesm.decay.Characters.Turret;
 
 public class TestScreen extends GenericScreen{
 
@@ -36,7 +34,7 @@ public class TestScreen extends GenericScreen{
     private Box2DDebugRenderer b2dr;
     private Texture background;
     Clairo clairo;
-
+    Turret turret;
     // Box2d
     BodyDef bodyDef;
     Body body;
@@ -56,10 +54,10 @@ public class TestScreen extends GenericScreen{
 
         // Box 2d
         world = new World(new Vector2(0,-100000f), true);
-
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
+        turret = new Turret(this);
         background = new Texture("fondo.jpg");
     }
 
@@ -97,11 +95,12 @@ public class TestScreen extends GenericScreen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         clairo.update(time);
+        turret.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background,0,0);
         clairo.draw(batch);
-
+        turret.draw(batch);
         batch.end();
         world.step(1/60f, 6,2);
     }
