@@ -104,6 +104,7 @@ public class TestScreen extends GenericScreen{
         updateCamera();
         clairo.update(time);
         turret.update(time);
+        fatGuy.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, 0, 0);

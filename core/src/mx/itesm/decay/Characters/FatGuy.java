@@ -35,14 +35,14 @@ public class FatGuy extends Sprite {
             frames.add(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png"), i * 71, 0, 71, 67));
         fatGuyIdle = new Animation(0.1f, frames);
 
-        setBounds(600,200, 71, 67);
+        setBounds(600,200, 200, 200);
 
         frames.clear();
-        defineTurret();
+        defineFatGuy();
         setRegion(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png")));
     }
 
-    private void defineTurret() {
+    private void defineFatGuy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
