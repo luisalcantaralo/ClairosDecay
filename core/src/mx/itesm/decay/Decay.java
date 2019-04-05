@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import mx.itesm.decay.Screens.Dev.Test;
+import mx.itesm.decay.Screens.Menu.Home;
 
 public class Decay extends Game{
     public void create(){
-        setScreen(new Test());
+        setScreen(new Home(this));
     }
 }
