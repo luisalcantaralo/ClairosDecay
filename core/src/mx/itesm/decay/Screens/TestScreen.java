@@ -173,6 +173,14 @@ public class TestScreen extends GenericScreen{
             clairo.isShooting = true;
             clairo.currentState = Clairo.State.SHOOTING;
         }
+
+        if(talkEnemy > 10 && talkEnemy < 14){
+            text.showText(batch, "Don't move or I'll shoot!", clairo.getX()+40, clairo.getY()+200);
+        }
+        if(talkEnemy > 14 && talkEnemy < 16){
+            text.showText(batch, "People must know the truth.", enemy.getX()+200, enemy.getY()+200);
+        }
+
     }
 
     private void talk(float dt) {
