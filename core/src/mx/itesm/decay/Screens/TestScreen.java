@@ -41,6 +41,10 @@ public class TestScreen extends GenericScreen{
     Turret turret;
     FatGuy fatGuy;
     Enemy enemy;
+    Turret turret1;
+    Turret turret2;
+    Turret turret3;
+    Turret turret4;
 
 
     Text text;
@@ -77,6 +81,10 @@ public class TestScreen extends GenericScreen{
         configureBodies();
         clairo = new Clairo(this);
         turret = new Turret(this, 3300, 200);
+        turret1 = new Turret(this,1500,600);
+        turret2= new Turret(this,2240,600);
+        turret3= new Turret(this, 2500,600);
+        turret4= new Turret(this, 2760,600);
         fatGuy = new FatGuy(this);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
@@ -126,6 +134,10 @@ public class TestScreen extends GenericScreen{
         updateCamera();
         clairo.update(time);
         turret.update(time);
+        turret1.update(time);
+        turret2.update(time);
+        turret3.update(time);
+        turret4.update(time);
         fatGuy.update(time);
         enemy.update(time);
         batch.setProjectionMatrix(camera.combined);
@@ -139,6 +151,10 @@ public class TestScreen extends GenericScreen{
         batch.draw(graffiti,2400,300);
         batch.draw(healthBar,healthBar.getWidth(),HEIGHT-healthBar.getHeight());
         turret.draw(batch);
+        turret1.draw(batch);
+        turret2.draw(batch);
+        turret3.draw(batch);
+        turret4.draw(batch);
         fatGuy.draw(batch);
         clairo.draw(batch);
         enemy.draw(batch);
