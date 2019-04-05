@@ -2,12 +2,9 @@ package mx.itesm.decay.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
@@ -22,6 +19,7 @@ public class Home extends GenericScreen{
     // buttons
     private GenericButton buttonStart;
     private GenericButton buttonHelp;
+    private GenericButton buttonSettings;
 
 
     // stage
@@ -62,7 +60,7 @@ public class Home extends GenericScreen{
     public void loadButtons(){
         // press start button
         buttonStart = new GenericButton("menu/cd-button-start.png");
-        buttonStart.setPosition(0,0);
+        buttonStart.setPosition(WIDTH/2 - buttonStart.getWidth()/2, HEIGHT/10 - buttonStart.getHeight()/2);
         buttonStart.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -74,8 +72,20 @@ public class Home extends GenericScreen{
         });
         // help button
         buttonHelp = new GenericButton("menu/cd-button-help.png");
-        buttonHelp.setPosition(0,0);
+        buttonHelp.setPosition(WIDTH - buttonHelp.getWidth() * 2, HEIGHT - buttonHelp.getHeight() * 2);
         buttonHelp.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                // response
+                game.setScreen(new About(game));
+
+            }
+        });
+        // settings button
+        buttonSettings = new GenericButton("menu/cd-button-settings.png");
+        buttonSettings.setPosition(WIDTH - buttonHelp.getWidth() * 2, HEIGHT - buttonSettings.getHeight() * 4);
+        buttonSettings.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -88,6 +98,7 @@ public class Home extends GenericScreen{
 
         sceneMenu.addActor(buttonStart.getImageButton());
         sceneMenu.addActor(buttonHelp.getImageButton());
+        sceneMenu.addActor(buttonSettings.getImageButton());
     }
 
     public void blinkButtonStart(){
@@ -137,6 +148,7 @@ public class Home extends GenericScreen{
         menuBackground.dispose();
         menuBuildings.dispose();
         menuLogo.dispose();
+        sceneMenu.dispose();
         batch.dispose();
     }
 
