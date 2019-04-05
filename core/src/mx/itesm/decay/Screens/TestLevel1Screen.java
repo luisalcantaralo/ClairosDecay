@@ -39,9 +39,9 @@ public class TestLevel1Screen extends GenericScreen{
     BodyDef bodyDef;
     Body body;
 
+    Clairo clairo;
 
     public TestLevel1Screen(Decay game){
-
     }
 
     @Override

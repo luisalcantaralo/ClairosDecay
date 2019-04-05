@@ -18,7 +18,7 @@ public class MapConverter {
 
 
     public static void crearCuerpos(TiledMap mapa, World mundo) {
-        MapObjects objetos = mapa.getLayers().get("Paredes").getObjects();
+        MapObjects objetos = mapa.getLayers().get("Floor").getObjects();
         Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);

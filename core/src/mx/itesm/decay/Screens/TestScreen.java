@@ -22,12 +22,11 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.Turret;
+import mx.itesm.decay.Config.MapConverter;
 
 public class TestScreen extends GenericScreen{
 
-    // Mapa
-    private TiledMap map;
-    private OrthoCachedTiledMapRenderer mapRenderer;
+
 
     private Texture texture;
     private World world;
@@ -35,10 +34,14 @@ public class TestScreen extends GenericScreen{
     private Texture background;
     Clairo clairo;
     Turret turret;
+
     // Box2d
     BodyDef bodyDef;
     Body body;
 
+    // Map
+    private TiledMap map;
+    private OrthoCachedTiledMapRenderer mapRenderer;
 
     public TestScreen(){
         super();
@@ -58,19 +61,21 @@ public class TestScreen extends GenericScreen{
         configureBodies();
         clairo = new Clairo(this);
         turret = new Turret(this);
-        background = new Texture("fondo.jpg");
+        background = new Texture("menu/cd-menu-background.png");
+        loadMap();
     }
 
     private void loadMap() {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("maps/ChineseTown.tmx", TiledMap.class);
+        manager.load("maps/Level1.tmx", TiledMap.class);
         manager.finishLoading();
 
-        map = manager.get("maps/ChineseTown.tmx");
+        map = manager.get("maps/Level1.tmx");
 
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
+        MapConverter.crearCuerpos(map, world);
     }
     private void configureBodies() {
 
@@ -98,11 +103,17 @@ public class TestScreen extends GenericScreen{
         turret.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(background,0,0);
+        batch.draw(background, 0, 0);
+        batch.end();
+        mapRenderer.setView(camera);
+        mapRenderer.render();
+        batch.begin();
         clairo.draw(batch);
         turret.draw(batch);
         batch.end();
+
         world.step(1/60f, 6,2);
+
     }
 
 
