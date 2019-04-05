@@ -27,7 +27,7 @@ public class Enemy extends Sprite {
 
     // Animations
     private Animation<TextureRegion> enemyRun;
-    private Animation<TextureRegion> enemyIdleRight;
+    private TextureRegion enemyIdleRight;
     private Animation<TextureRegion> enemySurrender;
     private Animation<TextureRegion> enemyIdleLeft;
 
@@ -53,13 +53,11 @@ public class Enemy extends Sprite {
 
         frames.clear();
 
-        for(int i = 0; i < 56; i++){
-            frames.add(new TextureRegion(new Texture("Characters/Runnaway/Runnaway_Stop/Runnaway_Stop.png"), i * 284, 0, 284, 268));
-        }
-        enemyIdleRight = new Animation<TextureRegion>(0.1f, frames);
+
+        enemyIdleRight = new TextureRegion(new Texture("Characters/Runnaway/Runnaway_Stop/Runnaway_Stop.png"), 0,0, 284, 268);
 
         frames.clear();
-//
+
 
         setBounds(x,y,200, 200);
 
@@ -80,7 +78,7 @@ public class Enemy extends Sprite {
         timer += dt;
 
         if(!isRunning){
-            region = enemyIdleRight.getKeyFrame(timer, true);
+            region = enemyIdleRight;
         }
         else region = enemyRun.getKeyFrame(timer, true);
 

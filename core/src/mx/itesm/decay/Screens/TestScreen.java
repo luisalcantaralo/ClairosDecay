@@ -54,7 +54,9 @@ public class TestScreen extends GenericScreen{
 
     // Conversation
     boolean talkBegin = false;
+    boolean talkEnemyOne = false;
     float talkTimer = 0;
+    float talkEnemy = 0;
 
     public TestScreen(){
         super();
@@ -73,15 +75,16 @@ public class TestScreen extends GenericScreen{
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
+        turret = new Turret(this, 1000, 200);
         fatGuy = new FatGuy(this);
-        enemy = new Enemy(this, 700, 200);
+        enemy = new Enemy(this, 3000, 300);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
         loadMap();
-        createTurrets();
+        //createTurrets();
     }
-
+    /*
     private void createTurrets() {
         arrTurret = new Array<Turret>();
         float y = 250;
@@ -93,7 +96,7 @@ public class TestScreen extends GenericScreen{
             x+=dx;
             }
     }
-
+    */
     private void loadMap() {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
@@ -129,6 +132,8 @@ public class TestScreen extends GenericScreen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if(clairo.getX() >= 883) talkBegin = true;
+        if(clairo.getX() >= 2500) talkEnemyOne = true;
+
         updateCamera();
         clairo.update(time);
         turret.update(time);
@@ -143,17 +148,35 @@ public class TestScreen extends GenericScreen{
         mapRenderer.render();
         batch.begin();
         batch.draw(graffiti,2400,300);
-        for(Turret turret:
-                arrTurret){
-            turret.draw(batch);
-        }
+
         fatGuy.draw(batch);
         clairo.draw(batch);
         enemy.draw(batch);
         if(talkBegin) talk(delta);
+        if(talkEnemyOne) talkOne(delta);
         batch.end();
 
         world.step(1/60f, 6,2);
+
+    }
+
+    private void talkOne(float dt) {
+        talkEnemy += dt;
+        clairo.disableControls = true;
+        Gdx.app.log("Entro", "SI");
+        if(talkEnemy < 1){
+            text.showText(batch, "Stop right there!", clairo.getX(), clairo.getY()+200);
+        }
+
+        if(talkEnemy > 1 && talkEnemy < 4){
+            enemy.isRunning = true;
+            enemy.body.applyLinearImpulse(new Vector2(9999999f, 0), enemy.body.getWorldCenter(), true);
+        }
+        if(talkEnemy > 4){
+            clairo.disableControls = false;
+            enemy.setPosition(3300,enemy.getY());
+        }
+        talkTimer = 0;
 
     }
 
@@ -166,11 +189,11 @@ public class TestScreen extends GenericScreen{
         }
 
         if(talkTimer > 3 && talkTimer < 6){
-            text.showText(batch, "Yeah, she just ran passed me, \nif you hurry you might catch her up.", 1300, 300);
+            text.showText(batch, "Yeah, she just ran passed me,\nif you hurry you might catch her up.", 1300, 300);
 
         }
         if(talkTimer > 6 && talkTimer < 10){
-            text.showText(batch, "These bugs are getting out of hand, \nyou ought to control the situation before panic\n overtakes the city.", 1300, 350);
+            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", 1300, 350);
 
         }
         if(talkTimer > 10 && talkTimer < 12){
