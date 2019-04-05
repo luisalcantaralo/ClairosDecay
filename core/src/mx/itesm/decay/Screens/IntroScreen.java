@@ -31,15 +31,17 @@ public class IntroScreen extends GenericScreen{
     @Override
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
+        timer += time;
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         text.showText(batch, message,x, y);
-        batch.end();
-
         if(timer > 8){
             game.setScreen(new TestScreen(game));
         }
+        batch.end();
+
+
     }
 
     @Override

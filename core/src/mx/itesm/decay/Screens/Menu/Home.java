@@ -70,7 +70,7 @@ public class Home extends GenericScreen{
                 // response
                 game.setScreen(new IntroScreen(game, "New threat: A new bug was detected disturbing peace.\n" +
                         "Its last known location: ChinaTown \n" +
-                        "Your mission: Neutralize it.\n", 6, 400, HEIGHT-10));
+                        "Your mission: Neutralize it.\n", 6, WIDTH/2, HEIGHT-10));
 
             }
         });
