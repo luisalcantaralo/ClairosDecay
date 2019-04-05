@@ -16,3 +16,4 @@ public class Decay extends Game{
         setScreen(new TestScreen());
     }
 }
+
