@@ -75,7 +75,7 @@ public class TestScreen extends GenericScreen{
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
-        turret = new Turret(this, 10000, 200);
+        turret = new Turret(this, 3300, 200);
         fatGuy = new FatGuy(this);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
