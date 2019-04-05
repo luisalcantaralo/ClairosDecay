@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -22,25 +21,34 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.FatGuy;
+import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
-import mx.itesm.decay.Decay;
+import mx.itesm.decay.Display.Text;
 
 public class TestScreen extends GenericScreen{
-
-    // Mapa
-    private TiledMap map;
-    private OrthoCachedTiledMapRenderer mapRenderer;
 
     private Texture texture;
     private World world;
     private Box2DDebugRenderer b2dr;
     private Texture background;
     Clairo clairo;
+    Turret turret;
+    FatGuy fatGuy;
+
+    Text text;
 
     // Box2d
     BodyDef bodyDef;
     Body body;
 
+    // Map
+    private TiledMap map;
+    private OrthoCachedTiledMapRenderer mapRenderer;
+
+    // Conversation
+    boolean talkBegin = false;
+    float talkTimer = 0;
 
     public TestScreen(){
         super();
@@ -56,23 +64,27 @@ public class TestScreen extends GenericScreen{
 
         // Box 2d
         world = new World(new Vector2(0,-100000f), true);
-
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
-        background = new Texture("fondo.jpg");
+        turret = new Turret(this);
+        fatGuy = new FatGuy(this);
+        text = new Text();
+        background = new Texture("menu/cd-menu-background.png");
+        loadMap();
     }
 
     private void loadMap() {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("maps/ChineseTown.tmx", TiledMap.class);
+        manager.load("maps/Level1.tmx", TiledMap.class);
         manager.finishLoading();
 
-        map = manager.get("maps/ChineseTown.tmx");
+        map = manager.get("maps/Level1.tmx");
 
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
+        MapConverter.crearCuerpos(map, world);
     }
     private void configureBodies() {
 
@@ -96,14 +108,66 @@ public class TestScreen extends GenericScreen{
         Gdx.gl.glClearColor(1,1,1,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(clairo.getX() >= 883) talkBegin = true;
+        updateCamera();
         clairo.update(time);
+        turret.update(time);
+        fatGuy.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(background,0,0);
-        clairo.draw(batch);
-
+        batch.draw(background, 0, 0);
         batch.end();
+        mapRenderer.setView(camera);
+        mapRenderer.render();
+        batch.begin();
+        turret.draw(batch);
+        fatGuy.draw(batch);
+        clairo.draw(batch);
+        if(talkBegin) talk(delta);
+        batch.end();
+
         world.step(1/60f, 6,2);
+
+    }
+
+    private void talk(float dt) {
+        talkTimer += dt;
+        clairo.disableControls = true;
+
+        if(talkTimer < 3){
+            text.showText(batch, "Hey, have you seen a bug around here?", 950, 300);
+        }
+
+        if(talkTimer > 3 && talkTimer < 6){
+            text.showText(batch, "Yeah, she just ran passed me, \nif you hurry you might catch her up.", 1300, 300);
+
+        }
+        if(talkTimer > 6 && talkTimer < 10){
+            text.showText(batch, "These bugs are getting out of hand, \nyou ought to control the situation before panic\n overtakes the city.", 1300, 350);
+
+        }
+        if(talkTimer > 10 && talkTimer < 12){
+            text.showText(batch, "We're doing the best we can sir.", 950, 300);
+        }
+        if(talkTimer > 12){
+            talkBegin = false;
+            clairo.disableControls = false;
+        }
+    }
+
+    private void updateCamera() {
+        float xCamara = clairo.getX();
+
+        float mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        if(clairo.getX() < WIDTH/2){
+            xCamara = WIDTH/2;
+        }
+        if(clairo.getX() > mapWidth-WIDTH/2){
+            xCamara = mapWidth-WIDTH/2;
+        }
+        xCamara+= 5;
+        camera.position.x = xCamara;
+        camera.update();
     }
 
 

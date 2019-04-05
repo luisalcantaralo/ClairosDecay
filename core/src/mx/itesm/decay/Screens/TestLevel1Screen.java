@@ -39,30 +39,29 @@ public class TestLevel1Screen extends GenericScreen{
     BodyDef bodyDef;
     Body body;
 
+    Clairo clairo;
 
     public TestLevel1Screen(Decay game){
-
     }
 
     @Override
     public void show() {
-        loadMap();
-        camera = new OrthographicCamera(WIDTH / Decay.PPM, HEIGHT / Decay.PPM);
-        camera.position.set(WIDTH/2/ Decay.PPM , HEIGHT/2/ Decay.PPM, 0);
+        camera = new OrthographicCamera(WIDTH , HEIGHT );
+        camera.position.set(WIDTH/2 , HEIGHT/2, 0);
         camera.update();
-
-        view = new StretchViewport(WIDTH / Decay.PPM, HEIGHT/ Decay.PPM, camera);
+        view = new StretchViewport(WIDTH , HEIGHT, camera);
         batch = new SpriteBatch();
         background = new Texture("fondo.jpg");
+        loadMap();
     }
     private void loadMap() {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("TiledMapPORFAVORFUNCIONA.tmx", TiledMap.class);
+        manager.load("maps/Level1.tmx", TiledMap.class);
         manager.finishLoading();
 
-        map = manager.get("TiledMapPORFAVORFUNCIONA.tmx");
+        map = manager.get("maps/Level1.tmx");
 
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
     }
@@ -87,13 +86,13 @@ public class TestLevel1Screen extends GenericScreen{
         float time = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1,1,1,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         batch.setProjectionMatrix(camera.combined);
-        mapRenderer.setView(camera);
-        mapRenderer.render();
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background,0,0);
         batch.end();
+        mapRenderer.setView(camera);
+        mapRenderer.render();
         //world.step(1/60f, 6,2);
     }
 

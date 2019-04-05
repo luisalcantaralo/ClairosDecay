@@ -42,52 +42,44 @@ public class Clairo extends Sprite {
     // Animation Details
     public float timer;
     public boolean isRunningRight;
-    public boolean isJumping;
-    public boolean walkRight;
-    public boolean isChasing;
+    public boolean disableControls = false;
 
     private final TestScreen screen;
 
     public Clairo(TestScreen screen) {
         this.screen = screen;
         this.world = screen.getWorld();
-        currentState = State.IDLE;
+        currentState = State.JUMPING;
         previousState = State.IDLE;
-
+        isRunningRight = true;
         timer = 0;
-        // TO DO
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 284, 0, 284, 268));
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Idle/Detective_Idle.png"), i * 288, 0, 288, 288));
         clairoStand = new Animation(0.1f, frames);
-
 
         frames.clear();
 
-
         for(int i = 0; i < 6; i++){
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 284, 0, 284, 268));
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 426, 110, 426, 292));
         }
         clairoRun = new Animation<TextureRegion>(0.1f, frames);
 
         frames.clear();
 
-         /*
-         for(int i = 1; i < 4; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("clairo_jump"), i * 16, 0, 16, 16));
-        clairoStand = new Animation(0.1f, frames);
-        */
+         for(int i = 3; i < 13; i++)
+             frames.add(new TextureRegion(new Texture("Characters/Detective/Jump/Detective_Jump.png"), i * 426, 40, 426, 362));
+        clairoJump = new Animation(0.1f, frames);
 
-        // frames.clear();
+        frames.clear();
 
-         /*
-         for(int i = 1; i < 4; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("clairo_walk"), i * 16, 0, 16, 16));
-        clairoStand = new Animation(0.1f, frames);
-        */
-        setBounds(400,400,71, 67);
+         for(int i = 0; i < 10; i++)
+             frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 0, 288, 288));
+        clairoShoot = new Animation(0.1f, frames);
+
+        setBounds(400,200,150, 150);
 
         defineClairo();
 
@@ -97,18 +89,49 @@ public class Clairo extends Sprite {
 
     public void update(float dt){
         updateMovement(dt);
+        updateState();
         setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
         setRegion(getFrame(dt));
 
     }
 
+    private void updateState() {
+        if (body.getLinearVelocity().y != 0) {
+            currentState = State.JUMPING;
+        }
+        else if (body.getLinearVelocity().x != 0) {
+            currentState = State.RUNNING;
+        }
+        else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0) {
+            currentState = State.IDLE;
+        }
+    }
+
     private void updateMovement(float dt) {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            body.applyLinearImpulse(new Vector2(body.getLinearVelocity().y, 40000f), body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 1501f)
-            body.applyLinearImpulse(new Vector2(1500f, 0), body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -1501)
-            body.applyLinearImpulse(new Vector2(-1500f, 0), body.getWorldCenter(), true);
+        if(!disableControls){
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+                if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+                    isRunningRight = true;
+                    body.applyLinearImpulse(new Vector2(80000f, 90000f), body.getWorldCenter(), true);
+                }
+                else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+                    isRunningRight = false;
+                    body.applyLinearImpulse(new Vector2(-80000f, 90000f), body.getWorldCenter(), true);
+                }
+                else{
+                    body.applyLinearImpulse(new Vector2(0, 90000f), body.getWorldCenter(), true);
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 80001f){
+                isRunningRight = true;
+                body.applyLinearImpulse(new Vector2(80000f, 0), body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -80001f){
+                isRunningRight = false;
+                body.applyLinearImpulse(new Vector2(-80000f, 0), body.getWorldCenter(), true);
+            }
+        }
     }
 
     public TextureRegion getFrame(float dt){
@@ -119,14 +142,24 @@ public class Clairo extends Sprite {
                 region = clairoStand.getKeyFrame(timer, true);
                 break;
             case WALKING:
-                region = clairoRun.getKeyFrame(timer, true);
+                region = clairoWalk.getKeyFrame(timer, true);
                 break;
             case RUNNING:
                 region = clairoRun.getKeyFrame(timer, true);
                 break;
+            case JUMPING:
+                region = clairoJump.getKeyFrame(timer, true);
+                break;
             default:
                 region = clairoRun.getKeyFrame(timer, true);
                 break;
+        }
+
+        if(isRunningRight && region.isFlipX()){
+            region.flip(true,false);
+        }
+        if(!isRunningRight && !region.isFlipX()){
+            region.flip(true,false);
         }
         return region;
     }
@@ -134,12 +167,12 @@ public class Clairo extends Sprite {
     // Box2d initialization
     public void defineClairo() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(400, 400);
+        bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth(), getHeight());
+        shape.setAsBox(getWidth()/2, getHeight()/2);
         FixtureDef fix = new FixtureDef();
         fix.shape = shape;
         Fixture fixture = body.createFixture(fix);

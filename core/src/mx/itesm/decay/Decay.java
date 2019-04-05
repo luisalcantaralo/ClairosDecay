@@ -14,10 +14,9 @@ import mx.itesm.decay.Screens.Menu.Home;
 
 
 public class Decay extends Game{
-    public static float PPM;
-
+    public static float PPM = 100;
     @Override
     public void create(){
-        setScreen(new TestLevel1Screen(this));
+        setScreen(new TestScreen());
     }
 }
