@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.itesm.decay.Characters.Clairo;
@@ -33,6 +34,7 @@ public class TestScreen extends GenericScreen{
     private Box2DDebugRenderer b2dr;
     private Texture background;
     private Texture graffiti;
+    private Array<Turret> arrTurret;
     Clairo clairo;
     Turret turret;
     FatGuy fatGuy;
@@ -70,12 +72,24 @@ public class TestScreen extends GenericScreen{
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
-        turret = new Turret(this, 150, 150);
         fatGuy = new FatGuy(this);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
         loadMap();
+        createTurrets();
+    }
+
+    private void createTurrets() {
+        arrTurret = new Array<Turret>();
+        float y = 250;
+        float x = 200;
+        float dx = 80;
+        for(int c=0; c<7; c++){
+            Turret turret = new Turret(this,x, y);
+            arrTurret.add(turret);
+            x+=dx;
+            }
     }
 
     private void loadMap() {
@@ -121,14 +135,15 @@ public class TestScreen extends GenericScreen{
         batch.begin();
         if(clairo.getX() > WIDTH/2) batch.draw(background, clairo.getX()-WIDTH/2, 0);
         else  batch.draw(background, 0, 0);
-
-
         batch.end();
         mapRenderer.setView(camera);
         mapRenderer.render();
         batch.begin();
         batch.draw(graffiti,2400,300);
-        turret.draw(batch);
+        for(Turret turret:
+                arrTurret){
+            turret.draw(batch);
+        }
         fatGuy.draw(batch);
         clairo.draw(batch);
         if(talkBegin) talk(delta);
