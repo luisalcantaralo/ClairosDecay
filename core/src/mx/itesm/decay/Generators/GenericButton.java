@@ -31,4 +31,13 @@ public class GenericButton {
     public float getHeight(){
         return textureButton.getHeight();
     }
+    public void setTransform(boolean condition){
+        button.setTransform(condition);
+    }
+    public void rotate(float degrees){
+        button.setRotation(degrees);
+    }
+    public void setScale(float x, float y){
+        button.setScale(x, y);
+    }
 }
