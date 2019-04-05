@@ -67,7 +67,7 @@ public class Home extends GenericScreen{
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 // response
-                game.setScreen(new TestScreen());
+                game.setScreen(new TestScreen(game));
 
             }
         });
