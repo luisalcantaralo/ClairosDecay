@@ -26,7 +26,7 @@ public class Turret extends Sprite {
     public float timer;
 
 
-    public Turret(TestScreen screen){
+    public Turret(TestScreen screen, float x, float y){
         this.screen = screen;
         this.world = screen.getWorld();
 
@@ -36,7 +36,7 @@ public class Turret extends Sprite {
             frames.add(new TextureRegion(new Texture("Turret/turret.png"), i * 150, 0, 150, 138));
         turretIdle = new Animation(0.1f, frames);
 
-        setBounds(150,150, 100, 100);
+        setBounds(x,y, 100, 100);
 
         frames.clear();
         defineTurret();

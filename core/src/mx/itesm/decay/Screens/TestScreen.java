@@ -69,7 +69,7 @@ public class TestScreen extends GenericScreen{
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
-        turret = new Turret(this);
+        turret = new Turret(this, 150, 150);
         fatGuy = new FatGuy(this);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
@@ -142,7 +142,7 @@ public class TestScreen extends GenericScreen{
         clairo.disableControls = true;
 
         if(talkTimer < 3){
-            text.showText(batch, "Hey, have you seen a bug around here?", 950, 300);
+            text.showText(batch, "Hey, have you seen a bug around here?", 950, clairo.getY()+200);
         }
 
         if(talkTimer > 3 && talkTimer < 6){
