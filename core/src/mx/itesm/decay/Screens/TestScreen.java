@@ -26,20 +26,28 @@ import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
+import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
 
 public class TestScreen extends GenericScreen{
+
+    private Decay game;
 
     private Texture texture;
     private World world;
     private Box2DDebugRenderer b2dr;
     private Texture background;
     private Texture graffiti;
+    private Texture healthBar;
     private Array<Turret> arrTurret;
     Clairo clairo;
     Turret turret;
     FatGuy fatGuy;
     Enemy enemy;
+    Turret turret1;
+    Turret turret2;
+    Turret turret3;
+    Turret turret4;
 
 
     Text text;
@@ -58,8 +66,9 @@ public class TestScreen extends GenericScreen{
     float talkTimer = 0;
     float talkEnemy = 0;
 
-    public TestScreen(){
+    public TestScreen(Decay game){
         super();
+        this.game = game;
     }
     @Override
     public void show() {
@@ -75,12 +84,16 @@ public class TestScreen extends GenericScreen{
         b2dr = new Box2DDebugRenderer();
         configureBodies();
         clairo = new Clairo(this);
-        turret = new Turret(this, 3300, 200);
+        turret1 = new Turret(this,1500,600);
+        turret2= new Turret(this,2240,600);
+        turret3= new Turret(this, 2500,600);
+        turret4= new Turret(this, 2760,600);
         fatGuy = new FatGuy(this);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
+        healthBar= new Texture("misc/cd-life-bar.png");
         loadMap();
     }
 
@@ -123,7 +136,10 @@ public class TestScreen extends GenericScreen{
 
         updateCamera();
         clairo.update(time);
-        turret.update(time);
+        turret1.update(time);
+        turret2.update(time);
+        turret3.update(time);
+        turret4.update(time);
         fatGuy.update(time);
         enemy.update(time);
         batch.setProjectionMatrix(camera.combined);
@@ -135,7 +151,12 @@ public class TestScreen extends GenericScreen{
         mapRenderer.render();
         batch.begin();
         batch.draw(graffiti,2400,300);
-        turret.draw(batch);
+        if(clairo.getX() > WIDTH/2) batch.draw(healthBar, clairo.getX()-WIDTH/2, HEIGHT-healthBar.getHeight());
+        else  batch.draw(healthBar, 0, HEIGHT-healthBar.getHeight());
+        turret1.draw(batch);
+        turret2.draw(batch);
+        turret3.draw(batch);
+        turret4.draw(batch);
         fatGuy.draw(batch);
         clairo.draw(batch);
         enemy.draw(batch);
@@ -174,11 +195,14 @@ public class TestScreen extends GenericScreen{
             clairo.currentState = Clairo.State.SHOOTING;
         }
 
-        if(talkEnemy > 10 && talkEnemy < 14){
-            text.showText(batch, "Don't move or I'll shoot!", clairo.getX()+40, clairo.getY()+200);
+        if(talkEnemy > 6 && talkEnemy < 10){
+            text.showText(batch, "Don't move or I'll shoot!", clairo.getX()+100, clairo.getY()+200);
         }
-        if(talkEnemy > 14 && talkEnemy < 16){
-            text.showText(batch, "People must know the truth.", enemy.getX()+200, enemy.getY()+200);
+        if(talkEnemy > 10 && talkEnemy < 13){
+            text.showText(batch, "People must know the truth.", enemy.getX()+300, enemy.getY()+200);
+        }
+        if(talkEnemy > 11.5){
+            game.setScreen(new BlackScreen("TO BE CONTINUED", 4, WIDTH/2, HEIGHT/2));
         }
 
     }
