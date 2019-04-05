@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import mx.itesm.decay.Decay;
+
 public abstract class GenericScreen implements Screen
 {
     // Atributos disponibles en todas las clases del proyecto
