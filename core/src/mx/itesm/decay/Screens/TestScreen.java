@@ -26,8 +26,6 @@ import mx.itesm.decay.Config.MapConverter;
 
 public class TestScreen extends GenericScreen{
 
-
-
     private Texture texture;
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -99,6 +97,7 @@ public class TestScreen extends GenericScreen{
         Gdx.gl.glClearColor(1,1,1,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        updateCamera();
         clairo.update(time);
         turret.update(time);
         batch.setProjectionMatrix(camera.combined);
@@ -114,6 +113,21 @@ public class TestScreen extends GenericScreen{
 
         world.step(1/60f, 6,2);
 
+    }
+
+    private void updateCamera() {
+        float xCamara = clairo.getX();
+
+        float mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        if(clairo.getX() < WIDTH/2){
+            xCamara = WIDTH/2;
+        }
+        if(clairo.getX() > mapWidth-WIDTH/2){
+            xCamara = mapWidth-WIDTH/2;
+        }
+        xCamara+= 5;
+        camera.position.x = xCamara;
+        camera.update();
     }
 
 
