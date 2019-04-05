@@ -11,6 +11,6 @@ import mx.itesm.decay.Screens.Menu.Home;
 
 public class Decay extends Game{
     public void create(){
-        setScreen(new Home(this));
+        setScreen(new TestLevel1Screen(this));
     }
 }
