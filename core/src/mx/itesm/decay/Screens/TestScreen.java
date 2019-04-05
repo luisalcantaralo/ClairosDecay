@@ -35,6 +35,7 @@ public class TestScreen extends GenericScreen{
     private Box2DDebugRenderer b2dr;
     private Texture background;
     private Texture graffiti;
+    private Texture healthBar;
     private Array<Turret> arrTurret;
     Clairo clairo;
     Turret turret;
@@ -81,6 +82,7 @@ public class TestScreen extends GenericScreen{
         text = new Text();
         background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
+        healthBar= new Texture("misc/cd-life-bar.png");
         loadMap();
     }
 
@@ -135,6 +137,7 @@ public class TestScreen extends GenericScreen{
         mapRenderer.render();
         batch.begin();
         batch.draw(graffiti,2400,300);
+        batch.draw(healthBar,healthBar.getWidth(),HEIGHT-healthBar.getHeight());
         turret.draw(batch);
         fatGuy.draw(batch);
         clairo.draw(batch);
