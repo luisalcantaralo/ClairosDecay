@@ -59,7 +59,7 @@ public class Enemy extends Sprite {
         enemyIdleRight = new Animation<TextureRegion>(0.1f, frames);
 
         frames.clear();
-
+//
 
         setBounds(x,y,200, 200);
 
