@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
@@ -64,6 +65,9 @@ public class TestScreen extends GenericScreen {
     boolean talkEnemyOne = false;
     float talkTimer = 0;
     float talkEnemy = 0;
+    int minutes=3;
+    float timer=60;
+
 
     public TestScreen(Decay game){
         super();
@@ -161,10 +165,21 @@ public class TestScreen extends GenericScreen {
         enemy.draw(batch);
         if(talkBegin) talk(delta);
         if(talkEnemyOne) talkOne(delta);
+        if(clairo.getX() > WIDTH/2) text.showText(batch,countDown(delta), healthBar.getWidth()/2+clairo.getX()-WIDTH/2, HEIGHT-healthBar.getHeight()/3);
+        else  text.showText(batch,countDown(delta), healthBar.getWidth()/2, HEIGHT-healthBar.getHeight()/3);
         batch.end();
 
         world.step(1/60f, 6,2);
 
+    }
+
+    private String countDown(float delta) {
+        if((timer-delta)<0){
+            minutes--;
+            timer=60;
+        }
+        timer-=delta;
+        return minutes+":"+(int)timer;
     }
 
     private void talkOne(float dt) {
