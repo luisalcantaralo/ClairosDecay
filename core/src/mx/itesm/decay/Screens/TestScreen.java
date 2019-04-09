@@ -178,6 +178,7 @@ public class TestScreen extends GenericScreen {
             minutes--;
             timer=60;
         }
+
         timer-=delta;
         return minutes+":"+(int)timer;
     }
