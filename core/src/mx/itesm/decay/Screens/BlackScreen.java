@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import mx.itesm.decay.Display.Text;
+import mx.itesm.decay.Generators.GenericScreen;
 
-public class BlackScreen extends GenericScreen{
+public class BlackScreen extends GenericScreen {
     float timer;
     String message;
     Text text;

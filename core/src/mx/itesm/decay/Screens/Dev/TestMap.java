@@ -1,6 +1,6 @@
 package mx.itesm.decay.Screens.Dev;
 
-/*import mx.itesm.decay.Screens.GenericScreen;
+/*import mx.itesm.decay.Generators.GenericScreen;
 
 public class TestMap extends GenericScreen {
     Texture img;
