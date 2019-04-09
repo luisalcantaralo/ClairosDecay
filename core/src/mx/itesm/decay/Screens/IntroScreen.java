@@ -2,6 +2,7 @@ package mx.itesm.decay.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
@@ -14,6 +15,7 @@ public class IntroScreen extends GenericScreen{
     Text text;
     float x;
     float y;
+    Texture texture;
     public IntroScreen(Decay game, String message, float time, float x, float y){
         this.game = game;
         timer = time;
@@ -25,7 +27,7 @@ public class IntroScreen extends GenericScreen{
     }
     @Override
     public void show() {
-        text = new Text();
+        texture = new Texture("misc/cd-mission-chinatown.png");
     }
 
     @Override
@@ -35,7 +37,7 @@ public class IntroScreen extends GenericScreen{
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        text.showText(batch, message,x, y);
+        batch.draw(texture,0,0);
         if(timer > 8){
             game.setScreen(new TestScreen(game));
         }
