@@ -10,10 +10,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -48,6 +53,7 @@ public class TestScreen extends GenericScreen {
     Turret turret2;
     Turret turret3;
     Turret turret4;
+    Turret turretMoving;
 
 
     Text text;
@@ -91,6 +97,10 @@ public class TestScreen extends GenericScreen {
         turret2= new Turret(this,2240,600);
         turret3= new Turret(this, 2500,600);
         turret4= new Turret(this, 2760,600);
+        turretMoving = new Turret(this, 2000, 100);
+        turretMoving.defineRange(400);
+
+
         fatGuy = new FatGuy(this);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
@@ -98,6 +108,33 @@ public class TestScreen extends GenericScreen {
         graffiti= new Texture("misc/cd-graffiti-ros.png");
         healthBar= new Texture("misc/cd-life-bar.png");
         loadMap();
+
+
+
+        world.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                // Check to see if the collision is between the second sprite and the bottom of the screen
+                // If so apply a random amount of upward force to both objects... just because
+                if (contact.getFixtureA().getBody() == clairo.body && contact.getFixtureB().getBody() == turretMoving.body) {
+                    game.setScreen(new BlackScreen("GAME OVER", 6, WIDTH / 2, HEIGHT / 2));
+                }
+            }
+            @Override
+            public void endContact(Contact contact) {
+
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+            }
+        });
     }
 
     private void loadMap() {
@@ -143,6 +180,8 @@ public class TestScreen extends GenericScreen {
         turret2.update(time);
         turret3.update(time);
         turret4.update(time);
+        turretMoving.updateMovement(delta);
+        turretMoving.update(time);
         fatGuy.update(time);
         enemy.update(time);
         batch.setProjectionMatrix(camera.combined);
@@ -160,6 +199,7 @@ public class TestScreen extends GenericScreen {
         turret2.draw(batch);
         turret3.draw(batch);
         turret4.draw(batch);
+        turretMoving.draw(batch);
         fatGuy.draw(batch);
         clairo.draw(batch);
         enemy.draw(batch);
@@ -217,6 +257,7 @@ public class TestScreen extends GenericScreen {
             text.showText(batch, "People must know the truth.", enemy.getX()+300, enemy.getY()+200);
         }
         if(talkEnemy > 11.5){
+            clairo.disableControls = true;
             game.setScreen(new BlackScreen("TO BE CONTINUED", 4, WIDTH/2, HEIGHT/2));
         }
 

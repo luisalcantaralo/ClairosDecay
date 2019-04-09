@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -24,6 +25,10 @@ public class Turret extends Sprite {
     // Animation
     private Animation<TextureRegion> turretIdle;
     public float timer;
+    private float timerMovement = 0;
+    private float midPoint;
+    private float dx = 1;
+    private float range;
 
 
     public Turret(TestScreen screen, float x, float y){
@@ -37,7 +42,8 @@ public class Turret extends Sprite {
         turretIdle = new Animation(0.1f, frames);
 
         setBounds(x,y, 100, 100);
-
+        dx = 100;
+        midPoint = x;
         frames.clear();
         defineTurret();
         setRegion(new TextureRegion(new Texture("Turret/turret.png")));
@@ -50,7 +56,7 @@ public class Turret extends Sprite {
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/2, getHeight()/2);
+        shape.setAsBox(getWidth()/4, getHeight()/4);
         FixtureDef fix = new FixtureDef();
         fix.shape = shape;
         Fixture fixture = body.createFixture(fix);
@@ -67,5 +73,23 @@ public class Turret extends Sprite {
         timer += dt;
         region = turretIdle.getKeyFrame(timer, true);
         return region;
+    }
+
+    public void defineRange(float x){
+        this.range = x;
+    }
+
+    public void updateMovement(float dt){
+
+        if(body.getPosition().x > 2500 || body.getPosition().x < 1500){
+            dx *= -1;
+            body.applyLinearImpulse(new Vector2(9999999f*dx, 0), body.getWorldCenter(), true);
+
+        }
+        else {
+            body.applyLinearImpulse(new Vector2(9999999f*dx, 0), body.getWorldCenter(), true);
+
+        }
+
     }
 }

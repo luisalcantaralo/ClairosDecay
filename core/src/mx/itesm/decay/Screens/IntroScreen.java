@@ -44,7 +44,6 @@ public class IntroScreen extends GenericScreen {
         }
         batch.end();
 
-
     }
 
     @Override
