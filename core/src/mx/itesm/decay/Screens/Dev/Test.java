@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import mx.itesm.decay.Decay;
-import mx.itesm.decay.Screens.GenericScreen;
+import mx.itesm.decay.Generators.GenericScreen;
 
 public class Test extends GenericScreen {
 

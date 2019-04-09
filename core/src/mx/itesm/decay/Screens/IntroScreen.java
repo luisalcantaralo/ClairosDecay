@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
+import mx.itesm.decay.Generators.GenericScreen;
 
-public class IntroScreen extends GenericScreen{
+public class IntroScreen extends GenericScreen {
     private final Decay game;
 
     float timer;

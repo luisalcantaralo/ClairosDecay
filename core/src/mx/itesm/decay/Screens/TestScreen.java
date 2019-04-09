@@ -1,8 +1,6 @@
 package mx.itesm.decay.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,8 +26,9 @@ import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
+import mx.itesm.decay.Generators.GenericScreen;
 
-public class TestScreen extends GenericScreen{
+public class TestScreen extends GenericScreen {
 
     private Decay game;
 

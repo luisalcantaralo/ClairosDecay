@@ -8,9 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
-import mx.itesm.decay.Screens.GenericScreen;
+import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.IntroScreen;
-import mx.itesm.decay.Screens.TestScreen;
 
 public class Home extends GenericScreen{
     private final Decay game;

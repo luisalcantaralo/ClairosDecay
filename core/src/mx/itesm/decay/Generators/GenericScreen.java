@@ -1,4 +1,4 @@
-package mx.itesm.decay.Screens;
+package mx.itesm.decay.Generators;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
