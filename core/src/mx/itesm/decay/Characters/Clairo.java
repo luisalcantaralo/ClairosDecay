@@ -31,6 +31,9 @@ public class Clairo extends Sprite {
     public World world;
     public Body body;
 
+    // Textures
+    private Texture idleText;
+
     // Animations
     private Animation<TextureRegion> clairoStand;
     private Animation<TextureRegion> clairoRun;

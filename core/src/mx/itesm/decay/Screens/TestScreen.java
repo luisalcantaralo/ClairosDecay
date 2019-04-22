@@ -38,13 +38,17 @@ public class TestScreen extends GenericScreen {
 
     private Decay game;
 
-    private Texture texture;
+
+    private final AssetManager manager;
+
+
     private World world;
     private Box2DDebugRenderer b2dr;
     private Texture background;
     private Texture graffiti;
     private Texture healthBar;
     private Array<Turret> arrTurret;
+
     Clairo clairo;
     Turret turret;
     FatGuy fatGuy;
@@ -78,38 +82,13 @@ public class TestScreen extends GenericScreen {
     public TestScreen(Decay game){
         super();
         this.game = game;
+        manager = game.getAssetManager();
     }
     @Override
     public void show() {
-        camera = new OrthographicCamera(WIDTH , HEIGHT );
-        camera.position.set(WIDTH/2 , HEIGHT/2, 0);
-        camera.update();
-
-        view = new StretchViewport(WIDTH , HEIGHT, camera);
-        batch = new SpriteBatch();
-
-        // Box 2d
-        world = new World(new Vector2(0,-100000f), true);
-        b2dr = new Box2DDebugRenderer();
-        configureBodies();
-        clairo = new Clairo(this);
-        turret1 = new Turret(this,1500,600);
-        turret2= new Turret(this,2240,600);
-        turret3= new Turret(this, 2500,600);
-        turret4= new Turret(this, 2760,600);
-        turretMoving = new Turret(this, 2000, 100);
-        turretMoving.defineRange(400);
-
-
-        fatGuy = new FatGuy(this);
-        enemy = new Enemy(this, 3000, 300);
-        text = new Text();
-        background = new Texture("menu/cd-menu-background.png");
-        graffiti= new Texture("misc/cd-graffiti-ros.png");
-        healthBar= new Texture("misc/cd-life-bar.png");
+        createObjects();
+        loadResources();
         loadMap();
-
-
 
         world.setContactListener(new ContactListener() {
             @Override
@@ -137,8 +116,45 @@ public class TestScreen extends GenericScreen {
         });
     }
 
+    private void loadResources() {
+        background = new Texture("menu/cd-menu-background.png");
+        graffiti= new Texture("misc/cd-graffiti-ros.png");
+        healthBar= new Texture("misc/cd-life-bar.png");
+
+
+        //background = manager.get("menu/cd-menu-background.png");
+        //graffiti= manager.get("misc/cd-graffiti-ros.png");
+        //healthBar= manager.get("misc/cd-life-bar.png");
+    }
+
+    private void createObjects() {
+        camera = new OrthographicCamera(WIDTH , HEIGHT );
+        camera.position.set(WIDTH/2 , HEIGHT/2, 0);
+        camera.update();
+
+        view = new StretchViewport(WIDTH , HEIGHT, camera);
+        batch = new SpriteBatch();
+
+        // Box 2d
+        world = new World(new Vector2(0,-100000f), true);
+        b2dr = new Box2DDebugRenderer();
+
+        configureBodies();
+
+        clairo = new Clairo(this);
+        turret1 = new Turret(this,1500,600);
+        turret2= new Turret(this,2240,600);
+        turret3= new Turret(this, 2500,600);
+        turret4= new Turret(this, 2760,600);
+        turretMoving = new Turret(this, 2000, 100);
+        turretMoving.defineRange(400);
+        fatGuy = new FatGuy(this);
+        enemy = new Enemy(this, 3000, 300);
+        text = new Text();
+
+    }
+
     private void loadMap() {
-        AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load("maps/Level1.tmx", TiledMap.class);
@@ -149,8 +165,8 @@ public class TestScreen extends GenericScreen {
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
         MapConverter.crearCuerpos(map, world);
     }
-    private void configureBodies() {
 
+    private void configureBodies() {
 
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(new Vector2(0, 10));
@@ -318,13 +334,17 @@ public class TestScreen extends GenericScreen {
     @Override
     public void dispose() {
 
+        background.dispose();
+        graffiti.dispose();
+        healthBar.dispose();
+        batch.dispose();
+        map.dispose();
+        mapRenderer.dispose();
+
     }
 
     public World getWorld() {
         return world;
     }
-
-
-
 
 }

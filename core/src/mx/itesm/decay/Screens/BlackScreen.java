@@ -12,6 +12,7 @@ public class BlackScreen extends GenericScreen {
     Text text;
     float x;
     float y;
+
     public BlackScreen(String message, float time, float x, float y){
         timer = time;
         this.message = message;
