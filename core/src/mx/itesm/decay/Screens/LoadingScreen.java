@@ -8,6 +8,9 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
+import mx.itesm.decay.Screens.Menu.About;
+import mx.itesm.decay.Screens.Menu.Home;
+import mx.itesm.decay.Screens.Menu.Settings;
 
 public class LoadingScreen extends GenericScreen{
 
@@ -79,16 +82,57 @@ public class LoadingScreen extends GenericScreen{
     }
 
     private void loadHomeResources() {
-        
+        manager.load("menu/cd-menu-buildings.png", Texture.class);
+        manager.load("menu/cd-menu-background.png",Texture.class);
+        manager.load("cd-logo.png", Texture.class);
     }
+
+    private void updateAssetsLoad(){
+        if (manager.update()){
+            switch(nextScreen){
+                case HOME:
+                    game.setScreen(new Home(game));
+                    break;
+                case ABOUT:
+                    game.setScreen(new About(game));
+                    break;
+                case SETTINGS:
+                    game.setScreen(new Settings(game));
+                    break;
+                case LEVEL_ONE:
+                    loadLevel1Resources();
+                    break;
+                case LEVEL_TWO:
+                    loadLevel2Resources();
+                    break;
+                case LEVEL_THREE:
+                    loadLevel3Resources();
+                    break;
+            }
+        }
+
+        progress = ((int)(manager.getProgress()*100));
+    }
+
 
     @Override
     public void show() {
-        
+        text = new Text();
+        loadNextScreenResources();
+
     }
 
     @Override
     public void render(float delta) {
+        deleteScreen();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        text.showText(batch, progress + "%", WIDTH/2, HEIGHT/5);
+        batch.end();
+
+
+        //Update load
+        updateAssetsLoad();
 
     }
 

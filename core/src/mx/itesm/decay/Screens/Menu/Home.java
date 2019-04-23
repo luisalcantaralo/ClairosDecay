@@ -1,6 +1,7 @@
 package mx.itesm.decay.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -32,8 +33,11 @@ public class Home extends GenericScreen{
 
     float timeCounter = 0;
 
+    private AssetManager manager;
+
     public Home(Decay game) {
         this.game = game;
+        manager = game.getAssetManager();
     }
 
     @Override
@@ -51,9 +55,9 @@ public class Home extends GenericScreen{
     }
     public void loadBackground(){
         // creating background & logo
-        menuBuildings = new Texture("menu/cd-menu-buildings.png");
-        menuBackground = new Texture("menu/cd-menu-background.png");
-        menuLogo = new Texture("cd-logo.png");
+        menuBuildings = manager.get("menu/cd-menu-buildings.png");
+        menuBackground = manager.get("menu/cd-menu-background.png");
+        menuLogo = manager.get("cd-logo.png");
         // setting infinite building moving
         menuBuildings.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
     }

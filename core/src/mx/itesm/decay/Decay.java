@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import mx.itesm.decay.Screens.Dev.Test;
+import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Screens;
 import mx.itesm.decay.Screens.TestLevel1Screen;
 import mx.itesm.decay.Screens.TestScreen;
 import mx.itesm.decay.Screens.Menu.Home;
@@ -25,7 +27,7 @@ public class Decay extends Game{
 
     @Override
     public void create(){
-        setScreen(new Home(this));
+        setScreen(new LoadingScreen(this, Screens.HOME));
     }
 
     public AssetManager getAssetManager() {
