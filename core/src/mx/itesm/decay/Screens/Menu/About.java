@@ -40,6 +40,7 @@ public class About extends GenericScreen {
         //we pass the input control to the scene
         Gdx.input.setInputProcessor(sceneAbout);
         Gdx.input.setCatchBackKey(false);
+
     }
 
     private void loadAbout() {
