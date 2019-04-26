@@ -1,6 +1,7 @@
 package mx.itesm.decay.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,8 +23,12 @@ public class Settings extends GenericScreen {
     // stage
     private Stage sceneSettings;
 
+    //Loading
+    private AssetManager manager;
+
     public Settings(Decay game) {
         this.game = game;
+        manager = game.getAssetManager();
     }
 
     @Override
@@ -40,10 +45,10 @@ public class Settings extends GenericScreen {
 
     private void loadSettings() {
         //background
-        settingsBackground = new Texture("backgrounds/cd-simple-background.png");
-        settingsBuildings = new Texture("menu/cd-menu-buildings.png");
-        settingsMonitor = new Texture("menu/cd-settings-monitor.png");
-        settingsTitle = new Texture("menu/cd-settings-title.png");
+        settingsBackground = manager.get("backgrounds/cd-simple-background.png");
+        settingsBuildings = manager.get("menu/cd-menu-buildings.png");
+        settingsMonitor = manager.get("menu/cd-settings-monitor.png");
+        settingsTitle = manager.get("menu/cd-settings-title.png");
 
         // back button
         buttonBack = new GenericButton("menu/cd-button-back.png");
@@ -88,10 +93,12 @@ public class Settings extends GenericScreen {
 
     @Override
     public void dispose() {
+        /*
         settingsBackground.dispose();
         settingsBuildings.dispose();
         settingsMonitor.dispose();
         settingsTitle.dispose();
+        */
         sceneSettings.dispose();
         batch.dispose();
     }

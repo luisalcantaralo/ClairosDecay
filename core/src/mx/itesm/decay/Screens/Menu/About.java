@@ -1,6 +1,7 @@
 package mx.itesm.decay.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
+import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Screens;
 
 public class About extends GenericScreen {
     private final Decay game;
@@ -26,8 +29,11 @@ public class About extends GenericScreen {
     // stage
     private Stage sceneAbout;
 
+    private AssetManager manager;
+
     public About(Decay game) {
         this.game = game;
+        manager = game.getAssetManager();
     }
 
     @Override
@@ -45,11 +51,11 @@ public class About extends GenericScreen {
 
     private void loadAbout() {
         //background
-        aboutBackground = new Texture("backgrounds/cd-simple-background.png");
-        aboutBuildings = new Texture("menu/cd-menu-buildings.png");
-        aboutMonitor = new Texture("UI/simple-screen.png");
-        aboutInstructions = new Texture("menu/cd-about-instructions.png");
-        aboutTitle = new Texture("menu/cd-about-title.png");
+        aboutBackground = manager.get("backgrounds/cd-simple-background.png");
+        aboutBuildings = manager.get("menu/cd-menu-buildings.png");
+        aboutMonitor = manager.get("UI/simple-screen.png");
+        aboutInstructions = manager.get("menu/cd-about-instructions.png");
+        aboutTitle = manager.get("menu/cd-about-title.png");
 
         // back button
         buttonBack = new GenericButton("menu/cd-button-back.png");
@@ -132,11 +138,12 @@ public class About extends GenericScreen {
 
     @Override
     public void dispose() {
-        aboutBackground.dispose();
+        /*aboutBackground.dispose();
         aboutBuildings.dispose();
         aboutMonitor.dispose();
         aboutInstructions.dispose();
         aboutTitle.dispose();
+        */
         sceneAbout.dispose();
         batch.dispose();
     }

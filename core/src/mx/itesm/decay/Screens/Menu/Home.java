@@ -33,11 +33,14 @@ public class Home extends GenericScreen{
 
     float timeCounter = 0;
 
+    //Loading
     private AssetManager manager;
+    private boolean menuBoolean;
 
     public Home(Decay game) {
         this.game = game;
         manager = game.getAssetManager();
+        menuBoolean = false;
     }
 
     @Override
@@ -71,6 +74,7 @@ public class Home extends GenericScreen{
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 // response
+                menuBoolean = true;
                 game.setScreen(new IntroScreen(game, "New threat: A new bug was detected disturbing peace.\n" +
                         "Its last known location: ChinaTown \n" +
                         "Your mission: Neutralize it.\n", 6, WIDTH/2, HEIGHT-10));
@@ -117,6 +121,8 @@ public class Home extends GenericScreen{
         }
     }
 
+
+
     @Override
     public void render(float delta) {
         timeCounter += delta;
@@ -152,11 +158,20 @@ public class Home extends GenericScreen{
 
     @Override
     public void dispose() {
-        menuBackground.dispose();
-        menuBuildings.dispose();
-        menuLogo.dispose();
         sceneMenu.dispose();
         batch.dispose();
+        if (menuBoolean) {
+            manager.unload("menu/cd-menu-buildings.png");
+            manager.unload("menu/cd-menu-background.png");
+            manager.unload("cd-logo.png");
+            manager.unload("backgrounds/cd-simple-background.png");
+            manager.unload("menu/cd-menu-buildings.png");
+            manager.unload("UI/simple-screen.png");
+            manager.unload("menu/cd-about-instructions.png");
+            manager.unload("menu/cd-about-title.png");
+            manager.unload("menu/cd-settings-monitor.png");
+            manager.unload("menu/cd-settings-title.png");
+        }
     }
 
 }

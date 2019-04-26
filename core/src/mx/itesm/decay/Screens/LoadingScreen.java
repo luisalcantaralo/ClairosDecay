@@ -85,6 +85,13 @@ public class LoadingScreen extends GenericScreen{
         manager.load("menu/cd-menu-buildings.png", Texture.class);
         manager.load("menu/cd-menu-background.png",Texture.class);
         manager.load("cd-logo.png", Texture.class);
+        manager.load("backgrounds/cd-simple-background.png", Texture.class);
+        manager.load("menu/cd-menu-buildings.png", Texture.class);
+        manager.load("UI/simple-screen.png", Texture.class);
+        manager.load("menu/cd-about-instructions.png", Texture.class);
+        manager.load("menu/cd-about-title.png", Texture.class);
+        manager.load("menu/cd-settings-monitor.png", Texture.class);
+        manager.load("menu/cd-settings-title.png", Texture.class);
     }
 
     private void updateAssetsLoad(){
@@ -92,12 +99,6 @@ public class LoadingScreen extends GenericScreen{
             switch(nextScreen){
                 case HOME:
                     game.setScreen(new Home(game));
-                    break;
-                case ABOUT:
-                    game.setScreen(new About(game));
-                    break;
-                case SETTINGS:
-                    game.setScreen(new Settings(game));
                     break;
                 case LEVEL_ONE:
                     loadLevel1Resources();
