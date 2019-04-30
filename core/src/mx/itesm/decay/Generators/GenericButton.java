@@ -10,8 +10,8 @@ public class GenericButton {
     private ImageButton button;
     private Texture textureButton;
 
-    public GenericButton(String path){
-        textureButton = new Texture(path);
+    public GenericButton(Texture textureButton){
+        this.textureButton = textureButton;
         TextureRegionDrawable trdButton = new TextureRegionDrawable(new TextureRegion(textureButton));
         button = new ImageButton(trdButton);
     }

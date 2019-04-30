@@ -51,7 +51,8 @@ public class Settings extends GenericScreen {
         settingsTitle = manager.get("menu/cd-settings-title.png");
 
         // back button
-        buttonBack = new GenericButton("menu/cd-button-back.png");
+        Texture textureBack = manager.get("menu/cd-button-back.png");
+        buttonBack = new GenericButton(textureBack);
         buttonBack.setPosition(buttonBack.getWidth(), HEIGHT - buttonBack.getHeight() * 2);
         buttonBack.getImageButton().addListener(new ClickListener(){
             @Override

@@ -67,7 +67,8 @@ public class Home extends GenericScreen{
 
     public void loadButtons(){
         // press start button
-        buttonStart = new GenericButton("menu/cd-button-start.png");
+        Texture textureStart = manager.get("menu/cd-button-start.png");
+        buttonStart = new GenericButton(textureStart);
         buttonStart.setPosition(WIDTH/2 - buttonStart.getWidth()/2, HEIGHT/10 - buttonStart.getHeight()/2);
         buttonStart.getImageButton().addListener(new ClickListener(){
             @Override
@@ -82,7 +83,8 @@ public class Home extends GenericScreen{
             }
         });
         // help button
-        buttonHelp = new GenericButton("menu/cd-button-help.png");
+        Texture textureHelp = manager.get("menu/cd-button-help.png");
+        buttonHelp = new GenericButton(textureHelp);
         buttonHelp.setPosition(WIDTH - buttonHelp.getWidth() * 2, HEIGHT - buttonHelp.getHeight() * 2);
         buttonHelp.getImageButton().addListener(new ClickListener(){
             @Override
@@ -94,7 +96,8 @@ public class Home extends GenericScreen{
             }
         });
         // settings button
-        buttonSettings = new GenericButton("menu/cd-button-settings.png");
+        Texture textureSettings = manager.get("menu/cd-button-settings.png");
+        buttonSettings = new GenericButton(textureSettings);
         buttonSettings.setPosition(WIDTH - buttonHelp.getWidth() * 2, HEIGHT - buttonSettings.getHeight() * 4);
         buttonSettings.getImageButton().addListener(new ClickListener(){
             @Override
@@ -171,6 +174,11 @@ public class Home extends GenericScreen{
             manager.unload("menu/cd-about-title.png");
             manager.unload("menu/cd-settings-monitor.png");
             manager.unload("menu/cd-settings-title.png");
+            manager.unload("menu/cd-button-start.png");
+            manager.unload("menu/cd-button-help.png");
+            manager.unload("menu/cd-button-settings.png");
+            manager.unload("menu/cd-button-back.png");
+            manager.unload("menu/cd-about-us.png");
         }
     }
 
