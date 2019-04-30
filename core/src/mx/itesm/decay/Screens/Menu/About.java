@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import mx.itesm.decay.Decay;
+import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.LoadingScreen;
@@ -58,19 +59,20 @@ public class About extends GenericScreen {
         aboutTitle = manager.get("menu/cd-about-title.png");
 
         // back button
-        buttonBack = new GenericButton("menu/cd-button-back.png");
+        Texture textureBack = manager.get("menu/cd-button-back.png");
+        buttonBack = new GenericButton(textureBack);
         buttonBack.setPosition(buttonBack.getWidth(), HEIGHT - buttonBack.getHeight() * 2);
         buttonBack.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                // response
+                // responseS
                 game.setScreen(new Home(game));
 
             }
         });
         // next instructions button
-        buttonNextInstructions = new GenericButton("menu/cd-button-back.png");
+        buttonNextInstructions = new GenericButton(textureBack);
         buttonNextInstructions.setPosition(WIDTH/2 + aboutMonitor.getWidth()/2 + buttonNextInstructions.getWidth(), HEIGHT/2 - buttonNextInstructions.getHeight()*2);
         buttonNextInstructions.getImageButton().addListener(new ClickListener(){
             @Override
@@ -79,7 +81,7 @@ public class About extends GenericScreen {
                 // response
                 buttonNextInstructions.remove();
                 sceneAbout.addActor(buttonPreviousInstructions.getImageButton());
-                aboutInstructions = new Texture("menu/cd-about-us.png");
+                aboutInstructions = manager.get("menu/cd-about-us.png");
 
             }
         });
@@ -88,7 +90,7 @@ public class About extends GenericScreen {
         buttonNextInstructions.rotate(180);
         buttonNextInstructions.setScale(0.75f, 0.75f);
 
-        buttonPreviousInstructions = new GenericButton("menu/cd-button-back.png");
+        buttonPreviousInstructions = new GenericButton(textureBack);
         buttonPreviousInstructions.setPosition(WIDTH/2 - aboutMonitor.getWidth()/2 - buttonPreviousInstructions.getWidth(), HEIGHT/2 - buttonPreviousInstructions.getHeight()*2.7f);
         buttonPreviousInstructions.getImageButton().addListener(new ClickListener(){
             @Override
@@ -97,7 +99,7 @@ public class About extends GenericScreen {
                 // response
                 buttonPreviousInstructions.remove();
                 sceneAbout.addActor(buttonNextInstructions.getImageButton());
-                aboutInstructions = new Texture("menu/cd-about-instructions.png");
+                aboutInstructions = manager.get("menu/cd-about-instructions.png");
 
             }
         });
