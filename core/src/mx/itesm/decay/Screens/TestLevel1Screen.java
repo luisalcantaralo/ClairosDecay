@@ -53,10 +53,10 @@ public class TestLevel1Screen extends GenericScreen {
         AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("maps/Level1.tmx", TiledMap.class);
+        manager.load("maps/cd-map-01.tmx", TiledMap.class);
         manager.finishLoading();
 
-        map = manager.get("maps/Level1.tmx");
+        map = manager.get("maps/cd-map-01.tmx");
 
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
     }

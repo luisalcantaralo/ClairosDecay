@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -68,7 +68,7 @@ public class TestScreen extends GenericScreen {
 
     // Map
     private TiledMap map;
-    private OrthoCachedTiledMapRenderer mapRenderer;
+    private OrthogonalTiledMapRenderer mapRenderer;
 
     // Conversation
     boolean talkBegin = false;
@@ -157,12 +157,12 @@ public class TestScreen extends GenericScreen {
     private void loadMap() {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("maps/Level1.tmx", TiledMap.class);
+        manager.load("maps/cd-map-01.tmx", TiledMap.class);
         manager.finishLoading();
 
-        map = manager.get("maps/Level1.tmx");
+        map = manager.get("maps/cd-map-01.tmx");
 
-        mapRenderer = new OrthoCachedTiledMapRenderer(map);
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
         MapConverter.crearCuerpos(map, world);
     }
 
