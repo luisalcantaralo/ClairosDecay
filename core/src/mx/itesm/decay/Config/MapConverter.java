@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import mx.itesm.decay.Decay;
 
 public class MapConverter {
-    private static final float TAM_BLOQUE = 1;
+    private static final float TAM_BLOQUE = 4;
 
 
     public static void createBodies(TiledMap mapa, World mundo) {
