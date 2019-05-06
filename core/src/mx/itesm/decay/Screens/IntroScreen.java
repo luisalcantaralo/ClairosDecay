@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericScreen;
+import mx.itesm.decay.Screens.Maps.FirstLevel;
 
 public class IntroScreen extends GenericScreen {
     private final Decay game;
@@ -39,8 +40,8 @@ public class IntroScreen extends GenericScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(texture,0,0);
-        if(timer > 8){
-            game.setScreen(new TestScreen(game));
+        if(timer > 1){
+            game.setScreen(new FirstLevel(game));
         }
         batch.end();
 

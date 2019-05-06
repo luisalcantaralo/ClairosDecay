@@ -17,7 +17,7 @@ public class MapConverter {
     private static final float TAM_BLOQUE = 1;
 
 
-    public static void crearCuerpos(TiledMap mapa, World mundo) {
+    public static void createBodies(TiledMap mapa, World mundo) {
         MapObjects objetos = mapa.getLayers().get("Floor").getObjects();
         Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
         for (MapObject objeto: objetos) {
