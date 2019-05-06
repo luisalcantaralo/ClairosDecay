@@ -48,11 +48,10 @@ public class Clairo extends Sprite {
     public boolean disableControls = false;
     public boolean isShooting = false;
 
-    private final TestScreen screen;
+    //private final TestScreen screen;
 
-    public Clairo(TestScreen screen) {
-        this.screen = screen;
-        this.world = screen.getWorld();
+    public Clairo(World world, float startPositionX, float startPositionY) {
+        this.world = world;
         currentState = State.JUMPING;
         previousState = State.IDLE;
         isRunningRight = true;
@@ -85,7 +84,7 @@ public class Clairo extends Sprite {
 
         setBounds(400,200,150, 150);
 
-        defineClairo();
+        defineClairo(startPositionX, startPositionY);
 
         setRegion(new TextureRegion(new Texture("Characters/DetectiveRun.png")));
 
@@ -94,9 +93,8 @@ public class Clairo extends Sprite {
     public void update(float dt){
         updateMovement(dt);
         updateState();
-        setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
+        setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
         setRegion(getFrame(dt));
-
     }
 
     private void updateState() {
@@ -173,9 +171,9 @@ public class Clairo extends Sprite {
     }
 
     // Box2d initialization
-    public void defineClairo() {
+    public void defineClairo(float x, float y) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(getX(), getY());
+        bdef.position.set(x, y);
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
 

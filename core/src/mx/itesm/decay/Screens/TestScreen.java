@@ -117,7 +117,7 @@ public class TestScreen extends GenericScreen {
     }
 
     private void loadResources() {
-        background = new Texture("menu/cd-menu-background.png");
+        //background = new Texture("menu/cd-menu-background.png");
         graffiti= new Texture("misc/cd-graffiti-ros.png");
         healthBar= new Texture("misc/cd-life-bar.png");
 
@@ -141,7 +141,7 @@ public class TestScreen extends GenericScreen {
 
         configureBodies();
 
-        clairo = new Clairo(this);
+        clairo = new Clairo(world, 256,512);
         turret1 = new Turret(this,1500,600);
         turret2= new Turret(this,2240,600);
         turret3= new Turret(this, 2500,600);
@@ -163,7 +163,7 @@ public class TestScreen extends GenericScreen {
         map = manager.get("maps/cd-map-01.tmx");
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-        MapConverter.crearCuerpos(map, world);
+        MapConverter.createBodies(map, world);
     }
 
     private void configureBodies() {
@@ -202,8 +202,8 @@ public class TestScreen extends GenericScreen {
         enemy.update(time);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        if(clairo.getX() > WIDTH/2) batch.draw(background, clairo.getX()-WIDTH/2, 0);
-        else  batch.draw(background, 0, 0);
+        //if(clairo.getX() > WIDTH/2) batch.draw(background, clairo.getX()-WIDTH/2, 0);
+        //else  batch.draw(background, 0, 0);
         batch.end();
         mapRenderer.setView(camera);
         mapRenderer.render();
@@ -226,6 +226,7 @@ public class TestScreen extends GenericScreen {
         batch.end();
 
         world.step(1/60f, 6,2);
+        b2dr.render(world, camera.combined);
 
     }
 
@@ -306,17 +307,22 @@ public class TestScreen extends GenericScreen {
 
     private void updateCamera() {
         float xCamara = clairo.getX();
+        float yCamera = clairo.getY();
         float dx = 0;
 
         float mapWidth = map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
 
         if(clairo.getX() < WIDTH/2){
             xCamara = WIDTH/2;
-        }
-        else if(clairo.getX() > mapWidth-WIDTH/2){
+        }else if(clairo.getX() > mapWidth - WIDTH/2){
             xCamara = mapWidth-WIDTH/2;
         }
+
+        if(clairo.getY() < HEIGHT/2){
+            yCamera = HEIGHT/2;
+        }
         camera.position.x = xCamara;
+        camera.position.y = yCamera;
         camera.update();
     }
 
@@ -334,7 +340,7 @@ public class TestScreen extends GenericScreen {
     @Override
     public void dispose() {
 
-        background.dispose();
+        //background.dispose();
         graffiti.dispose();
         healthBar.dispose();
         batch.dispose();
