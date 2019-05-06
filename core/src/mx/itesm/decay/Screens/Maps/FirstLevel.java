@@ -99,7 +99,7 @@ public class FirstLevel extends GenericScreen {
         manager.finishLoading(); // blocks app
 
         map = manager.get("maps/cd-map-01.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/4f);
     }
 
     private void createObjects() {

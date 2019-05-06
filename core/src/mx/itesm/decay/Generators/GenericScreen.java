@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -35,6 +36,17 @@ public abstract class GenericScreen implements Screen
         // El objeto que administra los trazos gráficos
         batch = new SpriteBatch();
     }
+    public GenericScreen(float scale) {
+        // Crea la cámara con las dimensiones del mundo
+        camera = new OrthographicCamera(WIDTH/scale, HEIGHT/scale);
+        // En el centro de la pantalla
+        camera.position.set(WIDTH / 2, HEIGHT / 2, 0);
+        camera.update();
+        // La view que escala los elementos gráficos
+        view = new StretchViewport(WIDTH/scale, HEIGHT/scale, camera);
+        // El objeto que administra los trazos gráficos
+        batch = new SpriteBatch();
+    }
 
     // Borra la pantalla con fondo negro
     protected void deleteScreen() {
@@ -59,4 +71,5 @@ public abstract class GenericScreen implements Screen
         // Las subclases están obligadas a sobrescribir el método dispose()
         dispose();
     }
+
 }

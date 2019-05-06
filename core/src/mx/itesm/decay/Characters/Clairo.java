@@ -82,11 +82,11 @@ public class Clairo extends Sprite {
              frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 50, 234, 268));
         clairoShoot = new Animation(0.1f, frames);
 
-        setBounds(400,200,150, 150);
+        setBounds(startPositionX,startPositionY,20, 20);
 
         defineClairo(startPositionX, startPositionY);
 
-        setRegion(new TextureRegion(new Texture("Characters/DetectiveRun.png")));
+        setRegion(new TextureRegion(new Texture("Characters/Detective/DetectiveRun.png")));
 
     }
 
