@@ -119,7 +119,6 @@ public class FirstLevel extends GenericScreen {
         float time = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1,1,1,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        updateCamera();
 
         world.step(delta, 6,2);
 
