@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Decay;
 
 public abstract class GenericScreen implements Screen
@@ -38,10 +39,9 @@ public abstract class GenericScreen implements Screen
     }
     public GenericScreen(float scale) {
         // Crea la cámara con las dimensiones del mundo
-        camera = new OrthographicCamera(WIDTH/scale, HEIGHT/scale);
+        camera = new OrthographicCamera((float) WIDTH/scale, (float) HEIGHT/scale);
         // En el centro de la pantalla
-        camera.position.set(WIDTH / 2, HEIGHT / 2, 0);
-        camera.update();
+        camera.position.set(256, 512, 0);
         // La view que escala los elementos gráficos
         view = new StretchViewport(WIDTH/scale, HEIGHT/scale, camera);
         // El objeto que administra los trazos gráficos
