@@ -31,9 +31,12 @@ public class Clairo extends Sprite {
     // Box2d
     public World world;
     public Body body;
+    public PolygonShape shape;
+    FixtureDef fix;
 
     // Textures
     private Texture idleText;
+
 
     // Animations
     private Animation<TextureRegion> clairoStand;
@@ -81,7 +84,7 @@ public class Clairo extends Sprite {
         frames.clear();
 
         for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 40, 284, 268));
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 80, 284, 178));
         clairoClimb = new Animation(0.1f, frames);
 
         frames.clear();
@@ -128,7 +131,7 @@ public class Clairo extends Sprite {
     private void updateMovement() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
+            body.setLinearVelocity(new Vector2(0, 70f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
@@ -241,13 +244,23 @@ public class Clairo extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
 
+        
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/2, getHeight()/2);
-        FixtureDef fix = new FixtureDef();
+        shape.setAsBox(getWidth()/5, getHeight()/2);
+        fix = new FixtureDef();
         fix.shape = shape;
         fix.filter.groupIndex = Decay.GROUP_PLAYER;
         Fixture fixture = body.createFixture(fix);
         body.setUserData("clairo");
+    }
+
+    public void reduceShapeBox(){
+        body.getFixtureList().get(0).getShape().setRadius(-5);
+    }
+
+    public void returneShapeBox(){
+        body.getFixtureList().get(0).getShape().setRadius(0);
+
     }
 
     public void draw(SpriteBatch batch){

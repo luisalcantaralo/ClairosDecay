@@ -39,9 +39,7 @@ public class TestScreen extends GenericScreen {
 
     private Decay game;
 
-
     private final AssetManager manager;
-
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -85,6 +83,7 @@ public class TestScreen extends GenericScreen {
         this.game = game;
         manager = game.getAssetManager();
     }
+
     @Override
     public void show() {
         createObjects();
@@ -180,7 +179,6 @@ public class TestScreen extends GenericScreen {
         groundBox.dispose();
 
     }
-
 
     @Override
     public void render(float delta) {
