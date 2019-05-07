@@ -132,6 +132,7 @@ public class FirstLevel extends GenericScreen {
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = true;
+                    //clairo.reduceShapeBox();
                 }
 
             }
@@ -144,6 +145,7 @@ public class FirstLevel extends GenericScreen {
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = false;
+                    //clairo.returneShapeBox();
                 }
             }
 
