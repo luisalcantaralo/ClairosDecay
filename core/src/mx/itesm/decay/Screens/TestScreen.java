@@ -151,7 +151,6 @@ public class TestScreen extends GenericScreen {
         turret4= new Turret(this, 2760,600);
         turretMoving = new Turret(this, 2000, 100);
         turretMoving.defineRange(400);
-        fatGuy = new FatGuy(this);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
 

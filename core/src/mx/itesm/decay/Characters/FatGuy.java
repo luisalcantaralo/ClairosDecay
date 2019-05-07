@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import mx.itesm.decay.Screens.TestScreen;
 
 public class FatGuy extends Sprite {
-    private final TestScreen screen;
     // Box2d
     public World world;
     public Body body;
@@ -25,9 +24,8 @@ public class FatGuy extends Sprite {
     public float timer;
 
 
-    public FatGuy(TestScreen screen){
-        this.screen = screen;
-        this.world = screen.getWorld();
+    public FatGuy(World world, float startPositionX, float startPositionY){
+        this.world = world;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
