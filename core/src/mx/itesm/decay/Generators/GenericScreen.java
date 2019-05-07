@@ -18,9 +18,6 @@ public abstract class GenericScreen implements Screen
     // Atributos disponibles en todas las clases del proyecto
     public static final float WIDTH = 1280;
     public static final float HEIGHT = 720;
-    public float SCALED_WIDTH = WIDTH;
-    public float SCALED_HEIGHT = HEIGHT;
-    public float SCALE = 1;
 
     // Atributos disponibles solo en las subclases
     // Todas las pantallas tienen una cámara y una view
@@ -43,10 +40,6 @@ public abstract class GenericScreen implements Screen
     public GenericScreen(float scale) {
         // Crea la cámara con las dimensiones del mundo
         camera = new OrthographicCamera((float) WIDTH/scale, (float) HEIGHT/scale);
-        SCALE = scale;
-        SCALED_HEIGHT /= scale;
-        SCALED_WIDTH /= scale;
-
         // En el centro de la pantalla
         camera.position.set(256, 512, 0);
         // La view que escala los elementos gráficos
