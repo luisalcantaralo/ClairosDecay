@@ -109,7 +109,6 @@ public class FirstLevel extends GenericScreen {
         batch.begin();
         clairo.draw(batch);
 
-
         batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
         batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
 
