@@ -244,6 +244,7 @@ public class Clairo extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
 
+        
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(getWidth()/5, getHeight()/2);
         fix = new FixtureDef();
