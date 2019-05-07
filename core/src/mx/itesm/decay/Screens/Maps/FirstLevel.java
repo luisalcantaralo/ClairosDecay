@@ -12,6 +12,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 
@@ -49,6 +54,7 @@ public class FirstLevel extends GenericScreen {
         setPhysics();
         clairo = new Clairo(world, 100,95);
         background = new Texture("backgrounds/cd-simple-background.png");
+        createCollisionListener();
     }
 
     private void setPhysics() {
@@ -113,6 +119,43 @@ public class FirstLevel extends GenericScreen {
         camera.position.x = xCamara;
         camera.position.y = yCamera;
         camera.update();
+    }
+
+    private void createCollisionListener() {
+        world.setContactListener(new ContactListener() {
+
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
+                    Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+                    clairo.canClimb = true;
+                }
+
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
+                    Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+                    clairo.canClimb = false;
+                }
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+            }
+
+        });
     }
 
     @Override

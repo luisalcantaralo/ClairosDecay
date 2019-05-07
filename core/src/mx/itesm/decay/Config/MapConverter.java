@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -30,6 +32,8 @@ public class MapConverter {
             bd.type = BodyDef.BodyType.StaticBody;
             Body body = mundo.createBody(bd);
             body.createFixture(rectangulo, 1);
+            body.setUserData("body");
+
 
             rectangulo.dispose();
         }
@@ -44,8 +48,14 @@ public class MapConverter {
             BodyDef bd = new BodyDef();
             bd.position.set(((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE);
             bd.type = BodyDef.BodyType.StaticBody;
-            Body body = mundo.createBody(bd);
-            body.createFixture(rectangulo, 1);
+            Body bodyStair = mundo.createBody(bd);
+
+            FixtureDef fix = new FixtureDef();
+            fix.shape = rectangulo;
+            fix.isSensor = true;
+            Fixture fixture = bodyStair.createFixture(fix);
+            bodyStair.createFixture(fix);
+            bodyStair.setUserData("stair");
 
             rectangulo.dispose();
         }
