@@ -125,7 +125,7 @@ public class FirstLevel extends GenericScreen {
         jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
 
         // PAUSE
-        pauseButton= new Texture("menu/cd-pause-button.png");
+        pauseButton= new Texture("UI/cd-pause-button.png");
         TextureRegionDrawable trdPauseButton = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton pauseButtonImage = new ImageButton(trdPauseButton);
         pauseButtonImage.setPosition(GenericScreen.WIDTH - pauseButtonImage.getWidth()*2, GenericScreen.HEIGHT - pauseButtonImage.getHeight()*2);
