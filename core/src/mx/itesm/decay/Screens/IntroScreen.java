@@ -40,7 +40,7 @@ public class IntroScreen extends GenericScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(texture,0,0);
-        if(timer > 1){
+        if(timer > 6){
             game.setScreen(new FirstLevel(game));
         }
         batch.end();
