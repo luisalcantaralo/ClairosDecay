@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import mx.itesm.decay.Screens.Dev.Test;
 import mx.itesm.decay.Screens.GameOver;
 import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Screens;
 import mx.itesm.decay.Screens.Splash;
 import mx.itesm.decay.Screens.TestLevel1Screen;
@@ -22,7 +23,7 @@ import mx.itesm.decay.Screens.Menu.Home;
 
 public class Decay extends Game{
     public static final short GROUP_PLAYER = -1;
-    public static final short GROUP_STAIRS = -2;
+    public static final short GROUP_BOX = -2;
 
     public static  Preferences prefs;
     private final AssetManager assetManager;

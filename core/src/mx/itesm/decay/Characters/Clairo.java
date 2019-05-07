@@ -145,7 +145,7 @@ public class Clairo extends Sprite {
     }
 
     private void updateMovement() {
-        /*
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
             body.setLinearVelocity(new Vector2(0, 10f));
         }
@@ -213,22 +213,21 @@ public class Clairo extends Sprite {
 
         if(!rightKeyPressed && !leftKeyPressed){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
-        }*/
+        }
 
 
-
-
+        /*
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.setLinearVelocity(new Vector2(0, 70f));
+            body.setLinearVelocity(new Vector2(0, 300f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 300f), body.getWorldCenter(), true);
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING){
             isRunningRight = true;
 
-            body.applyLinearImpulse(new Vector2(0, 200f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 400f), body.getWorldCenter(), true);
         }
 
 
@@ -286,7 +285,7 @@ public class Clairo extends Sprite {
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
-
+    */
     }
 
     public TextureRegion getFrame(float dt){
