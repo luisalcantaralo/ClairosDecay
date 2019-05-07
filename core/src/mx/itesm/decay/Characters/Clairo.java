@@ -217,18 +217,17 @@ public class Clairo extends Sprite {
 
 
 
-
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.setLinearVelocity(new Vector2(0, 70f));
+            body.setLinearVelocity(new Vector2(0, 300f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 300f), body.getWorldCenter(), true);
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING){
             isRunningRight = true;
 
-            body.applyLinearImpulse(new Vector2(0, 200f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 400f), body.getWorldCenter(), true);
         }
 
 

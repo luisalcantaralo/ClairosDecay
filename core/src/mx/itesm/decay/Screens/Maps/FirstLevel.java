@@ -210,9 +210,6 @@ public class FirstLevel extends GenericScreen {
 
                 mapRenderer.setView(camera);
                 mapRenderer.render();
-                batch.begin();
-                clairo.draw(batch);
-                batch.end();
                 updateCamera();
                 mapRenderer.setView(camera);
                 mapRenderer.render();
@@ -223,6 +220,7 @@ public class FirstLevel extends GenericScreen {
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
+
                 if(clairo.currentState == Clairo.State.DEAD) {
                     state = GameStates.GAME_OVER;
                 }
