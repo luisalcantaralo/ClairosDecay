@@ -70,9 +70,9 @@ Settings extends GenericScreen {
 
 
         // on button
-        Texture textureOnMusic = manager.get("menu/cd-on-button.png");
+        Texture textureOnMusic = new Texture("menu/cd-on-button.png");
         buttonOnMusic = new GenericButton(textureOnMusic);
-        buttonOnMusic.setPosition(WIDTH/2+10, 40);
+        buttonOnMusic.setPosition(WIDTH/2+50, HEIGHT/2+50);
         buttonOnMusic.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
