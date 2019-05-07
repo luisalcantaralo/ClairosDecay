@@ -319,16 +319,16 @@ public class FirstLevel extends GenericScreen {
         public PauseScene(Viewport view, Batch batch, final Decay game) {
             super(view, batch);
             this.game=game;
-            Texture textureRectangle= new Texture("UI/simple-screen.png");
+            Texture textureRectangle= new Texture("UI/pause-screen.png");
             Image imgRectangle= new Image(textureRectangle);
-            imgRectangle.setPosition(0.25f*GenericScreen.WIDTH,0.26f*GenericScreen.HEIGHT);
+            imgRectangle.setPosition(0.08f*GenericScreen.WIDTH,0.06f*GenericScreen.HEIGHT);
             this.addActor(imgRectangle);
 
             final Decay game2= game;
             Texture backBtn= new Texture("menu/cd-button-back.png");
             TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backBtn));
             ImageButton backButton = new ImageButton(trdBack);
-            backButton.setPosition(imgRectangle.getWidth(),GenericScreen.HEIGHT*0.3f);
+            backButton.setPosition(GenericScreen.WIDTH/2 - backButton.getWidth()/1.7f,GenericScreen.HEIGHT*0.2f);
             backButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -343,7 +343,7 @@ public class FirstLevel extends GenericScreen {
             Texture menuBtn= new Texture("menu/cd-about-title.png");
             TextureRegionDrawable trdMenu = new TextureRegionDrawable(new TextureRegion(menuBtn));
             ImageButton menuButton = new ImageButton(trdMenu);
-            menuButton.setPosition(imgRectangle.getWidth()*0.6f,imgRectangle.getHeight());
+            menuButton.setPosition(GenericScreen.WIDTH/2 - menuButton.getWidth()/2,GenericScreen.HEIGHT/2 - menuButton.getHeight());
             menuButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
