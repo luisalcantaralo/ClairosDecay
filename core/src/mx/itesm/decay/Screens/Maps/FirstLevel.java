@@ -97,7 +97,12 @@ public class FirstLevel extends GenericScreen {
         Texture rightTexture= new Texture("UI/ButtonRight.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
         ImageButton rightButton= new ImageButton(trdRightButton);
-        rightButton.setPosition(rightButton.getWidth()*2,rightButton.getHeight()*2);
+        rightButton.setPosition(rightButton.getWidth()*1.5f,rightButton.getHeight()/2);
+
+        Texture leftTexture= new Texture("UI/ButtonLeft.png");
+        TextureRegionDrawable trdLeftButton= new TextureRegionDrawable(new TextureRegion(leftTexture));
+        ImageButton leftButton= new ImageButton(trdLeftButton);
+        leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
         // PAUSE
         pauseButton= new Texture("menu/cd-button-back.png");
@@ -122,6 +127,7 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
+        sceneHUD.addActor(leftButton);
         createCollisionListener();
     }
 
@@ -177,23 +183,23 @@ public class FirstLevel extends GenericScreen {
                 batch.end();
                 b2dr.render(world, camera.combined);
                 updateCamera();
+                mapRenderer.setView(camera);
+                mapRenderer.render();
+
+                batch.begin();
+                clairo.draw(batch);
+
+                batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
+                batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
+                batch.end();
+                b2dr.render(world, camera.combined);
+                batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
             }
-        mapRenderer.setView(camera);
-        mapRenderer.render();
-
-        batch.begin();
-        clairo.draw(batch);
-
-        batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
-        batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
-
-        batch.end();
-
-        b2dr.render(world, camera.combined);
-        updateCamera();
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
+        updateCamera();
+
     }
 
 
