@@ -36,7 +36,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
-import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
@@ -71,10 +70,6 @@ public class FirstLevel extends GenericScreen {
     private Texture pauseButton;
     private GameStates state;
     private PauseScene pauseScene;
-    private Text text;
-
-    int minutes=3;
-    float timer=60;
 
 
     public FirstLevel(Decay game){
@@ -86,7 +81,6 @@ public class FirstLevel extends GenericScreen {
 
     @Override
     public void show() {
-        text = new Text();
 
         loadMap();
         setPhysics();
@@ -173,61 +167,43 @@ public class FirstLevel extends GenericScreen {
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
 
-        if(state==GameStates.PLAYING){
-            Gdx.gl.glClearColor(1,1,1,0);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            if(state==GameStates.PLAYING){
+                Gdx.gl.glClearColor(1,1,1,0);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            world.step(delta, 6,2);
+                world.step(delta, 6,2);
 
-            clairo.update(time);
+                clairo.update(time);
 
-            batch.setProjectionMatrix(camera.combined);
-            batch.begin();
-            batch.draw(background,-150,0, background.getWidth()/2, background.getHeight()/2);
-            batch.end();
+                batch.setProjectionMatrix(camera.combined);
+                batch.begin();
+                batch.draw(background,-150,0, background.getWidth()/2, background.getHeight()/2);
+                batch.end();
 
-            mapRenderer.setView(camera);
-            mapRenderer.render();
-            batch.begin();
-            clairo.draw(batch);
-            batch.end();
-            b2dr.render(world, camera.combined);
-            updateCamera();
-            mapRenderer.setView(camera);
-            mapRenderer.render();
+                mapRenderer.setView(camera);
+                mapRenderer.render();
+                batch.begin();
+                clairo.draw(batch);
+                batch.end();
+                b2dr.render(world, camera.combined);
+                updateCamera();
+                mapRenderer.setView(camera);
+                mapRenderer.render();
 
-            batch.begin();
-            clairo.draw(batch);
+                batch.begin();
+                clairo.draw(batch);
 
-            batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
-            batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY
-                    ()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
-
-            text.showTimer(batch,countDown(delta), clairo.getX()-15, clairo.getY()/2+121);
-
-            batch.end();
-            b2dr.render(world, camera.combined);
-            batch.setProjectionMatrix(camaraHUD.combined);
-            sceneHUD.draw();
-        }
+                batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
+                batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
+                batch.end();
+                b2dr.render(world, camera.combined);
+                batch.setProjectionMatrix(camaraHUD.combined);
+                sceneHUD.draw();
+            }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
 
-    }
-
-    private String countDown(float delta) {
-        if((timer-delta)<0){
-            minutes--;
-            timer=60;
-        }
-        String x = "";
-        String y = "";
-        if(timer<10) x="0";
-        if(minutes<10) y="0";
-
-        timer-=delta;
-        return y+minutes+":"+x+(int)timer;
     }
 
 
@@ -345,3 +321,4 @@ public class FirstLevel extends GenericScreen {
         }
     }
 }
+
