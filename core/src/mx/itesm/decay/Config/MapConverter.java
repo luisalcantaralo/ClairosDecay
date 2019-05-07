@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import mx.itesm.decay.Decay;
 
 public class MapConverter {
-    private static final float TAM_BLOQUE = 4;
+    private static final float TAM_BLOQUE = 5;
 
 
     public static void createBodies(TiledMap mapa, World mundo) {
@@ -26,7 +26,7 @@ public class MapConverter {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
             BodyDef bd = new BodyDef();
-            bd.position.set(((RectangleMapObject) objeto).getRectangle().x/4, ((RectangleMapObject) objeto).getRectangle().y/4);
+            bd.position.set(((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE);
             bd.type = BodyDef.BodyType.StaticBody;
             Body body = mundo.createBody(bd);
             body.createFixture(rectangulo, 1);
