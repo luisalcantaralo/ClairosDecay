@@ -32,7 +32,7 @@ public class PauseScene extends Stage {
         imgRectangle.setPosition(0.2f*GenericScreen.WIDTH,0.16f*GenericScreen.HEIGHT);
         this.addActor(imgRectangle);
 
-        final Decay game2= game;
+        final Decay game2 = game;
         Texture backBtn= new Texture("menu/cd-button-back.png");
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backBtn));
         ImageButton backButton = new ImageButton(trdBack);
