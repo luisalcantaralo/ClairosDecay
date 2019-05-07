@@ -112,7 +112,10 @@ public class FirstLevel extends GenericScreen {
         ImageButton leftButton= new ImageButton(trdLeftButton);
         leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
-
+        Texture jumpTexture= new Texture("UI/AButton.png");
+        TextureRegionDrawable trdJumpButton= new TextureRegionDrawable(new TextureRegion(jumpTexture));
+        ImageButton jumpButton= new ImageButton(trdJumpButton);
+        jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
 
         // PAUSE
         pauseButton= new Texture("menu/cd-button-back.png");
@@ -138,6 +141,7 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
+        sceneHUD.addActor(jumpButton);
         createCollisionListener();
     }
 
