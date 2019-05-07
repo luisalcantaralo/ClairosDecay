@@ -39,6 +39,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericScreen;
@@ -60,6 +61,7 @@ public class FirstLevel extends GenericScreen {
     private OrthogonalTiledMapRenderer mapRenderer;
 
     private Clairo clairo;
+    private FatGuy fat;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -94,7 +96,8 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 100,95);
+        clairo = new Clairo(world, 730,540);
+        fat = new FatGuy(world, 759, 560);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -204,6 +207,7 @@ public class FirstLevel extends GenericScreen {
                 world.step(delta, 6,2);
 
                 clairo.update(time);
+                fat.update(time);
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
@@ -219,6 +223,7 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 updateBoxes();
                 clairo.draw(batch);
+                fat.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
@@ -239,6 +244,9 @@ public class FirstLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
+            Gdx.app.log("X:", String.valueOf(clairo.getX()));
+        Gdx.app.log("Y:", String.valueOf(clairo.getY()));
+        b2dr.render(world, camera.combined);
         updateCamera();
     }
 
