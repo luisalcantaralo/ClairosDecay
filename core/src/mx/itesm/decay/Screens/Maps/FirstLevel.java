@@ -1,6 +1,8 @@
 package mx.itesm.decay.Screens.Maps;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -103,10 +106,16 @@ public class FirstLevel extends GenericScreen {
         ImageButton rightButton= new ImageButton(trdRightButton);
         rightButton.setPosition(rightButton.getWidth()*1.5f,rightButton.getHeight()/2);
 
+
         Texture leftTexture= new Texture("UI/ButtonLeft.png");
         TextureRegionDrawable trdLeftButton= new TextureRegionDrawable(new TextureRegion(leftTexture));
         ImageButton leftButton= new ImageButton(trdLeftButton);
         leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
+
+        Texture jumpTexture= new Texture("UI/AButton.png");
+        TextureRegionDrawable trdJumpButton= new TextureRegionDrawable(new TextureRegion(jumpTexture));
+        ImageButton jumpButton= new ImageButton(trdJumpButton);
+        jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
 
         // PAUSE
         pauseButton= new Texture("menu/cd-button-back.png");
@@ -121,7 +130,7 @@ public class FirstLevel extends GenericScreen {
                 state= GameStates.PAUSE;
                 if (state==GameStates.PAUSE) {
                     // Activar escenaPausa y pasarle el control
-                    pauseScene = new PauseScene(vistaHUD, batch, game);
+                    pauseScene = new FirstLevel.PauseScene(vistaHUD, batch, game);
                     Gdx.input.setInputProcessor(pauseScene);
                 }
             }
@@ -132,6 +141,7 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
+        sceneHUD.addActor(jumpButton);
         createCollisionListener();
     }
 
@@ -152,10 +162,10 @@ public class FirstLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        manager.load("maps/cd-map-01.tmx", TiledMap.class);
+        manager.load("maps/cd-map-02.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-01.tmx");
+        map = manager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
         healthBarC = manager.get("Items/LifeBarContainer.png");
@@ -203,7 +213,6 @@ public class FirstLevel extends GenericScreen {
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
-
     }
 
 
@@ -293,7 +302,7 @@ public class FirstLevel extends GenericScreen {
         mapRenderer.dispose();
     }
 
-    public class PauseScene extends Stage {
+    private class PauseScene extends Stage {
         private final Decay game;
 
         public PauseScene(Viewport view, Batch batch, final Decay game) {
@@ -340,5 +349,67 @@ public class FirstLevel extends GenericScreen {
             this.addActor(backButton);
         }
     }
+
+    private class ProcesadorEntrada implements InputProcessor {
+
+
+        @Override
+        public boolean keyDown(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            Vector3 v3 = new Vector3(screenX,screenY,0);
+            camera.unproject(v3);
+            // Left button
+            if(v3.x >48 && v3.x<96 && v3.y >48 &&v3.y<144 ){
+                clairo.setLeft();
+            }
+            // Right button
+            else if(v3.x>144 && v3.x<240 && v3.y>48 && v3.y<144){
+                clairo.setRight();
+                }
+            else if (v3.x >GenericScreen.WIDTH-192 && v3.x< GenericScreen.WIDTH-96 && v3.y>48 && v3.y<144 ){
+                clairo.setUpKeyPressed();
+                }
+            else{
+                clairo.setDefault();
+            }
+                return false;
+            }
+
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int amount) {
+            return false;
+        }
+    }
+
 }
 
