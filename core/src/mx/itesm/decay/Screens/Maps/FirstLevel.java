@@ -91,8 +91,6 @@ public class FirstLevel extends GenericScreen {
         background = new Texture("backgrounds/cd-simple-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
-        Gdx.input.setCatchBackKey(true);
-
     }
 
     private void createHUD() {
@@ -337,10 +335,7 @@ public class FirstLevel extends GenericScreen {
 
         @Override
         public boolean keyDown(int keycode) {
-            if(keycode == Input.Keys.BACK){
-                state=GameStates.PAUSE;
-            }
-                return false;
+            return false;
         }
 
         @Override
