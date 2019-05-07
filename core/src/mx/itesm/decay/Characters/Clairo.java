@@ -145,7 +145,7 @@ public class Clairo extends Sprite {
     }
 
     private void updateMovement() {
-        /*
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
             body.setLinearVelocity(new Vector2(0, 10f));
         }
@@ -213,11 +213,10 @@ public class Clairo extends Sprite {
 
         if(!rightKeyPressed && !leftKeyPressed){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
-        }*/
+        }
 
 
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
+        /*if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
             body.setLinearVelocity(new Vector2(0, 300f));
         }
 
@@ -284,7 +283,7 @@ public class Clairo extends Sprite {
 
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
-        }
+        }*/
 
     }
 
