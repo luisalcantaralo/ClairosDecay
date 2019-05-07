@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -33,6 +33,8 @@ public class FirstLevel extends GenericScreen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    private Texture background;
+
 
     public FirstLevel(Decay game){
         super(5);
@@ -45,7 +47,8 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 100,300);
+        clairo = new Clairo(world, 100,95);
+        background = new Texture("backgrounds/cd-simple-background.png");
     }
 
     private void setPhysics() {
@@ -54,6 +57,7 @@ public class FirstLevel extends GenericScreen {
 
 
         MapConverter.createBodies(map, world);
+        MapConverter.createStairs(map, world);
         b2dr = new Box2DDebugRenderer();
     }
 
@@ -64,10 +68,10 @@ public class FirstLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        manager.load("maps/cd-map-02.tmx", TiledMap.class);
+        manager.load("maps/cd-map-01.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-02.tmx");
+        map = manager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
     }
 
@@ -83,6 +87,12 @@ public class FirstLevel extends GenericScreen {
         clairo.update(time);
 
         batch.setProjectionMatrix(camera.combined);
+
+
+        batch.begin();
+        batch.draw(background,-150,0, background.getWidth()/2, background.getHeight()/2);
+        batch.end();
+
         mapRenderer.setView(camera);
         mapRenderer.render();
 
@@ -98,7 +108,7 @@ public class FirstLevel extends GenericScreen {
 
     private void updateCamera() {
         float xCamara = clairo.getX();
-        float yCamera = clairo.getY();
+        float yCamera = clairo.getY()+20;
 
         camera.position.x = xCamara;
         camera.position.y = yCamera;

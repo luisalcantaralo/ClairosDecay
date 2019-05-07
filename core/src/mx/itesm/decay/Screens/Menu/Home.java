@@ -14,20 +14,17 @@ import mx.itesm.decay.Screens.IntroScreen;
 
 public class Home extends GenericScreen{
     private final Decay game;
-    // main textures
+
     private Texture menuBuildings;
     private Texture menuBackground;
     private Texture menuLogo;
-    // buttons
+
     private GenericButton buttonStart;
     private GenericButton buttonHelp;
     private GenericButton buttonSettings;
 
-
-    // stage
     private Stage sceneMenu;
 
-    // floats
     float menuBuildingsY;
     float menuBuildingsX = 200;
 
@@ -85,7 +82,7 @@ public class Home extends GenericScreen{
         // help button
         Texture textureHelp = manager.get("menu/cd-button-help.png");
         buttonHelp = new GenericButton(textureHelp);
-        buttonHelp.setPosition(WIDTH - buttonHelp.getWidth() * 2, HEIGHT - buttonHelp.getHeight() * 2);
+        buttonHelp.setPosition(WIDTH - buttonHelp.getWidth() * 3/2f, HEIGHT - buttonHelp.getHeight() * 3/2f);
         buttonHelp.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -98,7 +95,7 @@ public class Home extends GenericScreen{
         // settings button
         Texture textureSettings = manager.get("menu/cd-button-settings.png");
         buttonSettings = new GenericButton(textureSettings);
-        buttonSettings.setPosition(WIDTH - buttonHelp.getWidth() * 2, HEIGHT - buttonSettings.getHeight() * 4);
+        buttonSettings.setPosition(WIDTH - buttonSettings.getWidth()*3/2f, HEIGHT - buttonSettings.getHeight() * 6/2f);
         buttonSettings.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
