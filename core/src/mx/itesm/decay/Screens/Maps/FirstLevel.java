@@ -250,8 +250,8 @@ public class FirstLevel extends GenericScreen {
         }
         if(yCamera < SCALED_HEIGHT/2){
             yCamera = SCALED_HEIGHT/2;
-        }else if(yCamera > mapHeight - SCALED_WIDTH/2){
-            yCamera = mapHeight - SCALED_WIDTH/2;
+        }else if(yCamera > mapHeight - SCALED_HEIGHT/2){
+            yCamera = mapHeight - SCALED_HEIGHT/2;
 
         }
 
