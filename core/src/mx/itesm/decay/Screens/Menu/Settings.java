@@ -23,6 +23,8 @@ Settings extends GenericScreen {
     // buttons
     private GenericButton buttonBack;
     private GenericButton buttonOnMusic;
+    private GenericButton buttonOffMusic;
+
 
     // stage
     private Stage sceneSettings;
@@ -69,6 +71,22 @@ Settings extends GenericScreen {
         });
 
 
+        // off button
+        Texture textureOffMusic = new Texture("menu/cd-off-button.png");
+        buttonOffMusic = new GenericButton(textureOffMusic);
+        buttonOffMusic.setPosition(WIDTH/2+50, HEIGHT/2+50);
+        buttonOffMusic.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Decay.prefs.putBoolean("music", true);
+                sceneSettings.addActor(buttonOnMusic.getImageButton());
+                buttonOffMusic.remove();
+
+            }
+        });
+
+
         // on button
         Texture textureOnMusic = new Texture("menu/cd-on-button.png");
         buttonOnMusic = new GenericButton(textureOnMusic);
@@ -78,9 +96,12 @@ Settings extends GenericScreen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Decay.prefs.putBoolean("music", false);
-
+                sceneSettings.addActor(buttonOffMusic.getImageButton());
+                buttonOnMusic.remove();
             }
         });
+
+
 
         sceneSettings.addActor(buttonBack.getImageButton());
         sceneSettings.addActor(buttonOnMusic.getImageButton());
@@ -92,6 +113,9 @@ Settings extends GenericScreen {
     public void render(float delta) {
         if(!Decay.prefs.getBoolean("music")){
             Home.menuTheme.stop();
+        }
+        else {
+            Home.menuTheme.play();
         }
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
