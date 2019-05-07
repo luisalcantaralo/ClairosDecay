@@ -1,6 +1,7 @@
 package mx.itesm.decay.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -40,7 +41,7 @@ public class Settings extends GenericScreen {
 
         //we pass the input control to the scene
         Gdx.input.setInputProcessor(sceneSettings);
-        Gdx.input.setCatchBackKey(false);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void loadSettings() {
@@ -80,6 +81,9 @@ public class Settings extends GenericScreen {
         batch.end();
 
         sceneSettings.draw();
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            game.setScreen(new Home(game));
+        }
     }
 
     @Override
