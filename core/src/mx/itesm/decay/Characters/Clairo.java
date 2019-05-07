@@ -53,6 +53,13 @@ public class Clairo extends Sprite {
     public boolean isShooting = false;
     public boolean canClimb = false;
 
+    // Movement
+    public boolean rightKeyPressed;
+    public boolean leftKeyPressed;
+    public boolean upKeyPressed;
+
+
+
     //private final TestScreen screen;
 
     public Clairo(World world, float startPositionX, float startPositionY) {
@@ -140,6 +147,78 @@ public class Clairo extends Sprite {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
             body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
         }
+        else if (upKeyPressed && currentState != State.JUMPING && currentState != State.FALLING){
+            isRunningRight = true;
+
+            body.applyLinearImpulse(new Vector2(0, 200f), body.getWorldCenter(), true);
+        }
+
+
+        if(currentState == State.RUNNING){
+            if (rightKeyPressed){
+                isRunningRight = true;
+
+                body.applyLinearImpulse(new Vector2(10f, 0), body.getWorldCenter(), true);
+            }
+            if (leftKeyPressed ){
+                isRunningRight = false;
+                body.applyLinearImpulse(new Vector2(-10f, 0), body.getWorldCenter(), true);
+            }
+        }
+        else if(currentState == State.JUMPING){
+            if (rightKeyPressed ){
+                isRunningRight = true;
+
+                body.applyLinearImpulse(new Vector2(10f, 0), body.getWorldCenter(), true);
+            }
+            if (leftKeyPressed ){
+                isRunningRight = false;
+                body.applyLinearImpulse(new Vector2(-10f, 0), body.getWorldCenter(), true);
+            }
+        }
+
+        else if(currentState == State.FALLING){
+
+            if (rightKeyPressed ){
+                isRunningRight = true;
+
+                body.applyLinearImpulse(new Vector2(10f, -15f), body.getWorldCenter(), true);
+            }
+            else if (leftKeyPressed){
+                isRunningRight = false;
+                body.applyLinearImpulse(new Vector2(-10f, -15f), body.getWorldCenter(), true);
+            }
+            else{
+                body.applyLinearImpulse(new Vector2(0, -4f), body.getWorldCenter(), true);
+
+            }
+        }
+        else {
+            if (rightKeyPressed ){
+                isRunningRight = true;
+
+                body.applyLinearImpulse(new Vector2(10f, 0), body.getWorldCenter(), true);
+            }
+            if (leftKeyPressed){
+                isRunningRight = false;
+                body.applyLinearImpulse(new Vector2(-10f, 0), body.getWorldCenter(), true);
+            }
+        }
+
+        if(!rightKeyPressed && !leftKeyPressed){
+            body.setLinearVelocity(0,body.getLinearVelocity().y);
+        }
+
+
+
+        /*
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
+            body.setLinearVelocity(new Vector2(0, 70f));
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
+            body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
+        }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING){
             isRunningRight = true;
 
@@ -200,7 +279,7 @@ public class Clairo extends Sprite {
 
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
-        }
+        }*/
 
     }
 
@@ -257,13 +336,21 @@ public class Clairo extends Sprite {
         body.setUserData("clairo");
     }
 
-    public void reduceShapeBox(){
-        body.getFixtureList().get(0).getShape().setRadius(-5);
+    public void setRight(){
+        rightKeyPressed = true;
+        leftKeyPressed = false;
     }
-
-    public void returneShapeBox(){
-        body.getFixtureList().get(0).getShape().setRadius(0);
-
+    public void setLeft(){
+        leftKeyPressed = true;
+        rightKeyPressed = false;
+    }
+    public void setUpKeyPressed(){
+        upKeyPressed = true;
+    }
+    public void setDefault(){
+        leftKeyPressed = false;
+        rightKeyPressed = false;
+        upKeyPressed = false;
     }
 
     public void draw(SpriteBatch batch){
