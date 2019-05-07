@@ -44,12 +44,6 @@ public class LoadingScreen extends GenericScreen{
             case HOME: 
                 loadHomeResources();
                 break;
-            case ABOUT:
-                loadAboutResources();
-                break;
-            case SETTINGS:
-                loadSettingsResources();
-                break;
             case LEVEL_ONE:
                 loadLevel1Resources();
                 break;
