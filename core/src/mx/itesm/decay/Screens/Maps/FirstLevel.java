@@ -30,14 +30,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 
-import mx.itesm.decay.Characters.Box;
+
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
@@ -76,9 +75,6 @@ public class FirstLevel extends GenericScreen {
     private Texture pauseButton;
     private GameStates state;
     private PauseScene pauseScene;
-
-    // Items
-    Array<Box> boxes;
 
 
     public FirstLevel(Decay game){
@@ -170,8 +166,6 @@ public class FirstLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        boxes = MapConverter.createBoxes(map, world);
-
         b2dr = new Box2DDebugRenderer();
     }
 
@@ -195,6 +189,7 @@ public class FirstLevel extends GenericScreen {
     @Override
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
+
             if(state==GameStates.PLAYING){
                 Gdx.gl.glClearColor(1,1,1,0);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -218,7 +213,6 @@ public class FirstLevel extends GenericScreen {
                 mapRenderer.render();
 
                 batch.begin();
-                updateBoxes();
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -237,15 +231,7 @@ public class FirstLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
-            b2dr.render(world,camera.combined);
         updateCamera();
-    }
-
-    private void updateBoxes() {
-        for(Box box: boxes){
-            box.update();
-            box.draw(batch);
-        }
     }
 
 
