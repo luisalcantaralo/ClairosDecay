@@ -340,10 +340,10 @@ public class FirstLevel extends GenericScreen {
                     clairo.disableControls=false;
                 }
             });
-            Texture menuBtn= new Texture("menu/cd-about-title.png");
+            Texture menuBtn= new Texture("menu/cd-back-to-menu-button.png");
             TextureRegionDrawable trdMenu = new TextureRegionDrawable(new TextureRegion(menuBtn));
             ImageButton menuButton = new ImageButton(trdMenu);
-            menuButton.setPosition(GenericScreen.WIDTH/2 - menuButton.getWidth()/2,GenericScreen.HEIGHT/2 - menuButton.getHeight());
+            menuButton.setPosition(GenericScreen.WIDTH/2 - menuButton.getWidth()/2,GenericScreen.HEIGHT/2 - menuButton.getHeight()*1.1f);
             menuButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

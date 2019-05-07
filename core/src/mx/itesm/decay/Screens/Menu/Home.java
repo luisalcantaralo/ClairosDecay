@@ -36,6 +36,8 @@ public class Home extends GenericScreen{
     private AssetManager manager;
     private boolean menuBoolean;
 
+
+
     public Home(Decay game) {
         this.game = game;
         manager = game.getAssetManager();
