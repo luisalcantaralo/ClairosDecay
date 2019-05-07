@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
@@ -206,6 +207,7 @@ public class FirstLevel extends GenericScreen {
     private void updateCamera() {
         float xCamara = clairo.getX();
         float yCamera = clairo.getY()+20;
+
 
         camera.position.x = xCamara;
         camera.position.y = yCamera;
