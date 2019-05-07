@@ -17,7 +17,6 @@ import mx.itesm.decay.Screens.TestScreen;
 
 public class Turret extends Sprite {
 
-    private final TestScreen screen;
     // Box2d
     public World world;
     public Body body;
@@ -31,9 +30,9 @@ public class Turret extends Sprite {
     private float range;
 
 
-    public Turret(TestScreen screen, float x, float y){
-        this.screen = screen;
-        this.world = screen.getWorld();
+    public Turret(World world, float x, float y){
+
+        this.world = world;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 

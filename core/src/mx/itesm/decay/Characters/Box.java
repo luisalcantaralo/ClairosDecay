@@ -25,7 +25,7 @@ public class Box extends Sprite {
     public Box(World world, float x, float y){
         this.world = world;
 
-        boxTexture = new Texture("items/Box.png");
+        boxTexture = new Texture("Items/Box.png");
 
         setBounds(x,y,128/5,128/5);
         defineBox(x,y);
