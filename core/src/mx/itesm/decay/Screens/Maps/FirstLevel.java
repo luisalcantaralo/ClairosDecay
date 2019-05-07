@@ -100,6 +100,13 @@ public class FirstLevel extends GenericScreen {
         vistaHUD = new StretchViewport(GenericScreen.WIDTH,GenericScreen.HEIGHT, camaraHUD);
 
         // HUD
+        //Barra de Vida
+        healthBarC = manager.get("Items/LifeBarContainer.png");
+        healthBar = manager.get("Items/TimeBar.png");
+        Image imgHealthBarC = new Image(healthBarC);
+        Image imgHeathBar = new Image(healthBar);
+        imgHealthBarC.setPosition(GenericScreen.WIDTH*0.05f - imgHealthBarC.getImageWidth(), GenericScreen.HEIGHT*0.9f - imgHealthBarC.getImageHeight());
+        imgHeathBar.setPosition(GenericScreen.WIDTH*0.055f - imgHeathBar.getImageWidth(), GenericScreen.HEIGHT*0.91f - imgHeathBar.getImageHeight());
         //MOVEMENT BUTTONS
         Texture rightTexture= new Texture("UI/ButtonRight.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
@@ -142,6 +149,8 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
         sceneHUD.addActor(jumpButton);
+        sceneHUD.addActor(imgHealthBarC);
+        sceneHUD.addActor(imgHeathBar);
         createCollisionListener();
     }
 
@@ -168,8 +177,7 @@ public class FirstLevel extends GenericScreen {
         map = manager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
-        healthBarC = manager.get("Items/LifeBarContainer.png");
-        healthBar = manager.get("Items/TimeBar.png");
+
     }
 
 
@@ -202,9 +210,6 @@ public class FirstLevel extends GenericScreen {
 
                 batch.begin();
                 clairo.draw(batch);
-
-                batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
-                batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
                 batch.end();
                 b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
