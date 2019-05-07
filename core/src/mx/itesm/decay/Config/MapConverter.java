@@ -35,6 +35,23 @@ public class MapConverter {
         }
     }
 
+    public static void createStairs(TiledMap mapa, World mundo){
+        MapObjects objetos = mapa.getLayers().get("Stairs").getObjects();
+        Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
+        for (MapObject objeto: objetos) {
+            Shape rectangulo = getRectangle((RectangleMapObject)objeto);
+
+            BodyDef bd = new BodyDef();
+            bd.position.set(((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE);
+            bd.type = BodyDef.BodyType.StaticBody;
+            Body body = mundo.createBody(bd);
+            body.createFixture(rectangulo, 1);
+
+            rectangulo.dispose();
+        }
+    }
+
+
     private static PolygonShape getRectangle(RectangleMapObject objeto) {
         Rectangle rectangulo = objeto.getRectangle();
         PolygonShape polygon = new PolygonShape();
