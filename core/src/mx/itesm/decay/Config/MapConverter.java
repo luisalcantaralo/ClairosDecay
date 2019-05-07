@@ -1,6 +1,5 @@
 package mx.itesm.decay.Config;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -14,8 +13,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
-import mx.itesm.decay.Decay;
+import mx.itesm.decay.Characters.Box;
 
 public class MapConverter {
     private static final float TAM_BLOQUE = 5;
@@ -59,25 +59,16 @@ public class MapConverter {
         }
     }
 
-    public static void createBoxes(TiledMap mapa, World mundo){
+    public static Array<Box> createBoxes(TiledMap mapa, World mundo){
+        Array<Box> boxes;
+        boxes = new Array<Box>();
         MapObjects objetos = mapa.getLayers().get("Boxes").getObjects();
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
-            BodyDef bd = new BodyDef();
-            bd.position.set(((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE);
-            bd.type = BodyDef.BodyType.StaticBody;
-            Body bodyStair = mundo.createBody(bd);
-
-            FixtureDef fix = new FixtureDef();
-            fix.shape = rectangulo;
-            fix.isSensor = true;
-            Fixture fixture = bodyStair.createFixture(fix);
-            bodyStair.createFixture(fix);
-            bodyStair.setUserData("box");
-
-            rectangulo.dispose();
+            boxes.add(new Box(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE));
         }
+        return boxes;
     }
 
 
