@@ -44,6 +44,7 @@ import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
 import mx.itesm.decay.Screens.BlackScreen;
+import mx.itesm.decay.Screens.GameOver;
 import mx.itesm.decay.Screens.GameStates;
 import mx.itesm.decay.Screens.LoadingScreen;
 import mx.itesm.decay.Screens.Menu.Home;
@@ -225,7 +226,7 @@ public class FirstLevel extends GenericScreen {
 
             }
             if(state==GameStates.GAME_OVER){
-                game.setScreen(new BlackScreen("GAME OVER", 5, WIDTH/2, HEIGHT/2));
+                game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
             }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
                 state=GameStates.PAUSE;
