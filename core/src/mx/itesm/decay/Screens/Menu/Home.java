@@ -2,6 +2,7 @@ package mx.itesm.decay.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -25,6 +26,7 @@ public class Home extends GenericScreen{
 
     private Stage sceneMenu;
 
+
     float menuBuildingsY;
     float menuBuildingsX = 200;
 
@@ -47,12 +49,21 @@ public class Home extends GenericScreen{
 
         loadBackground();
         loadButtons();
+        loadMusic();
 
         //we pass the input control to the scene
         Gdx.input.setInputProcessor(sceneMenu);
         Gdx.input.setCatchBackKey(false);
 
     }
+
+    public void loadMusic(){
+
+        // help button
+        Music menuTheme = manager.get("Music/MainMenu.mp3");
+        menuTheme.play();
+    }
+
     public void loadBackground(){
         // creating background & logo
         menuBuildings = manager.get("menu/cd-menu-buildings.png");

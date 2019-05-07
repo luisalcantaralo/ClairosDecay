@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -39,6 +38,8 @@ public class FirstLevel extends GenericScreen {
     private Box2DDebugRenderer b2dr;
 
     private Texture background;
+    private Texture healthBarC;
+    private Texture healthBar;
 
 
     public FirstLevel(Decay game){
@@ -79,6 +80,9 @@ public class FirstLevel extends GenericScreen {
 
         map = manager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
+
+        healthBarC = manager.get("Items/LifeBarContainer.png");
+        healthBar = manager.get("Items/TimeBar.png");
     }
 
 
@@ -104,6 +108,10 @@ public class FirstLevel extends GenericScreen {
 
         batch.begin();
         clairo.draw(batch);
+
+        batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
+        batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
+
         batch.end();
 
         b2dr.render(world, camera.combined);
