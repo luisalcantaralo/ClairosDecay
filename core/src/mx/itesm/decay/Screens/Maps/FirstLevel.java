@@ -1,6 +1,7 @@
 package mx.itesm.decay.Screens.Maps;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -91,6 +92,7 @@ public class FirstLevel extends GenericScreen {
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -222,7 +224,9 @@ public class FirstLevel extends GenericScreen {
             if(state==GameStates.GAME_OVER){
                 game.setScreen(new BlackScreen("GAME OVER", 5, 600, 360));
             }
-
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+                state=GameStates.PAUSE;
+        }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
