@@ -208,7 +208,6 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 clairo.draw(batch);
                 batch.end();
-                b2dr.render(world, camera.combined);
                 updateCamera();
                 mapRenderer.setView(camera);
                 mapRenderer.render();
