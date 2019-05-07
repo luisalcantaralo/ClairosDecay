@@ -226,6 +226,8 @@ public class FirstLevel extends GenericScreen {
             }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
                 state=GameStates.PAUSE;
+                pauseScene = new PauseScene(vistaHUD, batch, game);
+                Gdx.input.setInputProcessor(pauseScene);
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
