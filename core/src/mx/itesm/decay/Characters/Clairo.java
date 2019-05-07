@@ -117,8 +117,11 @@ public class Clairo extends Sprite {
         else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
             currentState = State.CLIMBING;
         }
-        else if (body.getLinearVelocity().y < 0 || (body.getLinearVelocity().y > 0 && dt > 0.5) ) {
+        else if (body.getLinearVelocity().y < 0 && !canClimb ) {
             currentState = State.FALLING;
+        }
+        else if (body.getLinearVelocity().y < 0 && canClimb ) {
+            currentState = State.CLIMBING;
         }
         else if (body.getLinearVelocity().x != 0) {
             currentState = State.RUNNING;

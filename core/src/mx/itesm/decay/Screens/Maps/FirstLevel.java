@@ -40,6 +40,9 @@ import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
 import mx.itesm.decay.Screens.GameStates;
+import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Menu.Home;
+import mx.itesm.decay.Screens.Screens;
 
 public class FirstLevel extends GenericScreen {
 
@@ -273,7 +276,7 @@ public class FirstLevel extends GenericScreen {
     public class PauseScene extends Stage {
         private final Decay game;
 
-        public PauseScene(Viewport view, Batch batch, Decay game) {
+        public PauseScene(Viewport view, Batch batch, final Decay game) {
             super(view, batch);
             this.game=game;
             Pixmap pixmap= new Pixmap((int)(GenericScreen.WIDTH*0.6),(int)(GenericScreen.HEIGHT*0.7f), Pixmap.Format.RGBA8888);
@@ -301,6 +304,19 @@ public class FirstLevel extends GenericScreen {
                     clairo.disableControls=false;
                 }
             });
+            Texture menuBtn= new Texture("menu/cd-about-title.png");
+            TextureRegionDrawable trdMenu = new TextureRegionDrawable(new TextureRegion(menuBtn));
+            ImageButton menuButton = new ImageButton(trdMenu);
+            menuButton.setPosition(imgRectangle.getWidth()/2,imgRectangle.getHeight()*0.5f);
+            menuButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    // response
+                    game.setScreen(new LoadingScreen(game,Screens.HOME));
+                }
+            });
+            this.addActor(menuButton);
             this.addActor(backButton);
         }
     }
