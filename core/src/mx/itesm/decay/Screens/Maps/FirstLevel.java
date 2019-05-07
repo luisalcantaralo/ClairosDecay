@@ -330,7 +330,7 @@ public class FirstLevel extends GenericScreen {
         }
     }
 
-    /*private class ProcesadorEntrada implements InputProcessor {
+    private class ProcesadorEntrada implements InputProcessor {
 
 
         @Override
@@ -354,16 +354,19 @@ public class FirstLevel extends GenericScreen {
             camera.unproject(v3);
             // Left button
             if(v3.x >48 && v3.x<96 && v3.y >48 &&v3.y<144 ){
-                clairo.SetLeft();
+                clairo.setLeft();
             }
             // Right button
             else if(v3.x>144 && v3.x<240 && v3.y>48 && v3.y<144){
                 clairo.setRight();
                 }
-            else if (v3.x > PantallaCargando.ANCHO/2){
-
+            else if (v3.x >GenericScreen.WIDTH-192 && v3.x< GenericScreen.WIDTH-96 && v3.y>48 && v3.y<144 ){
+                clairo.setUpKeyPressed();
                 }
-
+            else{
+                clairo.setDefault();
+            }
+                return false;
             }
 
 
@@ -386,7 +389,7 @@ public class FirstLevel extends GenericScreen {
         public boolean scrolled(int amount) {
             return false;
         }
-    }*/
+    }
 
 }
 
