@@ -42,14 +42,12 @@ public class FatGuy extends Sprite {
     private void defineFatGuy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
-        bdef.type = BodyDef.BodyType.KinematicBody;
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(getWidth()/2, getHeight()/2);
         FixtureDef fix = new FixtureDef();
         fix.shape = shape;
-        fix.isSensor = true;
         Fixture fixture = body.createFixture(fix);
     }
 
