@@ -81,7 +81,7 @@ public class Clairo extends Sprite {
         frames.clear();
 
         for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 40, 284, 268));
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 80, 284, 178));
         clairoClimb = new Animation(0.1f, frames);
 
         frames.clear();
@@ -128,7 +128,7 @@ public class Clairo extends Sprite {
     private void updateMovement() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
+            body.setLinearVelocity(new Vector2(0, 70f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
