@@ -30,13 +30,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 
-
+import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
@@ -76,6 +77,9 @@ public class FirstLevel extends GenericScreen {
     private Texture pauseButton;
     private GameStates state;
     private PauseScene pauseScene;
+
+    // Items
+    Array<Box> boxes;
 
 
     public FirstLevel(Decay game){
@@ -167,6 +171,8 @@ public class FirstLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
+        boxes = MapConverter.createBoxes(map, world);
+
         b2dr = new Box2DDebugRenderer();
     }
 
@@ -211,6 +217,7 @@ public class FirstLevel extends GenericScreen {
                 mapRenderer.render();
 
                 batch.begin();
+                updateBoxes();
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -219,8 +226,7 @@ public class FirstLevel extends GenericScreen {
                 if(clairo.currentState == Clairo.State.DEAD) {
                     state = GameStates.GAME_OVER;
                 }
-                Gdx.app.log("X", String.valueOf(clairo.getX()));
-                Gdx.app.log("Y", String.valueOf(clairo.getY()));
+
 
             }
             if(state==GameStates.GAME_OVER){
@@ -234,6 +240,13 @@ public class FirstLevel extends GenericScreen {
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
+    }
+
+    private void updateBoxes() {
+        for(Box box: boxes){
+            box.update();
+            box.draw(batch);
+        }
     }
 
 
@@ -273,6 +286,9 @@ public class FirstLevel extends GenericScreen {
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     clairo.canClimb = true;
+                }
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
+                    Gdx.app.log("CoNtacto!", "con caja");
                 }
 
             }
