@@ -331,7 +331,7 @@ public class FirstLevel extends GenericScreen {
                     // response
                     state=GameStates.PLAYING;
                     pauseScene.dispose();
-                    Gdx.input.setInputProcessor(sceneHUD);
+                    Gdx.input.setInputProcessor(new ProcesadorEntrada());
                     clairo.disableControls=false;
                 }
             });
@@ -387,15 +387,22 @@ public class FirstLevel extends GenericScreen {
                 }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 Gdx.app.log("Arriba" ,"direccion");
-
                 clairo.setUpKey();
                 }
+            else if (v3.x >GenericScreen.WIDTH - 172 && v3.x <GenericScreen.WIDTH && v3.y >GenericScreen.HEIGHT - 172 && v3.y<GenericScreen.HEIGHT){
+                // response
+                clairo.disableControls=true;
+                state= GameStates.PAUSE;
+                if (state==GameStates.PAUSE) {
+                    // Activar escenaPausa y pasarle el control
+                    pauseScene = new FirstLevel.PauseScene(vistaHUD, batch, game);
+                    Gdx.input.setInputProcessor(pauseScene);
+            }}
             else{
                 clairo.setDefault();
 
-
             }
-                return false;
+            return false;
             }
 
 
