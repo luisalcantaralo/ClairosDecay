@@ -12,11 +12,19 @@ public class Text {
 
     public Text() {
         font = new BitmapFont(Gdx.files.internal("fonts/dialogue.fnt"));
+
     }
 
     public void showText(SpriteBatch batch, String message, float x, float y) {
         glyph.setText(font, message);
         float textWidth = glyph.width;
         font.draw(batch, glyph, x-textWidth/2, y);
+    }
+
+    public void showTimer(SpriteBatch batch, String message, float x, float y) {
+        font.getData().setScale(0.3f,0.3f);
+        glyph.setText(font, message);
+        float textWidth = glyph.width;
+        font.draw(batch, glyph, x, y);
     }
 }

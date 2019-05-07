@@ -29,6 +29,7 @@ public class LoadingScreen extends GenericScreen{
     private int progress;
     private Text text;
 
+
     private Texture loadingTexture;
 
 
