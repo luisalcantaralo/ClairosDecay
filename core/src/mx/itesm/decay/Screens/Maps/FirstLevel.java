@@ -78,7 +78,7 @@ public class FirstLevel extends GenericScreen {
     public FirstLevel(Decay game){
         super(5);
         this.game = game;
-        state= GameStates.PLAYING;
+        state = GameStates.PLAYING;
         manager = game.getAssetManager();
     }
 
@@ -88,7 +88,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,95);
-        background = new Texture("backgrounds/cd-simple-background.png");
+        background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
@@ -189,7 +189,7 @@ public class FirstLevel extends GenericScreen {
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
-                batch.draw(background,-150,0, background.getWidth()/2, background.getHeight()/2);
+                batch.draw(background,0,0, background.getWidth(), background.getHeight());
                 batch.end();
 
                 mapRenderer.setView(camera);
@@ -219,11 +219,31 @@ public class FirstLevel extends GenericScreen {
 
 
     private void updateCamera() {
-        float xCamara = clairo.getX();
+        float xCamera = clairo.getX();
         float yCamera = clairo.getY()+20;
+        float tileSize = map.getProperties().get("tilewidth", Integer.class);
+        float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
+        float mapHeight = (map.getProperties().get("height", Integer.class) * tileSize) / SCALE;
+
+        System.out.println(mapWidth);
+        System.out.println(mapHeight);
+        System.out.println(background.getWidth());
+        if(xCamera < SCALED_WIDTH/2){
+            xCamera = SCALED_WIDTH/2;
+        }else if(xCamera > mapWidth - SCALED_WIDTH/2){
+            xCamera = mapWidth - SCALED_WIDTH/2;
+
+        }
+        if(yCamera < SCALED_HEIGHT/2){
+            yCamera = SCALED_HEIGHT/2;
+        }else if(yCamera > mapHeight - SCALED_WIDTH/2){
+            yCamera = mapHeight - SCALED_WIDTH/2;
+
+        }
 
 
-        camera.position.x = xCamara;
+
+        camera.position.x = xCamera;
         camera.position.y = yCamera;
         camera.update();
     }
