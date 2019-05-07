@@ -145,11 +145,6 @@ public class TestScreen extends GenericScreen {
         configureBodies();
 
         clairo = new Clairo(world, 256,512);
-        turret1 = new Turret(this,1500,600);
-        turret2= new Turret(this,2240,600);
-        turret3= new Turret(this, 2500,600);
-        turret4= new Turret(this, 2760,600);
-        turretMoving = new Turret(this, 2000, 100);
         turretMoving.defineRange(400);
         enemy = new Enemy(this, 3000, 300);
         text = new Text();
