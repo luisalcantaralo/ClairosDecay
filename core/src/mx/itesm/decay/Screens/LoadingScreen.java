@@ -128,6 +128,7 @@ public class LoadingScreen extends GenericScreen{
     public void show() {
         text = new Text();
         loadNextScreenResources();
+        loadingTexture = new Texture("backgrounds/cd-simple-background.png");
 
     }
 
@@ -136,6 +137,7 @@ public class LoadingScreen extends GenericScreen{
         deleteScreen();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        batch.draw(loadingTexture, 0, 0);
         text.showText(batch, progress + "%", WIDTH/2, HEIGHT/5);
         batch.end();
 
