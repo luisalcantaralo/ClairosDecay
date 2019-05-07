@@ -23,7 +23,6 @@ public class MapConverter {
 
     public static void createBodies(TiledMap mapa, World mundo) {
         MapObjects objetos = mapa.getLayers().get("Collisions").getObjects();
-        Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
@@ -41,7 +40,6 @@ public class MapConverter {
 
     public static void createStairs(TiledMap mapa, World mundo){
         MapObjects objetos = mapa.getLayers().get("Stairs").getObjects();
-        Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
@@ -56,6 +54,27 @@ public class MapConverter {
             Fixture fixture = bodyStair.createFixture(fix);
             bodyStair.createFixture(fix);
             bodyStair.setUserData("stair");
+
+            rectangulo.dispose();
+        }
+    }
+
+    public static void createBoxes(TiledMap mapa, World mundo){
+        MapObjects objetos = mapa.getLayers().get("Boxes").getObjects();
+        for (MapObject objeto: objetos) {
+            Shape rectangulo = getRectangle((RectangleMapObject)objeto);
+
+            BodyDef bd = new BodyDef();
+            bd.position.set(((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE);
+            bd.type = BodyDef.BodyType.StaticBody;
+            Body bodyStair = mundo.createBody(bd);
+
+            FixtureDef fix = new FixtureDef();
+            fix.shape = rectangulo;
+            fix.isSensor = true;
+            Fixture fixture = bodyStair.createFixture(fix);
+            bodyStair.createFixture(fix);
+            bodyStair.setUserData("box");
 
             rectangulo.dispose();
         }

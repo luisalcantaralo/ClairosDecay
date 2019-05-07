@@ -14,6 +14,7 @@ public class BlackScreen extends GenericScreen {
     float y;
 
     public BlackScreen(String message, float time, float x, float y){
+        super();
         timer = time;
         this.message = message;
 

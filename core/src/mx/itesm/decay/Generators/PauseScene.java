@@ -23,7 +23,7 @@ public class PauseScene extends Stage {
     public PauseScene(Viewport view, Batch batch, Decay game, final Stage sceneHUD) {
         super(view, batch);
         this.game=game;
-        Pixmap pixmap= new Pixmap((int)(GenericScreen.WIDTH*0.6),(int)(GenericScreen.HEIGHT*0.7f), Pixmap.Format.RGBA8888);
+        Pixmap pixmap= new Pixmap((int)(GenericScreen.WIDTH*0.8),(int)(GenericScreen.HEIGHT*0.5f), Pixmap.Format.RGBA8888);
         pixmap.setColor(0.1f,0.1f,0.1f,0.5f);
         pixmap.fillRectangle(0,0,pixmap.getWidth(),pixmap.getHeight());
         Texture textureRectangle= new Texture(pixmap);

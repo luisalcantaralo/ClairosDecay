@@ -40,6 +40,7 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
+import mx.itesm.decay.Screens.BlackScreen;
 import mx.itesm.decay.Screens.GameStates;
 import mx.itesm.decay.Screens.LoadingScreen;
 import mx.itesm.decay.Screens.Menu.Home;
@@ -108,24 +109,24 @@ public class FirstLevel extends GenericScreen {
         imgHealthBarC.setPosition(GenericScreen.WIDTH*0.05f - imgHealthBarC.getImageWidth(), GenericScreen.HEIGHT*0.9f - imgHealthBarC.getImageHeight());
         imgHeathBar.setPosition(GenericScreen.WIDTH*0.055f - imgHeathBar.getImageWidth(), GenericScreen.HEIGHT*0.91f - imgHeathBar.getImageHeight());
         //MOVEMENT BUTTONS
-        Texture rightTexture= new Texture("UI/ButtonRight.png");
+        Texture rightTexture= new Texture("UI/cd-button-right.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
         ImageButton rightButton= new ImageButton(trdRightButton);
         rightButton.setPosition(rightButton.getWidth()*1.5f+100,rightButton.getHeight()/2);
 
 
-        Texture leftTexture= new Texture("UI/ButtonLeft.png");
+        Texture leftTexture= new Texture("UI/cd-button-left.png");
         TextureRegionDrawable trdLeftButton= new TextureRegionDrawable(new TextureRegion(leftTexture));
         ImageButton leftButton= new ImageButton(trdLeftButton);
         leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
-        Texture jumpTexture= new Texture("UI/AButton.png");
+        Texture jumpTexture= new Texture("UI/cd-a-button.png");
         TextureRegionDrawable trdJumpButton= new TextureRegionDrawable(new TextureRegion(jumpTexture));
         ImageButton jumpButton= new ImageButton(trdJumpButton);
         jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
 
         // PAUSE
-        pauseButton= new Texture("menu/cd-button-back.png");
+        pauseButton= new Texture("UI/cd-pause-button.png");
         TextureRegionDrawable trdPauseButton = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton pauseButtonImage = new ImageButton(trdPauseButton);
         pauseButtonImage.setPosition(GenericScreen.WIDTH - pauseButtonImage.getWidth()*2, GenericScreen.HEIGHT - pauseButtonImage.getHeight()*2);
@@ -214,7 +215,14 @@ public class FirstLevel extends GenericScreen {
                 b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
+                if(clairo.currentState == Clairo.State.DEAD) {
+                    state = GameStates.GAME_OVER;
+                }
             }
+            if(state==GameStates.GAME_OVER){
+                game.setScreen(new BlackScreen("GAME OVER", 5, 600, 360));
+            }
+
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
@@ -228,9 +236,6 @@ public class FirstLevel extends GenericScreen {
         float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
         float mapHeight = (map.getProperties().get("height", Integer.class) * tileSize) / SCALE;
 
-        System.out.println(mapWidth);
-        System.out.println(mapHeight);
-        System.out.println(background.getWidth());
         if(xCamera < SCALED_WIDTH/2){
             xCamera = SCALED_WIDTH/2;
         }else if(xCamera > mapWidth - SCALED_WIDTH/2){
@@ -259,7 +264,6 @@ public class FirstLevel extends GenericScreen {
                 Fixture fixtureB = contact.getFixtureB();
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
-                    Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = true;
                 }
 
@@ -271,7 +275,6 @@ public class FirstLevel extends GenericScreen {
                 Fixture fixtureB = contact.getFixtureB();
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
-                    Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = false;
                 }
             }
@@ -376,17 +379,14 @@ public class FirstLevel extends GenericScreen {
             camaraHUD.unproject(v3);
             // Left button
             if(v3.x >48 && v3.x<144 && v3.y >48 &&v3.y<144 ){
-                Gdx.app.log("Izquierda" ,"direccion");
                 clairo.setLeft();
             }
             // Right button
             else if(v3.x>244 && v3.x<339 && v3.y>48 && v3.y<144){
-                Gdx.app.log("Derecha" ,"direccion");
 
                 clairo.setRight();
                 }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
-                Gdx.app.log("Arriba" ,"direccion");
                 clairo.setUpKey();
                 }
             else if (v3.x >GenericScreen.WIDTH - 172 && v3.x <GenericScreen.WIDTH && v3.y >GenericScreen.HEIGHT - 172 && v3.y<GenericScreen.HEIGHT){
