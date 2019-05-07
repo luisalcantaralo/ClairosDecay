@@ -1,4 +1,4 @@
-/**package mx.itesm.decay.Screens.Dev;
+/*package mx.itesm.decay.Screens.Dev;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -426,4 +426,4 @@ public class Storage extends GenericScreen {
     }
 
 
-}**/
+}*/
