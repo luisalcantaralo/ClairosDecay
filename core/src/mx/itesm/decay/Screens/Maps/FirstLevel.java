@@ -96,7 +96,7 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 730,540);
+        clairo = new Clairo(world, 100,100);
         fat = new FatGuy(world, 759, 560);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
