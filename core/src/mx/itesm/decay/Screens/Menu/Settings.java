@@ -12,7 +12,8 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 
-public class Settings extends GenericScreen {
+public class
+Settings extends GenericScreen {
     private final Decay game;
     // main textures
     private Texture settingsBackground;

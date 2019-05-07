@@ -24,7 +24,7 @@ import mx.itesm.decay.Screens.TestScreen;
 public class Clairo extends Sprite {
 
     // Clairo's State
-    public enum State { IDLE, WALKING, RUNNING, CLIMBING, JUMPING, FALLING, SHOOTING}
+    public enum State { IDLE, DEAD, RUNNING, CLIMBING, JUMPING, FALLING, SHOOTING}
     public State currentState;
     public State previousState;
 
@@ -118,24 +118,30 @@ public class Clairo extends Sprite {
 
     private void updateState(float dt) {
 
-        if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb) {
-            currentState = State.JUMPING;
+        if(body.getPosition().y < 0){
+            currentState = State.DEAD;
         }
-        else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
-            currentState = State.CLIMBING;
+        else{
+            if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb) {
+                currentState = State.JUMPING;
+            }
+            else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
+                currentState = State.CLIMBING;
+            }
+            else if (body.getLinearVelocity().y < 0 && !canClimb ) {
+                currentState = State.FALLING;
+            }
+            else if (body.getLinearVelocity().y < 0 && canClimb ) {
+                currentState = State.CLIMBING;
+            }
+            else if (body.getLinearVelocity().x != 0) {
+                currentState = State.RUNNING;
+            }
+            else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting) {
+                currentState = State.IDLE;
+            }
         }
-        else if (body.getLinearVelocity().y < 0 && !canClimb ) {
-            currentState = State.FALLING;
-        }
-        else if (body.getLinearVelocity().y < 0 && canClimb ) {
-            currentState = State.CLIMBING;
-        }
-        else if (body.getLinearVelocity().x != 0) {
-            currentState = State.RUNNING;
-        }
-        else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting) {
-            currentState = State.IDLE;
-        }
+
     }
 
     private void updateMovement() {
