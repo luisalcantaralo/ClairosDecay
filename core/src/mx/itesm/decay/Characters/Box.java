@@ -3,6 +3,7 @@ package mx.itesm.decay.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -33,6 +34,9 @@ public class Box extends Sprite {
     }
 
     public void update(){
+        if(body.getLinearVelocity().y < 0 && body.getLinearVelocity().x != 0){
+            body.setLinearVelocity(new Vector2(0, body.getLinearVelocity().y));
+        }
         setPosition((body.getPosition().x)-getWidth()/2, (body.getPosition().y)-getHeight()/2);
         setRegion(new TextureRegion(boxTexture));
     }

@@ -226,6 +226,9 @@ public class FirstLevel extends GenericScreen {
                 if(clairo.currentState == Clairo.State.DEAD) {
                     state = GameStates.GAME_OVER;
                 }
+                Gdx.app.log("X", String.valueOf(clairo.getX()));
+                Gdx.app.log("Y", String.valueOf(clairo.getY()));
+
             }
             if(state==GameStates.GAME_OVER){
                 game.setScreen(new BlackScreen("GAME OVER", 5, WIDTH/2, HEIGHT/2));
