@@ -249,7 +249,6 @@ public class FirstLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
-        b2dr.render(world, camera.combined);
         updateCamera();
     }
 
