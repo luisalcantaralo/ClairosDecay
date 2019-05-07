@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import mx.itesm.decay.Screens.Dev.Test;
 import mx.itesm.decay.Screens.GameOver;
 import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Screens;
 import mx.itesm.decay.Screens.Splash;
 import mx.itesm.decay.Screens.TestLevel1Screen;
