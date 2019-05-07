@@ -39,6 +39,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericScreen;
@@ -60,6 +61,7 @@ public class FirstLevel extends GenericScreen {
     private OrthogonalTiledMapRenderer mapRenderer;
 
     private Clairo clairo;
+    private FatGuy fat;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -95,6 +97,8 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,95);
+        clairo = new Clairo(world, 100,100);
+        fat = new FatGuy(world, 759, 560);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -197,6 +201,11 @@ public class FirstLevel extends GenericScreen {
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
 
+            if(clairo.getX() > 720 && clairo.getY() > 530){
+                Decay.prefs.putString("level", "2");
+                state = GameStates.NEXT;
+                game.setScreen(new SecondLevel(game));
+            }
             if(state==GameStates.PLAYING){
                 Gdx.gl.glClearColor(1,1,1,0);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -204,6 +213,7 @@ public class FirstLevel extends GenericScreen {
                 world.step(delta, 6,2);
 
                 clairo.update(time);
+                fat.update(time);
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
@@ -219,6 +229,7 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 updateBoxes();
                 clairo.draw(batch);
+                fat.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
