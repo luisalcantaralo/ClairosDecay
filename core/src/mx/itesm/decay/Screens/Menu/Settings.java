@@ -112,7 +112,7 @@ Settings extends GenericScreen {
     @Override
     public void render(float delta) {
         if(!Decay.prefs.getBoolean("music")){
-            Home.menuTheme.stop();
+            Home.menuTheme.pause();
         }
         else {
             Home.menuTheme.play();
