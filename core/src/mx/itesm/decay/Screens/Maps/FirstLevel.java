@@ -75,7 +75,7 @@ public class FirstLevel extends GenericScreen {
     public FirstLevel(Decay game){
         super(5);
         this.game = game;
-        state= GameStates.PLAYING;
+        state = GameStates.PLAYING;
         manager = game.getAssetManager();
     }
 
@@ -85,7 +85,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,95);
-        background = new Texture("backgrounds/cd-simple-background.png");
+        background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
     }
@@ -177,7 +177,7 @@ public class FirstLevel extends GenericScreen {
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
-                batch.draw(background,-150,0, background.getWidth()/2, background.getHeight()/2);
+                batch.draw(background,0,0, background.getWidth(), background.getHeight());
                 batch.end();
 
                 mapRenderer.setView(camera);
@@ -208,7 +208,7 @@ public class FirstLevel extends GenericScreen {
 
 
     private void updateCamera() {
-        float xCamara = clairo.getX();
+        float xCamera = clairo.getX();
         float yCamera = clairo.getY()+20;
         float tileSize = map.getProperties().get("tilewidth", Integer.class);
         float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
@@ -232,7 +232,7 @@ public class FirstLevel extends GenericScreen {
 
 
 
-        camera.position.x = xCamara;
+        camera.position.x = xCamera;
         camera.position.y = yCamera;
         camera.update();
     }
