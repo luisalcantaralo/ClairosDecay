@@ -78,7 +78,7 @@ public class FirstLevel extends GenericScreen {
     public FirstLevel(Decay game){
         super(5);
         this.game = game;
-        state = GameStates.PLAYING;
+        state= GameStates.PLAYING;
         manager = game.getAssetManager();
     }
 
@@ -88,11 +88,9 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,95);
-        background = new Texture("backgrounds/cd-map-01-background.png");
+        background = new Texture("backgrounds/cd-simple-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
-        Gdx.input.setInputProcessor(new ProcesadorEntrada());
-
     }
 
     private void createHUD() {
@@ -102,11 +100,23 @@ public class FirstLevel extends GenericScreen {
         vistaHUD = new StretchViewport(GenericScreen.WIDTH,GenericScreen.HEIGHT, camaraHUD);
 
         // HUD
+        //Health Bar
+
+        //Health Bar
+        healthBarC = manager.get("Items/LifeBarContainer.png");
+        healthBar = manager.get("Items/TimeBar.png");
+
+        Image imagehealthBarC = new Image(healthBarC);
+        Image imagehealthBar = new Image(healthBar);
+
+        imagehealthBarC.setPosition(GenericScreen.WIDTH * 0.05f-imagehealthBarC.getImageWidth(),GenericScreen.HEIGHT *0.9f - imagehealthBarC.getImageHeight());
+        imagehealthBar.setPosition(GenericScreen.WIDTH * 0.055f-imagehealthBar.getImageWidth(),GenericScreen.HEIGHT *0.91f - imagehealthBar.getImageHeight());
+
         //MOVEMENT BUTTONS
         Texture rightTexture= new Texture("UI/ButtonRight.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
         ImageButton rightButton= new ImageButton(trdRightButton);
-        rightButton.setPosition(rightButton.getWidth()*1.5f+100,rightButton.getHeight()/2);
+        rightButton.setPosition(rightButton.getWidth()*1.5f,rightButton.getHeight()/2);
 
 
         Texture leftTexture= new Texture("UI/ButtonLeft.png");
@@ -144,6 +154,8 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
         sceneHUD.addActor(jumpButton);
+        sceneHUD.addActor(imagehealthBarC);
+        sceneHUD.addActor(imagehealthBar);
         createCollisionListener();
     }
 
@@ -170,8 +182,6 @@ public class FirstLevel extends GenericScreen {
         map = manager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
-        healthBarC = manager.get("Items/LifeBarContainer.png");
-        healthBar = manager.get("Items/TimeBar.png");
     }
 
 
@@ -189,7 +199,7 @@ public class FirstLevel extends GenericScreen {
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
-                batch.draw(background,0,0, background.getWidth(), background.getHeight());
+                batch.draw(background,-150,0, background.getWidth()/2, background.getHeight()/2);
                 batch.end();
 
                 mapRenderer.setView(camera);
@@ -204,9 +214,6 @@ public class FirstLevel extends GenericScreen {
 
                 batch.begin();
                 clairo.draw(batch);
-
-                batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
-                batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
                 batch.end();
                 b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -219,31 +226,11 @@ public class FirstLevel extends GenericScreen {
 
 
     private void updateCamera() {
-        float xCamera = clairo.getX();
+        float xCamara = clairo.getX();
         float yCamera = clairo.getY()+20;
-        float tileSize = map.getProperties().get("tilewidth", Integer.class);
-        float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
-        float mapHeight = (map.getProperties().get("height", Integer.class) * tileSize) / SCALE;
-
-        System.out.println(mapWidth);
-        System.out.println(mapHeight);
-        System.out.println(background.getWidth());
-        if(xCamera < SCALED_WIDTH/2){
-            xCamera = SCALED_WIDTH/2;
-        }else if(xCamera > mapWidth - SCALED_WIDTH/2){
-            xCamera = mapWidth - SCALED_WIDTH/2;
-
-        }
-        if(yCamera < SCALED_HEIGHT/2){
-            yCamera = SCALED_HEIGHT/2;
-        }else if(yCamera > mapHeight - SCALED_WIDTH/2){
-            yCamera = mapHeight - SCALED_WIDTH/2;
-
-        }
 
 
-
-        camera.position.x = xCamera;
+        camera.position.x = xCamara;
         camera.position.y = yCamera;
         camera.update();
     }
@@ -259,6 +246,7 @@ public class FirstLevel extends GenericScreen {
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = true;
+                    //clairo.reduceShapeBox();
                 }
 
             }
@@ -271,6 +259,7 @@ public class FirstLevel extends GenericScreen {
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = false;
+                    //clairo.returneShapeBox();
                 }
             }
 
@@ -371,27 +360,20 @@ public class FirstLevel extends GenericScreen {
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
             Vector3 v3 = new Vector3(screenX,screenY,0);
-            camaraHUD.unproject(v3);
+            camera.unproject(v3);
             // Left button
-            if(v3.x >48 && v3.x<144 && v3.y >48 &&v3.y<144 ){
-                Gdx.app.log("Izquierda" ,"direccion");
+            if(v3.x >48 && v3.x<96 && v3.y >48 &&v3.y<144 ){
                 clairo.setLeft();
             }
             // Right button
-            else if(v3.x>244 && v3.x<339 && v3.y>48 && v3.y<144){
-                Gdx.app.log("Derecha" ,"direccion");
-
+            else if(v3.x>144 && v3.x<240 && v3.y>48 && v3.y<144){
                 clairo.setRight();
                 }
-            else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
-                Gdx.app.log("Arriba" ,"direccion");
-
-                clairo.setUpKey();
+            else if (v3.x >GenericScreen.WIDTH-192 && v3.x< GenericScreen.WIDTH-96 && v3.y>48 && v3.y<144 ){
+                clairo.setUpKeyPressed();
                 }
             else{
                 clairo.setDefault();
-
-
             }
                 return false;
             }
@@ -399,7 +381,6 @@ public class FirstLevel extends GenericScreen {
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            clairo.setDefault();
             return false;
         }
 

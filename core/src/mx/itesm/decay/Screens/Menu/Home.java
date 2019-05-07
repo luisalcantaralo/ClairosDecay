@@ -187,6 +187,8 @@ public class Home extends GenericScreen{
             manager.unload("menu/cd-button-settings.png");
             manager.unload("menu/cd-button-back.png");
             manager.unload("menu/cd-about-us.png");
+            manager.unload("Music/MainMenu.mp3");
+
         }
     }
 
