@@ -1,6 +1,7 @@
 package mx.itesm.decay.Screens;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -92,6 +93,7 @@ public class LoadingScreen extends GenericScreen{
         manager.load("menu/cd-button-back.png", Texture.class);
         manager.load("menu/cd-about-us.png", Texture.class);
 
+        manager.load("Music/MainMenu.mp3",Music.class);
 
     }
 

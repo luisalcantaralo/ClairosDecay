@@ -59,7 +59,6 @@ public class Test extends GenericScreen {
                 super.clicked(event, x, y);
                 // response
                 game.setScreen(new Test(game));
-
             }
         });
 
