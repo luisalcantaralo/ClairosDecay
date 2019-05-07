@@ -210,6 +210,26 @@ public class FirstLevel extends GenericScreen {
     private void updateCamera() {
         float xCamara = clairo.getX();
         float yCamera = clairo.getY()+20;
+        float tileSize = map.getProperties().get("tilewidth", Integer.class);
+        float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
+        float mapHeight = (map.getProperties().get("height", Integer.class) * tileSize) / SCALE;
+
+        System.out.println(mapWidth);
+        System.out.println(mapHeight);
+        System.out.println(background.getWidth());
+        if(xCamera < SCALED_WIDTH/2){
+            xCamera = SCALED_WIDTH/2;
+        }else if(xCamera > mapWidth - SCALED_WIDTH/2){
+            xCamera = mapWidth - SCALED_WIDTH/2;
+
+        }
+        if(yCamera < SCALED_HEIGHT/2){
+            yCamera = SCALED_HEIGHT/2;
+        }else if(yCamera > mapHeight - SCALED_WIDTH/2){
+            yCamera = mapHeight - SCALED_WIDTH/2;
+
+        }
+
 
 
         camera.position.x = xCamara;
