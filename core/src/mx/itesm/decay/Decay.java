@@ -22,7 +22,7 @@ import mx.itesm.decay.Screens.Menu.Home;
 
 public class Decay extends Game{
     public static final short GROUP_PLAYER = -1;
-    public static final short GROUP_STAIRS = -2;
+    public static final short GROUP_BOX = -2;
 
     public static  Preferences prefs;
     private final AssetManager assetManager;
