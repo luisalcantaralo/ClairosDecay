@@ -52,7 +52,7 @@ import mx.itesm.decay.Screens.LoadingScreen;
 import mx.itesm.decay.Screens.Menu.Home;
 import mx.itesm.decay.Screens.Screens;
 
-public class FirstLevel extends GenericScreen {
+public class SecondLevel extends GenericScreen {
 
     private Decay game;
     private final AssetManager manager;
@@ -61,7 +61,6 @@ public class FirstLevel extends GenericScreen {
     private OrthogonalTiledMapRenderer mapRenderer;
 
     private Clairo clairo;
-    private FatGuy fat;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -84,7 +83,7 @@ public class FirstLevel extends GenericScreen {
     Array<Box> boxes;
 
 
-    public FirstLevel(Decay game){
+    public SecondLevel(Decay game){
         super(5);
         this.game = game;
         state = GameStates.PLAYING;
@@ -96,8 +95,7 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 680,540);
-        fat = new FatGuy(world, 759, 560);
+        clairo = new Clairo(world, 100,100);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -150,7 +148,7 @@ public class FirstLevel extends GenericScreen {
                 state= GameStates.PAUSE;
                 if (state==GameStates.PAUSE) {
                     // Activar escenaPausa y pasarle el control
-                    pauseScene = new FirstLevel.PauseScene(vistaHUD, batch, game);
+                    pauseScene = new SecondLevel.PauseScene(vistaHUD, batch, game);
                     Gdx.input.setInputProcessor(pauseScene);
                 }
             }
@@ -174,7 +172,7 @@ public class FirstLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        boxes = MapConverter.createBoxes(map, world);
+        //boxes = MapConverter.createBoxes(map, world);
 
         b2dr = new Box2DDebugRenderer();
     }
@@ -187,10 +185,10 @@ public class FirstLevel extends GenericScreen {
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
 
-        manager.load("maps/cd-map-01.tmx", TiledMap.class);
+        manager.load("maps/cd-map-02.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-01.tmx");
+        map = manager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
 
@@ -200,52 +198,49 @@ public class FirstLevel extends GenericScreen {
     @Override
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
-            if(clairo.getX() > 720 && clairo.getY() > 530){
-                Decay.prefs.putString("level", "2");
-                state = GameStates.NEXT;
-                game.setScreen(new SecondLevel(game));
+        if(clairo.getX() > 720 && clairo.getY() > 530){
+            Decay.prefs.putString("level", "2");
+            game.setScreen(new FirstLevel(game));
+        }
+        if(state==GameStates.PLAYING){
+            Gdx.gl.glClearColor(1,1,1,0);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            world.step(delta, 6,2);
+
+            clairo.update(time);
+
+            batch.setProjectionMatrix(camera.combined);
+            batch.begin();
+            batch.draw(background,0,0, background.getWidth(), background.getHeight());
+            batch.end();
+
+            mapRenderer.setView(camera);
+            mapRenderer.render();
+            updateCamera();
+            mapRenderer.setView(camera);
+            mapRenderer.render();
+
+            batch.begin();
+            //updateBoxes();
+            clairo.draw(batch);
+            batch.end();
+            batch.setProjectionMatrix(camaraHUD.combined);
+            sceneHUD.draw();
+
+            if(clairo.currentState == Clairo.State.DEAD) {
+                state = GameStates.GAME_OVER;
             }
-            if(state==GameStates.PLAYING){
-                Gdx.gl.glClearColor(1,1,1,0);
-                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-                world.step(delta, 6,2);
-
-                clairo.update(time);
-                fat.update(time);
-
-                batch.setProjectionMatrix(camera.combined);
-                batch.begin();
-                batch.draw(background,0,0, background.getWidth(), background.getHeight());
-                batch.end();
-
-                mapRenderer.setView(camera);
-                mapRenderer.render();
-                updateCamera();
-                mapRenderer.setView(camera);
-                mapRenderer.render();
-
-                batch.begin();
-                updateBoxes();
-                clairo.draw(batch);
-                fat.draw(batch);
-                batch.end();
-                batch.setProjectionMatrix(camaraHUD.combined);
-                sceneHUD.draw();
-
-                if(clairo.currentState == Clairo.State.DEAD) {
-                    state = GameStates.GAME_OVER;
-                }
 
 
-            }
-            if(state==GameStates.GAME_OVER){
-                game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
-            }
+        }
+        if(state==GameStates.GAME_OVER){
+            game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
+        }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-                state=GameStates.PAUSE;
-                pauseScene = new PauseScene(vistaHUD, batch, game);
-                Gdx.input.setInputProcessor(pauseScene);
+            state=GameStates.PAUSE;
+            pauseScene = new PauseScene(vistaHUD, batch, game);
+            Gdx.input.setInputProcessor(pauseScene);
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
@@ -416,7 +411,7 @@ public class FirstLevel extends GenericScreen {
             else if(v3.x>244 && v3.x<339 && v3.y>48 && v3.y<144){
 
                 clairo.setRight();
-                }
+            }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();
                 clairo.canJump = false;
@@ -428,15 +423,15 @@ public class FirstLevel extends GenericScreen {
                 state= GameStates.PAUSE;
                 if (state==GameStates.PAUSE) {
                     // Activar escenaPausa y pasarle el control
-                    pauseScene = new FirstLevel.PauseScene(vistaHUD, batch, game);
+                    pauseScene = new SecondLevel.PauseScene(vistaHUD, batch, game);
                     Gdx.input.setInputProcessor(pauseScene);
-            }}
+                }}
             else{
                 clairo.setDefault();
 
             }
             return false;
-            }
+        }
 
 
         @Override
