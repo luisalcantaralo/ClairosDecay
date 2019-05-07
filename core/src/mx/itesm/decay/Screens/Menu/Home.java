@@ -49,7 +49,7 @@ public class Home extends GenericScreen{
 
         loadBackground();
         loadButtons();
-        loadMusic();
+        //loadMusic();
 
         //we pass the input control to the scene
         Gdx.input.setInputProcessor(sceneMenu);
