@@ -4,12 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -33,6 +32,8 @@ public class FirstLevel extends GenericScreen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    private Texture background;
+
 
     public FirstLevel(Decay game){
         super(5);
@@ -46,6 +47,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,300);
+        background = new Texture("backgrounds/cd-simple-background.png");
     }
 
     private void setPhysics() {
@@ -83,6 +85,12 @@ public class FirstLevel extends GenericScreen {
         clairo.update(time);
 
         batch.setProjectionMatrix(camera.combined);
+
+
+        batch.begin();
+        batch.draw(background,clairo.getX()-200,0, background.getWidth()/2, background.getHeight()/2);
+        batch.end();
+
         mapRenderer.setView(camera);
         mapRenderer.render();
 
