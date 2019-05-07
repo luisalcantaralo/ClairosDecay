@@ -23,7 +23,6 @@ public class MapConverter {
 
     public static void createBodies(TiledMap mapa, World mundo) {
         MapObjects objetos = mapa.getLayers().get("Collisions").getObjects();
-        Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
@@ -41,7 +40,6 @@ public class MapConverter {
 
     public static void createStairs(TiledMap mapa, World mundo){
         MapObjects objetos = mapa.getLayers().get("Stairs").getObjects();
-        Gdx.app.log("MAPA", "cantidad objetos: " + objetos.getCount());
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 

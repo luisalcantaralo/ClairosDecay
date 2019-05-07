@@ -40,6 +40,7 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
+import mx.itesm.decay.Screens.BlackScreen;
 import mx.itesm.decay.Screens.GameStates;
 import mx.itesm.decay.Screens.LoadingScreen;
 import mx.itesm.decay.Screens.Menu.Home;
@@ -214,7 +215,11 @@ public class FirstLevel extends GenericScreen {
                 b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
+                if(clairo.currentState == Clairo.State.DEAD) {
+                    state = GameStates.GAME_OVER;
+                }
             }
+            new BlackScreen("GAME OVER", 5, 600, 360);
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
@@ -228,9 +233,6 @@ public class FirstLevel extends GenericScreen {
         float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
         float mapHeight = (map.getProperties().get("height", Integer.class) * tileSize) / SCALE;
 
-        System.out.println(mapWidth);
-        System.out.println(mapHeight);
-        System.out.println(background.getWidth());
         if(xCamera < SCALED_WIDTH/2){
             xCamera = SCALED_WIDTH/2;
         }else if(xCamera > mapWidth - SCALED_WIDTH/2){
@@ -259,7 +261,6 @@ public class FirstLevel extends GenericScreen {
                 Fixture fixtureB = contact.getFixtureB();
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
-                    Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = true;
                 }
 
@@ -271,7 +272,6 @@ public class FirstLevel extends GenericScreen {
                 Fixture fixtureB = contact.getFixtureB();
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
-                    Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                     clairo.canClimb = false;
                 }
             }
@@ -376,17 +376,14 @@ public class FirstLevel extends GenericScreen {
             camaraHUD.unproject(v3);
             // Left button
             if(v3.x >48 && v3.x<144 && v3.y >48 &&v3.y<144 ){
-                Gdx.app.log("Izquierda" ,"direccion");
                 clairo.setLeft();
             }
             // Right button
             else if(v3.x>244 && v3.x<339 && v3.y>48 && v3.y<144){
-                Gdx.app.log("Derecha" ,"direccion");
 
                 clairo.setRight();
                 }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
-                Gdx.app.log("Arriba" ,"direccion");
                 clairo.setUpKey();
                 }
             else if (v3.x >GenericScreen.WIDTH - 172 && v3.x <GenericScreen.WIDTH && v3.y >GenericScreen.HEIGHT - 172 && v3.y<GenericScreen.HEIGHT){

@@ -61,7 +61,7 @@ public class Home extends GenericScreen{
 
         // help button
         Music menuTheme = manager.get("Music/MainMenu.mp3");
-        menuTheme.play();
+        //menuTheme.play();
     }
 
     public void loadBackground(){
