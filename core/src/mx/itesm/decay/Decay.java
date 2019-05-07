@@ -18,7 +18,8 @@ import mx.itesm.decay.Screens.Menu.Home;
 
 
 public class Decay extends Game{
-    public static float PPM = 100;
+    public static final short GROUP_PLAYER = -1;
+    public static final short GROUP_STAIRS = -2;
 
     private final AssetManager assetManager;
 
@@ -34,6 +35,7 @@ public class Decay extends Game{
     public AssetManager getAssetManager() {
         return assetManager;
     }
+
 }
 
 

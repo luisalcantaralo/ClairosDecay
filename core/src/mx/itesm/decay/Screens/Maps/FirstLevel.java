@@ -16,6 +16,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -49,6 +54,8 @@ public class FirstLevel extends GenericScreen {
     private Box2DDebugRenderer b2dr;
 
     private Texture background;
+    private Texture healthBarC;
+    private Texture healthBar;
 
     //HUD
     private OrthographicCamera camaraHUD;
@@ -115,6 +122,7 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
+        createCollisionListener();
     }
 
     private void setPhysics() {
@@ -139,6 +147,9 @@ public class FirstLevel extends GenericScreen {
 
         map = manager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
+
+        healthBarC = manager.get("Items/LifeBarContainer.png");
+        healthBar = manager.get("Items/TimeBar.png");
     }
 
 
@@ -161,7 +172,6 @@ public class FirstLevel extends GenericScreen {
 
                 mapRenderer.setView(camera);
                 mapRenderer.render();
-
                 batch.begin();
                 clairo.draw(batch);
                 batch.end();
@@ -169,7 +179,19 @@ public class FirstLevel extends GenericScreen {
                 updateCamera();
                 sceneHUD.draw();
             }
+        mapRenderer.setView(camera);
+        mapRenderer.render();
 
+        batch.begin();
+        clairo.draw(batch);
+
+        batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
+        batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
+
+        batch.end();
+
+        b2dr.render(world, camera.combined);
+        updateCamera();
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
     }
@@ -182,6 +204,45 @@ public class FirstLevel extends GenericScreen {
         camera.position.x = xCamara;
         camera.position.y = yCamera;
         camera.update();
+    }
+
+    private void createCollisionListener() {
+        world.setContactListener(new ContactListener() {
+
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
+                    Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+                    clairo.canClimb = true;
+                    //clairo.reduceShapeBox();
+                }
+
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
+                    Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+                    clairo.canClimb = false;
+                    //clairo.returneShapeBox();
+                }
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+            }
+
+        });
     }
 
     @Override

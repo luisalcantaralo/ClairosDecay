@@ -17,28 +17,32 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+import mx.itesm.decay.Decay;
 import mx.itesm.decay.Screens.TestScreen;
 
 
 public class Clairo extends Sprite {
 
     // Clairo's State
-    public enum State { IDLE, WALKING, RUNNING, DEAD, JUMPING, FALLING, SHOOTING}
+    public enum State { IDLE, WALKING, RUNNING, CLIMBING, JUMPING, FALLING, SHOOTING}
     public State currentState;
     public State previousState;
 
     // Box2d
     public World world;
     public Body body;
+    public PolygonShape shape;
+    FixtureDef fix;
 
     // Textures
     private Texture idleText;
+
 
     // Animations
     private Animation<TextureRegion> clairoStand;
     private Animation<TextureRegion> clairoRun;
     private Animation<TextureRegion> clairoJump;
-    private Animation<TextureRegion> clairoWalk;
+    private Animation<TextureRegion> clairoClimb;
     private Animation<TextureRegion> clairoShoot;
 
 
@@ -47,6 +51,7 @@ public class Clairo extends Sprite {
     public boolean isRunningRight;
     public boolean disableControls = false;
     public boolean isShooting = false;
+    public boolean canClimb = false;
 
     //private final TestScreen screen;
 
@@ -78,6 +83,12 @@ public class Clairo extends Sprite {
 
         frames.clear();
 
+        for(int i = 0; i < 6; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 80, 284, 178));
+        clairoClimb = new Animation(0.1f, frames);
+
+        frames.clear();
+
          for(int i = 1; i < 10; i++)
              frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 50, 234, 268));
         clairoShoot = new Animation(0.1f, frames);
@@ -100,8 +111,11 @@ public class Clairo extends Sprite {
 
     private void updateState(float dt) {
 
-        if (body.getLinearVelocity().y > 0 && dt < 0.5) {
+        if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb) {
             currentState = State.JUMPING;
+        }
+        else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
+            currentState = State.CLIMBING;
         }
         else if (body.getLinearVelocity().y < 0 || (body.getLinearVelocity().y > 0 && dt > 0.5) ) {
             currentState = State.FALLING;
@@ -116,6 +130,10 @@ public class Clairo extends Sprite {
 
     private void updateMovement() {
 
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
+            body.setLinearVelocity(new Vector2(0, 70f));
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
             body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
         }
@@ -124,6 +142,7 @@ public class Clairo extends Sprite {
 
             body.applyLinearImpulse(new Vector2(0, 200f), body.getWorldCenter(), true);
         }
+
 
         if(currentState == State.RUNNING){
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
@@ -189,9 +208,6 @@ public class Clairo extends Sprite {
             case IDLE:
                 region = clairoStand.getKeyFrame(timer, true);
                 break;
-            case WALKING:
-                region = clairoWalk.getKeyFrame(timer, true);
-                break;
             case RUNNING:
                 region = clairoRun.getKeyFrame(timer, true);
                 break;
@@ -203,6 +219,9 @@ public class Clairo extends Sprite {
                 break;
             case FALLING:
                 region = clairoJump.getKeyFrame(timer, true);
+                break;
+            case CLIMBING:
+                region = clairoClimb.getKeyFrame(timer, true);
                 break;
             default:
                 region = clairoRun.getKeyFrame(timer, true);
@@ -226,10 +245,21 @@ public class Clairo extends Sprite {
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/2, getHeight()/2);
-        FixtureDef fix = new FixtureDef();
+        shape.setAsBox(getWidth()/5, getHeight()/2);
+        fix = new FixtureDef();
         fix.shape = shape;
+        fix.filter.groupIndex = Decay.GROUP_PLAYER;
         Fixture fixture = body.createFixture(fix);
+        body.setUserData("clairo");
+    }
+
+    public void reduceShapeBox(){
+        body.getFixtureList().get(0).getShape().setRadius(-5);
+    }
+
+    public void returneShapeBox(){
+        body.getFixtureList().get(0).getShape().setRadius(0);
+
     }
 
     public void draw(SpriteBatch batch){
