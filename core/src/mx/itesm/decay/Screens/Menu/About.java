@@ -61,7 +61,6 @@ public class About extends GenericScreen {
         // back button
         Texture textureBack = manager.get("menu/cd-button-back.png");
         buttonBack = new GenericButton(textureBack);
-        buttonBack.setPosition(buttonBack.getWidth(), HEIGHT - buttonBack.getHeight() * 2);
         buttonBack.setPosition(buttonBack.getWidth() / 2, HEIGHT - buttonBack.getHeight() * 3/2f);
         buttonBack.getImageButton().addListener(new ClickListener(){
             @Override
