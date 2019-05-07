@@ -74,7 +74,7 @@ public class MapConverter {
             fix.isSensor = true;
             Fixture fixture = bodyStair.createFixture(fix);
             bodyStair.createFixture(fix);
-            bodyStair.setUserData("stair");
+            bodyStair.setUserData("box");
 
             rectangulo.dispose();
         }
