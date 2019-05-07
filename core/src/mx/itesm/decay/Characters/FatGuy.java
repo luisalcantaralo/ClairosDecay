@@ -30,11 +30,9 @@ public class FatGuy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png"), i * 212, 0, 212, 200));
             frames.add(new TextureRegion(new Texture("Characters/FatGuy/FatGuy.png"), i * 212, 40, 212, 200));
         fatGuyIdle = new Animation(0.1f, frames);
 
-        setBounds(1200,210, 212, 200);
         setBounds(startPositionX,startPositionY, 25, 25);
 
         frames.clear();
