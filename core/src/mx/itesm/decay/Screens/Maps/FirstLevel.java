@@ -219,7 +219,10 @@ public class FirstLevel extends GenericScreen {
                     state = GameStates.GAME_OVER;
                 }
             }
-            new BlackScreen("GAME OVER", 5, 600, 360);
+            if(state==GameStates.GAME_OVER){
+                game.setScreen(new BlackScreen("GAME OVER", 5, 600, 360));
+            }
+
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
