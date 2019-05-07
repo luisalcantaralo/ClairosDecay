@@ -102,7 +102,7 @@ public class FirstLevel extends GenericScreen {
         Texture leftTexture= new Texture("UI/ButtonLeft.png");
         TextureRegionDrawable trdLeftButton= new TextureRegionDrawable(new TextureRegion(leftTexture));
         ImageButton leftButton= new ImageButton(trdLeftButton);
-        leftButton.setPosition(leftButton.getWidth(),leftButton.getHeight()/2);
+        leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
         // PAUSE
         pauseButton= new Texture("menu/cd-button-back.png");
@@ -127,6 +127,7 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
+        sceneHUD.addActor(leftButton);
         createCollisionListener();
     }
 
