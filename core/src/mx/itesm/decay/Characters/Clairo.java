@@ -344,7 +344,7 @@ public class Clairo extends Sprite {
         leftKeyPressed = true;
         rightKeyPressed = false;
     }
-    public void setUpKeyPressed(){
+    public void setUpKey(){
         upKeyPressed = true;
     }
     public void setDefault(){
