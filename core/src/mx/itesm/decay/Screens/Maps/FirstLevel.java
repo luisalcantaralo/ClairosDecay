@@ -32,6 +32,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 
 
@@ -325,10 +327,10 @@ public class FirstLevel extends GenericScreen {
             this.addActor(imgRectangle);
 
             final Decay game2= game;
-            Texture backBtn= new Texture("menu/cd-button-back.png");
+            Texture backBtn= new Texture("UI/cd-pause-pressed-button.png");
             TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backBtn));
             ImageButton backButton = new ImageButton(trdBack);
-            backButton.setPosition(GenericScreen.WIDTH/2 - backButton.getWidth()/1.7f,GenericScreen.HEIGHT*0.2f);
+            backButton.setPosition(GenericScreen.WIDTH - backBtn.getWidth()*2, GenericScreen.HEIGHT - backBtn.getHeight()*1.5f);
             backButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -340,10 +342,10 @@ public class FirstLevel extends GenericScreen {
                     clairo.disableControls=false;
                 }
             });
-            Texture menuBtn= new Texture("menu/cd-about-title.png");
+            Texture menuBtn= new Texture("menu/cd-back-to-menu-button.png");
             TextureRegionDrawable trdMenu = new TextureRegionDrawable(new TextureRegion(menuBtn));
             ImageButton menuButton = new ImageButton(trdMenu);
-            menuButton.setPosition(GenericScreen.WIDTH/2 - menuButton.getWidth()/2,GenericScreen.HEIGHT/2 - menuButton.getHeight());
+            menuButton.setPosition(GenericScreen.WIDTH/2 - menuButton.getWidth()/2,GenericScreen.HEIGHT/2 - menuButton.getHeight()*1.1f);
             menuButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -390,7 +392,9 @@ public class FirstLevel extends GenericScreen {
                 }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();
-                }
+                clairo.canJump = false;
+
+            }
             else if (v3.x >GenericScreen.WIDTH - 172 && v3.x <GenericScreen.WIDTH && v3.y >GenericScreen.HEIGHT - 172 && v3.y<GenericScreen.HEIGHT){
                 // response
                 clairo.disableControls=true;
@@ -410,9 +414,17 @@ public class FirstLevel extends GenericScreen {
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            Vector3 v3 = new Vector3(screenX,screenY,0);
+            camaraHUD.unproject(v3);
+            if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
+                clairo.setUpKey();
+                clairo.canJump = true;
+                System.out.println(clairo.canJump);
+            }
             clairo.setDefault();
             return false;
         }
+
 
         @Override
         public boolean touchDragged(int screenX, int screenY, int pointer) {

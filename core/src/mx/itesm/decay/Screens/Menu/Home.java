@@ -32,9 +32,13 @@ public class Home extends GenericScreen{
 
     float timeCounter = 0;
 
+    public static Music menuTheme;
+
     //Loading
     private AssetManager manager;
     private boolean menuBoolean;
+
+
 
     public Home(Decay game) {
         this.game = game;
@@ -49,7 +53,7 @@ public class Home extends GenericScreen{
 
         loadBackground();
         loadButtons();
-        //loadMusic();
+        loadMusic();
 
         //we pass the input control to the scene
         Gdx.input.setInputProcessor(sceneMenu);
@@ -58,10 +62,13 @@ public class Home extends GenericScreen{
     }
 
     public void loadMusic(){
+        menuTheme = manager.get("Music/MainMenu.mp3");
 
         // help button
-        Music menuTheme = manager.get("Music/MainMenu.mp3");
-        //menuTheme.play();
+        if(Decay.prefs.getBoolean("music")){
+            menuTheme.play();
+
+        }
     }
 
     public void loadBackground(){
