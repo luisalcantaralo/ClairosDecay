@@ -176,10 +176,10 @@ public class FirstLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        manager.load("maps/cd-map-02.tmx", TiledMap.class);
+        manager.load("maps/cd-map-01.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-02.tmx");
+        map = manager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
 
@@ -208,7 +208,6 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 clairo.draw(batch);
                 batch.end();
-                b2dr.render(world, camera.combined);
                 updateCamera();
                 mapRenderer.setView(camera);
                 mapRenderer.render();
@@ -216,7 +215,6 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 clairo.draw(batch);
                 batch.end();
-                b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
                 if(clairo.currentState == Clairo.State.DEAD) {
@@ -224,7 +222,7 @@ public class FirstLevel extends GenericScreen {
                 }
             }
             if(state==GameStates.GAME_OVER){
-                game.setScreen(new BlackScreen("GAME OVER", 5, 600, 360));
+                game.setScreen(new BlackScreen("GAME OVER", 5, WIDTH/2, HEIGHT/2));
             }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
                 state=GameStates.PAUSE;
@@ -252,8 +250,8 @@ public class FirstLevel extends GenericScreen {
         }
         if(yCamera < SCALED_HEIGHT/2){
             yCamera = SCALED_HEIGHT/2;
-        }else if(yCamera > mapHeight - SCALED_WIDTH/2){
-            yCamera = mapHeight - SCALED_WIDTH/2;
+        }else if(yCamera > mapHeight - SCALED_HEIGHT/2){
+            yCamera = mapHeight - SCALED_HEIGHT/2;
 
         }
 
