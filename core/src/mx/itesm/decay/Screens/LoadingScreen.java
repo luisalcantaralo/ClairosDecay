@@ -95,6 +95,11 @@ public class LoadingScreen extends GenericScreen{
 
         manager.load("Music/MainMenu.mp3",Music.class);
 
+
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+
+        manager.load("Items/TimeBar.png",Texture.class);
+
     }
 
     private void updateAssetsLoad(){
