@@ -108,24 +108,24 @@ public class FirstLevel extends GenericScreen {
         imgHealthBarC.setPosition(GenericScreen.WIDTH*0.05f - imgHealthBarC.getImageWidth(), GenericScreen.HEIGHT*0.9f - imgHealthBarC.getImageHeight());
         imgHeathBar.setPosition(GenericScreen.WIDTH*0.055f - imgHeathBar.getImageWidth(), GenericScreen.HEIGHT*0.91f - imgHeathBar.getImageHeight());
         //MOVEMENT BUTTONS
-        Texture rightTexture= new Texture("UI/ButtonRight.png");
+        Texture rightTexture= new Texture("UI/cd-button-right.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
         ImageButton rightButton= new ImageButton(trdRightButton);
         rightButton.setPosition(rightButton.getWidth()*1.5f+100,rightButton.getHeight()/2);
 
 
-        Texture leftTexture= new Texture("UI/ButtonLeft.png");
+        Texture leftTexture= new Texture("UI/cd-button-left.png");
         TextureRegionDrawable trdLeftButton= new TextureRegionDrawable(new TextureRegion(leftTexture));
         ImageButton leftButton= new ImageButton(trdLeftButton);
         leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
-        Texture jumpTexture= new Texture("UI/AButton.png");
+        Texture jumpTexture= new Texture("UI/cd-a-button.png");
         TextureRegionDrawable trdJumpButton= new TextureRegionDrawable(new TextureRegion(jumpTexture));
         ImageButton jumpButton= new ImageButton(trdJumpButton);
         jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
 
         // PAUSE
-        pauseButton= new Texture("menu/cd-button-back.png");
+        pauseButton= new Texture("menu/cd-pause-button.png");
         TextureRegionDrawable trdPauseButton = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton pauseButtonImage = new ImageButton(trdPauseButton);
         pauseButtonImage.setPosition(GenericScreen.WIDTH - pauseButtonImage.getWidth()*2, GenericScreen.HEIGHT - pauseButtonImage.getHeight()*2);
