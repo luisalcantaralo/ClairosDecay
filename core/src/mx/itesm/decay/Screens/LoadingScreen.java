@@ -42,6 +42,8 @@ public class LoadingScreen extends GenericScreen{
 
         Decay.prefs.putBoolean("music", true);
         Decay.prefs.putBoolean("sound", true);
+        Decay.prefs.putString("level", "1");
+
 
     }
     
