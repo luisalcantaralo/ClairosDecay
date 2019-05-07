@@ -327,10 +327,10 @@ public class FirstLevel extends GenericScreen {
             this.addActor(imgRectangle);
 
             final Decay game2= game;
-            Texture backBtn= new Texture("menu/cd-button-back.png");
+            Texture backBtn= new Texture("UI/cd-pause-pressed-button.png");
             TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backBtn));
             ImageButton backButton = new ImageButton(trdBack);
-            backButton.setPosition(GenericScreen.WIDTH/2 - backButton.getWidth()/1.7f,GenericScreen.HEIGHT*0.2f);
+            backButton.setPosition(GenericScreen.WIDTH - backBtn.getWidth()*2, GenericScreen.HEIGHT - backBtn.getHeight()*1.5f);
             backButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
