@@ -1,5 +1,7 @@
 package mx.itesm.decay.Screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,6 +38,12 @@ public class LoadingScreen extends GenericScreen{
     public LoadingScreen(Decay game, Screens nextScreen){
         this.game = game;
         this.nextScreen=nextScreen;
+
+        Decay.prefs = Gdx.app.getPreferences("my-preferences");
+
+        Decay.prefs.putBoolean("music", true);
+        Decay.prefs.putBoolean("sound", true);
+
     }
     
     private void loadNextScreenResources(){
