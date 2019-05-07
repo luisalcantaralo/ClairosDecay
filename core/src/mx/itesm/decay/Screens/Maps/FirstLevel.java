@@ -216,7 +216,6 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 clairo.draw(batch);
                 batch.end();
-                b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.draw();
                 if(clairo.currentState == Clairo.State.DEAD) {
@@ -224,7 +223,7 @@ public class FirstLevel extends GenericScreen {
                 }
             }
             if(state==GameStates.GAME_OVER){
-                game.setScreen(new BlackScreen("GAME OVER", 5, 600, 360));
+                game.setScreen(new BlackScreen("GAME OVER", 5, WIDTH/2, HEIGHT/2));
             }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
                 state=GameStates.PAUSE;
