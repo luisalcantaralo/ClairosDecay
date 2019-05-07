@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -39,6 +40,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
+import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
@@ -100,6 +102,20 @@ public class FirstLevel extends GenericScreen {
         vistaHUD = new StretchViewport(GenericScreen.WIDTH,GenericScreen.HEIGHT, camaraHUD);
 
         // HUD
+        //Health Bar
+        healthBarC = manager.get("Items/LifeBarContainer.png");
+        healthBar = manager.get("Items/TimeBar.png");
+
+        Image imagehealthBarC = new Image(healthBarC);
+        Image imagehealthBar = new Image(healthBar);
+
+        imagehealthBarC.setPosition(GenericScreen.WIDTH * 0.05f-imagehealthBarC.getImageWidth(),GenericScreen.HEIGHT *0.9f - imagehealthBarC.getImageHeight());
+        imagehealthBar.setPosition(GenericScreen.WIDTH * 0.055f-imagehealthBar.getImageWidth(),GenericScreen.HEIGHT *0.91f - imagehealthBar.getImageHeight());
+
+
+        //batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
+        //batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
+
         //MOVEMENT BUTTONS
         Texture rightTexture= new Texture("UI/ButtonRight.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
@@ -112,10 +128,7 @@ public class FirstLevel extends GenericScreen {
         ImageButton leftButton= new ImageButton(trdLeftButton);
         leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
-        Texture jumpTexture= new Texture("UI/AButton.png");
-        TextureRegionDrawable trdJumpButton= new TextureRegionDrawable(new TextureRegion(jumpTexture));
-        ImageButton jumpButton= new ImageButton(trdJumpButton);
-        jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
+
 
         // PAUSE
         pauseButton= new Texture("menu/cd-button-back.png");
@@ -141,7 +154,8 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
-        sceneHUD.addActor(jumpButton);
+        sceneHUD.addActor(imagehealthBarC);
+        sceneHUD.addActor(imagehealthBar);
         createCollisionListener();
     }
 
@@ -168,8 +182,7 @@ public class FirstLevel extends GenericScreen {
         map = manager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
-        healthBarC = manager.get("Items/LifeBarContainer.png");
-        healthBar = manager.get("Items/TimeBar.png");
+
     }
 
 
@@ -203,8 +216,7 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 clairo.draw(batch);
 
-                batch.draw(healthBarC,clairo.getX()-130 + clairo.getHeight()/2, clairo.getY()+70, healthBarC.getWidth()/3, healthBarC.getHeight()/3);
-                batch.draw(healthBar,clairo.getX()-128 + clairo.getHeight()/2, clairo.getY()+72, healthBar.getWidth()/3, healthBar.getHeight()/3);
+
                 batch.end();
                 b2dr.render(world, camera.combined);
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -297,6 +309,20 @@ public class FirstLevel extends GenericScreen {
             imgRectangle.setPosition(0.2f*GenericScreen.WIDTH,0.16f*GenericScreen.HEIGHT);
             this.addActor(imgRectangle);
 
+            //Sound
+            Texture musicTexture = new Texture("menu/cd-button-settings.png");
+            TextureRegionDrawable trdMusic = new TextureRegionDrawable(new TextureRegion(musicTexture));
+            ImageButton musicButton = new ImageButton(trdMusic);
+            musicButton.setPosition(GenericScreen.WIDTH * 0.6f, GenericScreen.HEIGHT * 0.6f);
+            musicButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    // response
+
+                }
+            });
+
             final Decay game2= game;
             Texture backBtn= new Texture("menu/cd-button-back.png");
             TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backBtn));
@@ -327,10 +353,11 @@ public class FirstLevel extends GenericScreen {
             });
             this.addActor(menuButton);
             this.addActor(backButton);
+            this.addActor(musicButton);
         }
     }
 
-    private class ProcesadorEntrada implements InputProcessor {
+    /*private class ProcesadorEntrada implements InputProcessor {
 
 
         @Override
@@ -354,19 +381,16 @@ public class FirstLevel extends GenericScreen {
             camera.unproject(v3);
             // Left button
             if(v3.x >48 && v3.x<96 && v3.y >48 &&v3.y<144 ){
-                clairo.setLeft();
+                clairo.SetLeft();
             }
             // Right button
             else if(v3.x>144 && v3.x<240 && v3.y>48 && v3.y<144){
                 clairo.setRight();
                 }
-            else if (v3.x >GenericScreen.WIDTH-192 && v3.x< GenericScreen.WIDTH-96 && v3.y>48 && v3.y<144 ){
-                clairo.setUpKeyPressed();
+            else if (v3.x > PantallaCargando.ANCHO/2){
+
                 }
-            else{
-                clairo.setDefault();
-            }
-                return false;
+
             }
 
 
@@ -389,7 +413,7 @@ public class FirstLevel extends GenericScreen {
         public boolean scrolled(int amount) {
             return false;
         }
-    }
+    }*/
 
 }
 

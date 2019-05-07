@@ -22,8 +22,10 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Characters.Clairo;
@@ -115,6 +117,7 @@ public class TestScreen extends GenericScreen {
             }
         });
     }
+
 
     private void loadResources() {
         //background = new Texture("menu/cd-menu-background.png");
