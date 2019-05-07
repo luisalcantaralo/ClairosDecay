@@ -22,6 +22,8 @@ Settings extends GenericScreen {
     private Texture settingsTitle;
     // buttons
     private GenericButton buttonBack;
+    private GenericButton buttonOnMusic;
+
     // stage
     private Stage sceneSettings;
 
@@ -66,12 +68,31 @@ Settings extends GenericScreen {
             }
         });
 
+
+        // on button
+        Texture textureOnMusic = manager.get("menu/cd-on-button.png");
+        buttonOnMusic = new GenericButton(textureOnMusic);
+        buttonOnMusic.setPosition(WIDTH/2+10, 40);
+        buttonOnMusic.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Decay.prefs.putBoolean("music", false);
+
+            }
+        });
+
         sceneSettings.addActor(buttonBack.getImageButton());
+        sceneSettings.addActor(buttonOnMusic.getImageButton());
+
     }
 
 
     @Override
     public void render(float delta) {
+        if(!Decay.prefs.getBoolean("music")){
+            Home.menuTheme.stop();
+        }
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(settingsBackground, 0, 0);

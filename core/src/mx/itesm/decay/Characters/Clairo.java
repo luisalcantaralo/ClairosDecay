@@ -57,7 +57,7 @@ public class Clairo extends Sprite {
     public boolean rightKeyPressed;
     public boolean leftKeyPressed;
     public boolean upKeyPressed;
-
+    public boolean canJump;
 
 
     //private final TestScreen screen;
@@ -68,7 +68,7 @@ public class Clairo extends Sprite {
         previousState = State.IDLE;
         isRunningRight = true;
         timer = 0;
-
+        canJump = true;
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -146,12 +146,12 @@ public class Clairo extends Sprite {
 
     private void updateMovement() {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.setLinearVelocity(new Vector2(0, 70f));
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
+            body.setLinearVelocity(new Vector2(0, 10f));
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 70f), body.getWorldCenter(), true);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE ){
+            body.applyLinearImpulse(new Vector2(0, 10f), body.getWorldCenter(), true);
         }
         else if (upKeyPressed && currentState != State.JUMPING && currentState != State.FALLING){
             isRunningRight = true;
