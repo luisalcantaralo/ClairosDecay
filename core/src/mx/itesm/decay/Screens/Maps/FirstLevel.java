@@ -96,7 +96,6 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 100,95);
         clairo = new Clairo(world, 100,100);
         fat = new FatGuy(world, 759, 560);
         background = new Texture("backgrounds/cd-map-01-background.png");
@@ -187,6 +186,7 @@ public class FirstLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
+
         manager.load("maps/cd-map-01.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
@@ -200,7 +200,6 @@ public class FirstLevel extends GenericScreen {
     @Override
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
-
             if(clairo.getX() > 720 && clairo.getY() > 530){
                 Decay.prefs.putString("level", "2");
                 state = GameStates.NEXT;

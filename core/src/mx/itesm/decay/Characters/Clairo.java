@@ -216,7 +216,12 @@ public class Clairo extends Sprite {
         }
 
 
+<<<<<<< HEAD
         /*if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
+=======
+        /*
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
+>>>>>>> parent of 0335124... Revert "Revert "Revert "Merge branch 'master' of https://github.com/duncanista/ClairosDecay"""
             body.setLinearVelocity(new Vector2(0, 300f));
         }
 
@@ -283,8 +288,13 @@ public class Clairo extends Sprite {
 
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
+<<<<<<< HEAD
         }*/
 
+=======
+        }
+    */
+>>>>>>> parent of 0335124... Revert "Revert "Revert "Merge branch 'master' of https://github.com/duncanista/ClairosDecay"""
     }
 
     public TextureRegion getFrame(float dt){
