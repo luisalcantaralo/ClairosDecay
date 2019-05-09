@@ -254,7 +254,7 @@ public class FirstLevel extends GenericScreen {
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
-            b2dr.render(world,camera.combined);
+            //b2dr.render(world,camera.combined);
     }
 
     private void updateTurrets(float dt) {
