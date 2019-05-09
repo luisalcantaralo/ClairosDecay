@@ -162,8 +162,9 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
         sceneHUD.addActor(jumpButton);
-        sceneHUD.addActor(imgHealthBarC);
         sceneHUD.addActor(imgHeathBar);
+        sceneHUD.addActor(imgHealthBarC);
+
         createCollisionListener();
     }
 
@@ -193,8 +194,6 @@ public class FirstLevel extends GenericScreen {
 
         map = manager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-
-
     }
 
 
