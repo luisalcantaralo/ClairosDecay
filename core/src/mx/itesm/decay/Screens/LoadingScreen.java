@@ -76,6 +76,7 @@ public class LoadingScreen extends GenericScreen{
     }
 
     private void loadLevel1Resources() {
+        manager.load("Music/Walking.mp3",Music.class);
         
     }
 
@@ -108,8 +109,9 @@ public class LoadingScreen extends GenericScreen{
 
 
         manager.load("Items/LifeBarContainer.png",Texture.class);
-
         manager.load("Items/TimeBar.png",Texture.class);
+
+        manager.load("Music/Walking.mp3",Music.class);
 
     }
 

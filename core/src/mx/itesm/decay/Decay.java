@@ -30,7 +30,6 @@ public class Decay extends Game{
     public Decay(){
         assetManager = new AssetManager();
 
-
     }
 
     @Override
