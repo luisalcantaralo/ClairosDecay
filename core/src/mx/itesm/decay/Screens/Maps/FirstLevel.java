@@ -80,6 +80,8 @@ public class FirstLevel extends GenericScreen {
     private GameStates state;
     private PauseScene pauseScene;
 
+    private float health = 5;
+
     // Items
     Array<Box> boxes;
     Array<Turret> turrets;
@@ -158,12 +160,12 @@ public class FirstLevel extends GenericScreen {
 
         sceneHUD = new Stage(vistaHUD);
         Gdx.input.setInputProcessor(sceneHUD);
+        sceneHUD.addActor(imgHealthBarC);
+        sceneHUD.addActor(imgHeathBar);
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
         sceneHUD.addActor(jumpButton);
-        sceneHUD.addActor(imgHeathBar);
-        sceneHUD.addActor(imgHealthBarC);
 
         createCollisionListener();
     }
@@ -231,6 +233,8 @@ public class FirstLevel extends GenericScreen {
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
+                sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
+
                 sceneHUD.draw();
 
                 if(clairo.currentState == Clairo.State.DEAD) {
@@ -311,7 +315,8 @@ public class FirstLevel extends GenericScreen {
                     clairo.touchingBox = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
-                    state = GameStates.GAME_OVER;
+                    health --;
+                    if(health <= 0) state = GameStates.GAME_OVER;
                 }
 
             }
@@ -487,4 +492,3 @@ public class FirstLevel extends GenericScreen {
     }
 
 }
-
