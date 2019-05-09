@@ -249,9 +249,9 @@ public class SecondLevel extends GenericScreen {
         updateCamera();
     }
 
-    private void updateTurrets() {
+    private void updateTurrets(float dt) {
         for(Turret turret: turrets){
-            turret.update();
+            turret.update(dt);
             turret.draw(batch);
         }
     }

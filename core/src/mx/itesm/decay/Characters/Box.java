@@ -17,7 +17,6 @@ public class Box extends Sprite {
     // Box2d
     public World world;
     public Body body;
-    public PolygonShape shape;
     FixtureDef fix;
 
     Texture boxTexture;

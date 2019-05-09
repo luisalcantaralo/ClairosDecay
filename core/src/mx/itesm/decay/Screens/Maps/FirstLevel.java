@@ -208,8 +208,6 @@ public class FirstLevel extends GenericScreen {
             }
 
             if(state==GameStates.PLAYING){
-                Gdx.app.log("x", String.valueOf(clairo.getX()));
-                Gdx.app.log("y", String.valueOf(clairo.getY()));
 
                 Gdx.gl.glClearColor(1,1,1,0);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -231,7 +229,7 @@ public class FirstLevel extends GenericScreen {
 
                 batch.begin();
                 updateBoxes();
-                updateTurrets();
+                updateTurrets(time);
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -256,9 +254,9 @@ public class FirstLevel extends GenericScreen {
         updateCamera();
     }
 
-    private void updateTurrets() {
+    private void updateTurrets(float dt) {
         for(Turret turret: turrets){
-            turret.update();
+            turret.update(dt);
             turret.draw(batch);
         }
     }
@@ -309,7 +307,6 @@ public class FirstLevel extends GenericScreen {
                     clairo.canClimb = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
-                    Gdx.app.log("CoNtacto!", "con caja");
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
                     state = GameStates.GAME_OVER;
