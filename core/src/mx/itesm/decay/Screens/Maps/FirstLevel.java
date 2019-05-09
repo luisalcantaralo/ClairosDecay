@@ -185,7 +185,6 @@ public class FirstLevel extends GenericScreen {
 
 
     private void loadMap() {
-        AssetManager assetManager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
