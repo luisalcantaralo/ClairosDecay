@@ -3,6 +3,7 @@ package mx.itesm.decay.Characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -77,7 +78,7 @@ public class Clairo extends Sprite {
         timer = 0;
         canJump = true;
         transform = false;
-        clairoWalkingAudio = Gdx.audio.newMusic(Gdx.files.internal("Music/walking.mp3"));
+        clairoWalkingAudio = Gdx.audio.newMusic(Gdx.files.internal("Music/footsteps.mp3"));
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -358,7 +359,7 @@ public class Clairo extends Sprite {
 
         
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/6, getHeight()/2);
+        shape.setAsBox(getWidth()/12, getHeight()/2);
         fix = new FixtureDef();
         fix.shape = shape;
         fix.filter.groupIndex = Decay.GROUP_PLAYER;
