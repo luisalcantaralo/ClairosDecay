@@ -215,7 +215,6 @@ public class Clairo extends Sprite {
         }
 
 
-<<<<<<< HEAD
         /*if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
 =======
         /*
@@ -290,11 +289,8 @@ public class Clairo extends Sprite {
 <<<<<<< HEAD
         }*/
 
-=======
         }
-    */
->>>>>>> parent of 0335124... Revert "Revert "Revert "Merge branch 'master' of https://github.com/duncanista/ClairosDecay"""
-    }
+
 
     public TextureRegion getFrame(float dt){
         TextureRegion region;
