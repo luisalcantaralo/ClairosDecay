@@ -144,7 +144,8 @@ public class Clairo extends Sprite {
     }
 
     private void updateMovement() {
-
+        Vector2 clairoWorldCenter = body.getWorldCenter();
+        /*
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
             body.setLinearVelocity(new Vector2(0, 10f));
         }
@@ -214,22 +215,20 @@ public class Clairo extends Sprite {
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
 
+        */
 
-        /*if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-=======
-        /*
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
->>>>>>> parent of 0335124... Revert "Revert "Revert "Merge branch 'master' of https://github.com/duncanista/ClairosDecay"""
             body.setLinearVelocity(new Vector2(0, 300f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 300f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 300f), clairoWorldCenter, true);
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING){
             isRunningRight = true;
 
-            body.applyLinearImpulse(new Vector2(0, 400f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 400f), clairoWorldCenter, true);
         }
 
 
@@ -237,22 +236,22 @@ public class Clairo extends Sprite {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
-                body.applyLinearImpulse(new Vector2(10f, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
                 isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
             }
         }
         else if(currentState == State.JUMPING){
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
-                body.applyLinearImpulse(new Vector2(10f, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
                 isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
             }
         }
 
@@ -261,14 +260,14 @@ public class Clairo extends Sprite {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
-                body.applyLinearImpulse(new Vector2(10f, -15f), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(10f, -15f), clairoWorldCenter, true);
             }
             else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
                 isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, -15f), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-10f, -15f), clairoWorldCenter, true);
             }
             else{
-                body.applyLinearImpulse(new Vector2(0, -4f), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(0, -4f), clairoWorldCenter, true);
 
             }
         }
@@ -276,20 +275,18 @@ public class Clairo extends Sprite {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
-                body.applyLinearImpulse(new Vector2(10f, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
                 isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
             }
         }
 
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
-<<<<<<< HEAD
-        }*/
-
         }
+    }
 
 
     public TextureRegion getFrame(float dt){
