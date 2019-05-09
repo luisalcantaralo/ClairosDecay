@@ -24,23 +24,22 @@ public class Turret extends Sprite {
     FixtureDef fix;
 
     TextureRegion boxTexture;
-
+    float timer;
     public Turret(World world, float x, float y){
         this.world = world;
 
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
-        for(int i = 0; i < 13; i++)
+        for(int i = 0; i < 6; i++)
             frames.add(new TextureRegion(new Texture("Turret/turret.png"), i * 150, 0, 150, 138));
         turretAnimation = new Animation(0.1f, frames);
 
 
         boxTexture = new TextureRegion(new Texture("Turret/turret.png"),0,0,150,138);
-
+        timer = 0;
         setBounds(x,y,150/5,138/5);
         defineBox(x,y);
-        setRegion(boxTexture);
 
     }
 
@@ -52,8 +51,9 @@ public class Turret extends Sprite {
 
     public TextureRegion getFrame(float dt){
             TextureRegion region;
+            timer += dt;
 
-            region = turretAnimation.getKeyFrame(dt, true);
+            region = turretAnimation.getKeyFrame(timer, true);
 
             return region;
 

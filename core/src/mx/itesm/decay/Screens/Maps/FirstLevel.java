@@ -97,7 +97,7 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 680,545);
+        clairo = new Clairo(world, 100,100);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -252,6 +252,7 @@ public class FirstLevel extends GenericScreen {
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
+            b2dr.render(world,camera.combined);
     }
 
     private void updateTurrets(float dt) {
