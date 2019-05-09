@@ -23,7 +23,7 @@ import mx.itesm.decay.Decay;
 public class Clairo extends Sprite {
 
     // Clairo's State
-    public enum State { IDLE, DEAD, RUNNING, CLIMBING, JUMPING, FALLING, SHOOTING}
+    public enum State { IDLE, DEAD, RUNNING, CLIMBING, JUMPING, FALLING, SHOOTING, PUSHING}
     public State currentState;
     public State previousState;
 
@@ -43,6 +43,8 @@ public class Clairo extends Sprite {
     private Animation<TextureRegion> clairoJump;
     private Animation<TextureRegion> clairoClimb;
     private Animation<TextureRegion> clairoShoot;
+    private Animation<TextureRegion> clairoPushing;
+
 
 
     // Animation Details
@@ -59,6 +61,7 @@ public class Clairo extends Sprite {
     public boolean canJump;
 
     public boolean touchingBox;
+    public boolean transform;
 
 
     //private final TestScreen screen;
@@ -71,6 +74,7 @@ public class Clairo extends Sprite {
         isRunningRight = true;
         timer = 0;
         canJump = true;
+        transform = false;
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -95,6 +99,12 @@ public class Clairo extends Sprite {
         for(int i = 0; i < 6; i++)
             frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 80, 284, 178));
         clairoClimb = new Animation(0.1f, frames);
+
+        frames.clear();
+
+        for(int i = 0; i < 6; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Detective/Push/Detective_Push.png"), i * 348, 50, 348, 350));
+        clairoPushing = new Animation(0.1f, frames);
 
         frames.clear();
 
@@ -136,8 +146,11 @@ public class Clairo extends Sprite {
             else if (body.getLinearVelocity().y < 0 && canClimb ) {
                 currentState = State.CLIMBING;
             }
-            else if (body.getLinearVelocity().x != 0) {
+            else if (body.getLinearVelocity().x != 0 && !touchingBox) {
                 currentState = State.RUNNING;
+            }
+            else if (body.getLinearVelocity().x != 0 && touchingBox && Math.abs(body.getLinearVelocity().x) > 2) {
+                currentState = State.PUSHING;
             }
             else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting) {
                 currentState = State.IDLE;
@@ -148,7 +161,7 @@ public class Clairo extends Sprite {
 
     private void updateMovement() {
         Vector2 clairoWorldCenter = body.getWorldCenter();
-        /*
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
             body.setLinearVelocity(new Vector2(0, 10f));
         }
@@ -157,7 +170,6 @@ public class Clairo extends Sprite {
             body.applyLinearImpulse(new Vector2(0, 10f), body.getWorldCenter(), true);
         }
         else if (upKeyPressed && currentState != State.JUMPING && currentState != State.FALLING){
-            isRunningRight = true;
 
             body.applyLinearImpulse(new Vector2(0, 200f), body.getWorldCenter(), true);
         }
@@ -218,9 +230,9 @@ public class Clairo extends Sprite {
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
 
-        */
 
 
+        /*
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
             body.setLinearVelocity(new Vector2(0, 300f));
         }
@@ -289,6 +301,7 @@ public class Clairo extends Sprite {
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
+        */
     }
 
 
@@ -314,6 +327,9 @@ public class Clairo extends Sprite {
             case CLIMBING:
                 region = clairoClimb.getKeyFrame(timer, true);
                 break;
+            case PUSHING:
+                region = clairoPushing.getKeyFrame(timer,true);
+                break;
             default:
                 region = clairoRun.getKeyFrame(timer, true);
                 break;
@@ -330,6 +346,7 @@ public class Clairo extends Sprite {
 
     // Box2d initialization
     public void defineClairo(float x, float y) {
+
         BodyDef bdef = new BodyDef();
         bdef.position.set(x, y);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -337,7 +354,25 @@ public class Clairo extends Sprite {
 
         
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/5, getHeight()/2);
+        shape.setAsBox(getWidth()/6, getHeight()/2);
+        fix = new FixtureDef();
+        fix.shape = shape;
+        fix.filter.groupIndex = Decay.GROUP_PLAYER;
+        Fixture fixture = body.createFixture(fix);
+        body.setUserData("clairo");
+    }
+
+    public void reDefineClairo(float scale){
+        Vector2 currentPosition = body.getPosition();
+        world.destroyBody(body);
+
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(currentPosition.x,currentPosition.y);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        body = world.createBody(bdef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(getWidth()/scale, getHeight()/2);
         fix = new FixtureDef();
         fix.shape = shape;
         fix.filter.groupIndex = Decay.GROUP_PLAYER;
