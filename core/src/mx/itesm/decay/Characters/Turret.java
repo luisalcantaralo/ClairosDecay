@@ -19,34 +19,45 @@ public class Turret extends Sprite {
     // Box2d
     private World world;
     private Body body;
+    private BodyDef bdef = new BodyDef();
     private Animation<TextureRegion> turretAnimation;
 
     FixtureDef fix;
 
     TextureRegion boxTexture;
     float timer;
-    public Turret(World world, float x, float y){
-        this.world = world;
+    float startPositionX;
+    float startPositionY;
+    float turretRatioX = 10f;
 
+    public Turret(World world, float x, float y) {
+        this.world = world;
+        this.startPositionX = x;
+        this.startPositionY = y;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
             frames.add(new TextureRegion(new Texture("Turret/turret.png"), i * 150, 0, 150, 138));
         turretAnimation = new Animation(0.1f, frames);
 
 
-        boxTexture = new TextureRegion(new Texture("Turret/turret.png"),0,0,150,138);
+        boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
-        setBounds(x,y,150/9,138/9);
-        defineBox(x,y);
+        setBounds(startPositionX, startPositionY, 150 / 9, 138 / 9);
+        defineBox(startPositionX, startPositionY);
 
     }
 
-    public void update(float dt){
-
-        setPosition((body.getPosition().x)-getWidth()/2, (body.getPosition().y)-getHeight()/2);
+    public void update(float dt) {
+        setPosition((body.getPosition().x) - getWidth() / 2, (body.getPosition().y) - getHeight() / 2);
         setRegion(getFrame(dt));
+
+        if (body.getPosition().x <= startPositionX ) {
+            body.applyLinearImpulse(new Vector2(turretRatioX, 0), body.getWorldCenter(), true);
+        } else if (body.getPosition().x >= startPositionX + 50){
+            body.applyLinearImpulse(new Vector2(-turretRatioX, 0), body.getWorldCenter(), true);
+        }
     }
 
     public TextureRegion getFrame(float dt){
@@ -60,11 +71,10 @@ public class Turret extends Sprite {
     }
 
     public void defineBox(float x, float y){
-        BodyDef bdef = new BodyDef();
+
         bdef.position.set(x, y);
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
-
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(getWidth()/2, getHeight()/2);
         fix = new FixtureDef();
@@ -73,5 +83,9 @@ public class Turret extends Sprite {
         fix.density = 0.005f;
         Fixture fixture = body.createFixture(fix);
         body.setUserData("turret");
+    }
+    public void move(float dt){
+
+
     }
 }
