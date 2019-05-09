@@ -17,10 +17,11 @@ public class Box extends Sprite {
     // Box2d
     public World world;
     public Body body;
-    public PolygonShape shape;
     FixtureDef fix;
 
     Texture boxTexture;
+
+
 
     public Box(World world, float x, float y){
         this.world = world;
@@ -52,8 +53,7 @@ public class Box extends Sprite {
         fix = new FixtureDef();
         fix.shape = shape;
         fix.friction = 0;
-        fix.density = 0.005f;
-        fix.filter.groupIndex = Decay.GROUP_PLAYER;
+        fix.density = 0.001f;
         Fixture fixture = body.createFixture(fix);
         body.setUserData("box");
     }

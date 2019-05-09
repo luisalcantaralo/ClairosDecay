@@ -16,7 +16,6 @@ import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Screens;
 import mx.itesm.decay.Screens.Splash;
 import mx.itesm.decay.Screens.TestLevel1Screen;
-import mx.itesm.decay.Screens.TestScreen;
 import mx.itesm.decay.Screens.Menu.Home;
 
 
