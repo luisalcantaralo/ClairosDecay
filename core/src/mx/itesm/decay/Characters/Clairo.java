@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.audio.Music;
 
 import mx.itesm.decay.Decay;
 
@@ -63,6 +64,7 @@ public class Clairo extends Sprite {
     public boolean touchingBox;
     public boolean transform;
 
+    public static Music clairoWalkingAudio;
 
     //private final TestScreen screen;
 
@@ -75,6 +77,7 @@ public class Clairo extends Sprite {
         timer = 0;
         canJump = true;
         transform = false;
+        clairoWalkingAudio = Gdx.audio.newMusic(Gdx.files.internal("Music/walking.mp3"));
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -161,7 +164,7 @@ public class Clairo extends Sprite {
 
     private void updateMovement() {
         Vector2 clairoWorldCenter = body.getWorldCenter();
-        
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
             body.setLinearVelocity(new Vector2(0, 10f));
         }
@@ -176,6 +179,7 @@ public class Clairo extends Sprite {
 
 
         if(currentState == State.RUNNING){
+            clairoWalkingAudio.play();
             if (rightKeyPressed){
                 isRunningRight = true;
 
