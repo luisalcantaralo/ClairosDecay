@@ -301,6 +301,7 @@ public class Clairo extends Sprite {
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
+
     }
 
 
