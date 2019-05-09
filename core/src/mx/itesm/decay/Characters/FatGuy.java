@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-import mx.itesm.decay.Screens.TestScreen;
 
 public class FatGuy extends Sprite {
     // Box2d

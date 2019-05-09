@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 import mx.itesm.decay.Decay;
-import mx.itesm.decay.Screens.TestScreen;
 
 
 public class Clairo extends Sprite {
