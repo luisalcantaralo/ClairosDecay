@@ -28,7 +28,9 @@ public class Turret extends Sprite {
     float timer;
     float startPositionX;
     float startPositionY;
-    float turretRatioX = 10f;
+    float turretSpeed = 10;
+    float turretRatioXN = 15;
+    float turretRatioXP = 15;
 
     public Turret(World world, float x, float y) {
         this.world = world;
@@ -53,10 +55,10 @@ public class Turret extends Sprite {
         setPosition((body.getPosition().x) - getWidth() / 2, (body.getPosition().y) - getHeight() / 2);
         setRegion(getFrame(dt));
 
-        if (body.getPosition().x <= startPositionX ) {
-            body.applyLinearImpulse(new Vector2(turretRatioX, 0), body.getWorldCenter(), true);
-        } else if (body.getPosition().x >= startPositionX + 50){
-            body.applyLinearImpulse(new Vector2(-turretRatioX, 0), body.getWorldCenter(), true);
+        if (body.getPosition().x <= startPositionX - turretRatioXN) {
+            body.applyLinearImpulse(new Vector2(turretSpeed, 0), body.getWorldCenter(), true);
+        } else if (body.getPosition().x >= startPositionX + turretRatioXP){
+            body.applyLinearImpulse(new Vector2(-turretSpeed, 0), body.getWorldCenter(), true);
         }
     }
 
