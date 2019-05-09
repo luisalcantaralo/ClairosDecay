@@ -40,6 +40,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.FatGuy;
+import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericScreen;
@@ -81,6 +82,7 @@ public class SecondLevel extends GenericScreen {
 
     // Items
     Array<Box> boxes;
+    Array<Turret> turrets;
 
 
     public SecondLevel(Decay game){
@@ -95,7 +97,7 @@ public class SecondLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 100,100);
+        clairo = new Clairo(world, 100,95);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -173,6 +175,8 @@ public class SecondLevel extends GenericScreen {
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
         //boxes = MapConverter.createBoxes(map, world);
+        //turrets = MapConverter.createTurrets(map, world);
+
 
         b2dr = new Box2DDebugRenderer();
     }
@@ -184,7 +188,6 @@ public class SecondLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-
         manager.load("maps/cd-map-02.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
@@ -198,10 +201,8 @@ public class SecondLevel extends GenericScreen {
     @Override
     public void render(float delta) {
         float time = Gdx.graphics.getDeltaTime();
-        if(clairo.getX() > 720 && clairo.getY() > 530){
-            Decay.prefs.putString("level", "2");
-            game.setScreen(new FirstLevel(game));
-        }
+
+
         if(state==GameStates.PLAYING){
             Gdx.gl.glClearColor(1,1,1,0);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -223,6 +224,7 @@ public class SecondLevel extends GenericScreen {
 
             batch.begin();
             //updateBoxes();
+            //updateTurrets();
             clairo.draw(batch);
             batch.end();
             batch.setProjectionMatrix(camaraHUD.combined);
@@ -245,6 +247,13 @@ public class SecondLevel extends GenericScreen {
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
+    }
+
+    private void updateTurrets(float dt) {
+        for(Turret turret: turrets){
+            turret.update(dt);
+            turret.draw(batch);
+        }
     }
 
     private void updateBoxes() {
@@ -294,6 +303,9 @@ public class SecondLevel extends GenericScreen {
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
                     Gdx.app.log("CoNtacto!", "con caja");
+                }
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
+                    state = GameStates.GAME_OVER;
                 }
 
             }

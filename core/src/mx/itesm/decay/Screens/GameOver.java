@@ -73,7 +73,7 @@ public class GameOver extends GenericScreen {
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(backgroundTexture,0,0);
+        batch.draw(backgroundTexture,WIDTH/2-170,HEIGHT/2);
         batch.end();
         scene.draw();
 
