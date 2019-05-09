@@ -38,7 +38,7 @@ public class Turret extends Sprite {
 
         boxTexture = new TextureRegion(new Texture("Turret/turret.png"),0,0,150,138);
         timer = 0;
-        setBounds(x,y,150/5,138/5);
+        setBounds(x,y,150/9,138/9);
         defineBox(x,y);
 
     }
