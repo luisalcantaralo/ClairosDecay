@@ -28,7 +28,7 @@ public class Turret extends Sprite {
     float timer;
     float startPositionX;
     float startPositionY;
-    float turretSpeed = 10;
+    float turretSpeed = 5;
     float turretRatioXN = 15;
     float turretRatioXP = 15;
 
@@ -59,6 +59,8 @@ public class Turret extends Sprite {
             body.applyLinearImpulse(new Vector2(turretSpeed, 0), body.getWorldCenter(), true);
         } else if (body.getPosition().x >= startPositionX + turretRatioXP){
             body.applyLinearImpulse(new Vector2(-turretSpeed, 0), body.getWorldCenter(), true);
+        }else{
+            body.applyLinearImpulse(new Vector2(turretSpeed, 0), body.getWorldCenter(), true);
         }
     }
 
