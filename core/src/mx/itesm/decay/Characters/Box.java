@@ -21,6 +21,8 @@ public class Box extends Sprite {
 
     Texture boxTexture;
 
+
+
     public Box(World world, float x, float y){
         this.world = world;
 
@@ -51,7 +53,7 @@ public class Box extends Sprite {
         fix = new FixtureDef();
         fix.shape = shape;
         fix.friction = 0;
-        fix.density = 0.005f;
+        fix.density = 0.00001f;
         Fixture fixture = body.createFixture(fix);
         body.setUserData("box");
     }

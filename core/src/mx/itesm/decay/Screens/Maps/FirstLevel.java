@@ -308,6 +308,8 @@ public class FirstLevel extends GenericScreen {
                     clairo.canClimb = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
+                    clairo.currentState = Clairo.State.IDLE;
+                    clairo.touchingBox = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
                     state = GameStates.GAME_OVER;
@@ -322,6 +324,10 @@ public class FirstLevel extends GenericScreen {
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     clairo.canClimb = false;
+                }
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
+                    clairo.currentState = Clairo.State.IDLE;
+                    clairo.touchingBox = false;
                 }
             }
 

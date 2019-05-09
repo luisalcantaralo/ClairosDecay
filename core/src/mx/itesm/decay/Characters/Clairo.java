@@ -58,11 +58,14 @@ public class Clairo extends Sprite {
     public boolean upKeyPressed;
     public boolean canJump;
 
+    public boolean touchingBox;
+
 
     //private final TestScreen screen;
 
     public Clairo(World world, float startPositionX, float startPositionY) {
         this.world = world;
+        touchingBox = false;
         currentState = State.JUMPING;
         previousState = State.IDLE;
         isRunningRight = true;
@@ -121,13 +124,13 @@ public class Clairo extends Sprite {
             currentState = State.DEAD;
         }
         else{
-            if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb) {
+            if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb && !touchingBox) {
                 currentState = State.JUMPING;
             }
             else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
                 currentState = State.CLIMBING;
             }
-            else if (body.getLinearVelocity().y < 0 && !canClimb ) {
+            else if (body.getLinearVelocity().y < 0 && !canClimb && !touchingBox) {
                 currentState = State.FALLING;
             }
             else if (body.getLinearVelocity().y < 0 && canClimb ) {
