@@ -241,7 +241,6 @@ public class FirstLevel extends GenericScreen {
                     state = GameStates.GAME_OVER;
                 }
 
-
             }
             if(state==GameStates.GAME_OVER){
                 game.setScreen(new GameOver(game, Screens.LEVEL_ONE));

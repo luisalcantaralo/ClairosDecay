@@ -40,7 +40,8 @@ public class LoadingScreen extends GenericScreen{
 
         Decay.prefs = Gdx.app.getPreferences("my-preferences");
 
-        Decay.prefs.putBoolean("music", true);
+        if(Decay.prefs.getString("music") == null) Decay.prefs.putString("music", "ON");
+
         Decay.prefs.putBoolean("sound", true);
         Decay.prefs.putString("level", "1");
 

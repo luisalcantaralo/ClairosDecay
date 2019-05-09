@@ -28,7 +28,7 @@ public class Box extends Sprite {
 
         boxTexture = new Texture("Items/Box.png");
 
-        setBounds(x,y,128/5,128/5);
+        setBounds(x,y,128/7,128/7);
         defineBox(x,y);
         setRegion(new TextureRegion(boxTexture));
 
