@@ -80,6 +80,8 @@ public class FirstLevel extends GenericScreen {
     private GameStates state;
     private PauseScene pauseScene;
 
+    private float health = 5;
+
     // Items
     Array<Box> boxes;
     Array<Turret> turrets;
@@ -158,12 +160,13 @@ public class FirstLevel extends GenericScreen {
 
         sceneHUD = new Stage(vistaHUD);
         Gdx.input.setInputProcessor(sceneHUD);
+        sceneHUD.addActor(imgHealthBarC);
+        sceneHUD.addActor(imgHeathBar);
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
         sceneHUD.addActor(jumpButton);
-        sceneHUD.addActor(imgHealthBarC);
-        sceneHUD.addActor(imgHeathBar);
+
         createCollisionListener();
     }
 
@@ -184,7 +187,6 @@ public class FirstLevel extends GenericScreen {
 
 
     private void loadMap() {
-        AssetManager assetManager = new AssetManager();
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
@@ -193,8 +195,6 @@ public class FirstLevel extends GenericScreen {
 
         map = manager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-
-
     }
 
 
@@ -233,12 +233,13 @@ public class FirstLevel extends GenericScreen {
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
+                sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
+
                 sceneHUD.draw();
 
                 if(clairo.currentState == Clairo.State.DEAD) {
                     state = GameStates.GAME_OVER;
                 }
-
 
             }
             if(state==GameStates.GAME_OVER){
@@ -252,7 +253,7 @@ public class FirstLevel extends GenericScreen {
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
         updateCamera();
-            b2dr.render(world,camera.combined);
+            //b2dr.render(world,camera.combined);
     }
 
     private void updateTurrets(float dt) {
@@ -313,7 +314,8 @@ public class FirstLevel extends GenericScreen {
                     clairo.touchingBox = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
-                    state = GameStates.GAME_OVER;
+                    health --;
+                    if(health <= 0) state = GameStates.GAME_OVER;
                 }
 
             }
@@ -489,4 +491,3 @@ public class FirstLevel extends GenericScreen {
     }
 
 }
-

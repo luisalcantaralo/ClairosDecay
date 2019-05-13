@@ -79,7 +79,7 @@ Settings extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Decay.prefs.putBoolean("music", true);
+                Decay.prefs.putString("music", "ON");
                 sceneSettings.addActor(buttonOnMusic.getImageButton());
                 buttonOffMusic.remove();
 
@@ -95,7 +95,7 @@ Settings extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Decay.prefs.putBoolean("music", false);
+                Decay.prefs.putString("music", "OFF");
                 sceneSettings.addActor(buttonOffMusic.getImageButton());
                 buttonOnMusic.remove();
             }

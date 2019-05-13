@@ -3,6 +3,7 @@ package mx.itesm.decay.Characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.audio.Music;
 
 import mx.itesm.decay.Decay;
 
@@ -63,6 +65,7 @@ public class Clairo extends Sprite {
     public boolean touchingBox;
     public boolean transform;
 
+    public static Music clairoWalkingAudio;
 
     //private final TestScreen screen;
 
@@ -75,6 +78,7 @@ public class Clairo extends Sprite {
         timer = 0;
         canJump = true;
         transform = false;
+        clairoWalkingAudio = Gdx.audio.newMusic(Gdx.files.internal("Music/footsteps.mp3"));
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -148,11 +152,12 @@ public class Clairo extends Sprite {
             }
             else if (body.getLinearVelocity().x != 0 && !touchingBox) {
                 currentState = State.RUNNING;
+
             }
             else if (body.getLinearVelocity().x != 0 && touchingBox && Math.abs(body.getLinearVelocity().x) > 2) {
                 currentState = State.PUSHING;
             }
-            else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting) {
+            else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting && currentState != State.CLIMBING) {
                 currentState = State.IDLE;
             }
         }
@@ -163,15 +168,15 @@ public class Clairo extends Sprite {
         Vector2 clairoWorldCenter = body.getWorldCenter();
         /*
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
-            body.setLinearVelocity(new Vector2(0, 10f));
+            body.setLinearVelocity(new Vector2(0, 5f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE ){
-            body.applyLinearImpulse(new Vector2(0, 10f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 5f), body.getWorldCenter(), true);
         }
         else if (upKeyPressed && currentState != State.JUMPING && currentState != State.FALLING){
 
-            body.applyLinearImpulse(new Vector2(0, 200f), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 100f), body.getWorldCenter(), true);
         }
 
 
@@ -229,21 +234,20 @@ public class Clairo extends Sprite {
         if(!rightKeyPressed && !leftKeyPressed){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
-
-
         */
 
+
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.setLinearVelocity(new Vector2(0, 300f));
+            body.setLinearVelocity(new Vector2(0, 70f));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 300f), clairoWorldCenter, true);
+            body.applyLinearImpulse(new Vector2(0, 70f), clairoWorldCenter, true);
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING){
-            isRunningRight = true;
 
-            body.applyLinearImpulse(new Vector2(0, 400f), clairoWorldCenter, true);
+            body.applyLinearImpulse(new Vector2(0, 200f), clairoWorldCenter, true);
         }
 
 
@@ -301,6 +305,7 @@ public class Clairo extends Sprite {
         if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             body.setLinearVelocity(0,body.getLinearVelocity().y);
         }
+
     }
 
 
@@ -353,7 +358,7 @@ public class Clairo extends Sprite {
 
         
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/6, getHeight()/2);
+        shape.setAsBox(getWidth()/12, getHeight()/2);
         fix = new FixtureDef();
         fix.shape = shape;
         fix.filter.groupIndex = Decay.GROUP_PLAYER;
