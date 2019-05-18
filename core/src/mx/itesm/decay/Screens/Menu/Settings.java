@@ -72,6 +72,8 @@ Settings extends GenericScreen {
 
 
         // off button
+
+
         Texture textureOffMusic = new Texture("menu/cd-off-button.png");
         buttonOffMusic = new GenericButton(textureOffMusic);
         buttonOffMusic.setPosition(WIDTH/2+50, HEIGHT/2+50);
@@ -80,6 +82,7 @@ Settings extends GenericScreen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Decay.prefs.putString("music", "ON");
+                Decay.prefs.flush();
                 sceneSettings.addActor(buttonOnMusic.getImageButton());
                 buttonOffMusic.remove();
 
@@ -88,6 +91,7 @@ Settings extends GenericScreen {
 
 
         // on button
+
         Texture textureOnMusic = new Texture("menu/cd-on-button.png");
         buttonOnMusic = new GenericButton(textureOnMusic);
         buttonOnMusic.setPosition(WIDTH/2+50, HEIGHT/2+50);
@@ -96,10 +100,14 @@ Settings extends GenericScreen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Decay.prefs.putString("music", "OFF");
+                Decay.prefs.flush();
                 sceneSettings.addActor(buttonOffMusic.getImageButton());
                 buttonOnMusic.remove();
             }
         });
+
+
+
 
 
 
@@ -111,7 +119,7 @@ Settings extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        if(!Decay.prefs.getBoolean("music")){
+        if(Decay.prefs.getString("music").equals("OFF")){
             Home.menuTheme.pause();
         }
         else {

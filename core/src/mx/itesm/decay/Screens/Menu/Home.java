@@ -33,6 +33,8 @@ public class Home extends GenericScreen{
     float timeCounter = 0;
 
     public static Music menuTheme;
+    public static Music menuLevel;
+
 
     //Loading
     private AssetManager manager;
@@ -63,12 +65,11 @@ public class Home extends GenericScreen{
 
     public void loadMusic(){
         menuTheme = manager.get("Music/MainMenu.mp3");
-
         // help button
-        if(Decay.prefs.getBoolean("music")){
+        if(Decay.prefs.getString("music").equals("ON")){
             menuTheme.play();
-
         }
+        menuLevel = manager.get("Music/lvl1.mp3");
     }
 
     public void loadBackground(){
