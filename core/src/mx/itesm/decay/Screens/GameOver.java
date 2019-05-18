@@ -12,6 +12,7 @@ import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.Maps.FirstLevel;
+import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Menu.Settings;
 
 public class GameOver extends GenericScreen {
@@ -57,9 +58,13 @@ public class GameOver extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                // response
-                game.setScreen(new FirstLevel(game));
-
+                switch (screens){
+                    case LEVEL_ONE:
+                        game.setScreen(new FirstLevel(game));
+                        break;
+                    case LEVEL_TWO:
+                        game.setScreen(new SecondLevel(game));
+                }
             }
         });
 
@@ -73,7 +78,7 @@ public class GameOver extends GenericScreen {
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(backgroundTexture,WIDTH/2-170,HEIGHT/2);
+        batch.draw(backgroundTexture,GenericScreen.WIDTH/2 - backgroundTexture.getWidth()/3.5f,GenericScreen.HEIGHT/2);
         batch.end();
         scene.draw();
 
@@ -91,6 +96,7 @@ public class GameOver extends GenericScreen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        scene.dispose();
     }
 }
