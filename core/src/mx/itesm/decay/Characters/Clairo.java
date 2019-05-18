@@ -243,11 +243,11 @@ public class Clairo extends Sprite {
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 70f), clairoWorldCenter, true);
-        }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING){
-
             body.applyLinearImpulse(new Vector2(0, 200f), clairoWorldCenter, true);
+        }
+        else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING && (Gdx.input.isKeyPressed(Input.Keys.LEFT)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))){
+
+            body.applyLinearImpulse(new Vector2(0, 400f), clairoWorldCenter, true);
         }
 
 

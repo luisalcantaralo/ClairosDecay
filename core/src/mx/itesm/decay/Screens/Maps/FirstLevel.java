@@ -106,6 +106,8 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
 
+        Home.menuLevel.play();
+
     }
 
     private void createHUD() {
@@ -172,7 +174,7 @@ public class FirstLevel extends GenericScreen {
 
     private void setPhysics() {
         Box2D.init();
-        world = new World(new Vector2(0, -100.81f), true);
+        world = new World(new Vector2(0, -200.81f), true);
 
 
         MapConverter.createBodies(map, world);
@@ -273,7 +275,7 @@ public class FirstLevel extends GenericScreen {
 
     private void updateCamera() {
         float xCamera = clairo.getX();
-        float yCamera = clairo.getY()+20;
+        float yCamera = clairo.getY()+30;
         float tileSize = map.getProperties().get("tilewidth", Integer.class);
         float mapWidth = (map.getProperties().get("width", Integer.class) * tileSize) / SCALE;
         float mapHeight = (map.getProperties().get("height", Integer.class) * tileSize) / SCALE;
