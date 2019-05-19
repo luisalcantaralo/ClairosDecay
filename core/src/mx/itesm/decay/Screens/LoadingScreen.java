@@ -6,11 +6,14 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
+import mx.itesm.decay.Screens.Maps.FirstLevel;
+import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Menu.About;
 import mx.itesm.decay.Screens.Menu.Home;
 import mx.itesm.decay.Screens.Menu.Settings;
@@ -73,20 +76,33 @@ public class LoadingScreen extends GenericScreen{
     }
 
     private void loadLevel2Resources() {
-        
+        manager.load("backgrounds/cd-map-01-background.png",Texture.class);
+        manager.load("UI/cd-button-right.png",Texture.class);
+        manager.load("UI/cd-button-left.png",Texture.class);
+        manager.load("UI/cd-a-button.png",Texture.class);
+        manager.load("UI/cd-pause-button.png",Texture.class);
+        manager.load("maps/cd-map-02.tmx", TiledMap.class);
+        manager.load("UI/pause-screen.png",Texture.class);
+        manager.load("UI/cd-pause-pressed-button.png",Texture.class);
+        manager.get("menu/cd-back-to-menu-button.png",Texture.class);
+
+
+
     }
 
     private void loadLevel1Resources() {
-        
+        manager.load("backgrounds/cd-map-01-background.png",Texture.class);
+        manager.load("UI/cd-button-right.png",Texture.class);
+        manager.load("UI/cd-button-left.png",Texture.class);
+        manager.load("UI/cd-a-button.png",Texture.class);
+        manager.load("UI/cd-pause-button.png",Texture.class);
+        manager.load("maps/cd-map-01.tmx", TiledMap.class);
+        manager.load("UI/pause-screen.png",Texture.class);
+        manager.load("UI/cd-pause-pressed-button.png",Texture.class);
+        manager.get("menu/cd-back-to-menu-button.png",Texture.class);
+
     }
 
-    private void loadSettingsResources() {
-        
-    }
-
-    private void loadAboutResources() {
-        
-    }
 
     private void loadHomeResources() {
         manager.load("menu/cd-menu-buildings.png", Texture.class);
@@ -123,10 +139,10 @@ public class LoadingScreen extends GenericScreen{
                     game.setScreen(new Home(game));
                     break;
                 case LEVEL_ONE:
-                    loadLevel1Resources();
+                    game.setScreen(new FirstLevel(game));
                     break;
                 case LEVEL_TWO:
-                    loadLevel2Resources();
+                    game.setScreen(new SecondLevel(game));
                     break;
                 case LEVEL_THREE:
                     loadLevel3Resources();
