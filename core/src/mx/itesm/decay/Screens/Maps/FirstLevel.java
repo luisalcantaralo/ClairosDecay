@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -79,6 +81,7 @@ public class FirstLevel extends GenericScreen {
     private Texture pauseButton;
     private GameStates state;
     private PauseScene pauseScene;
+    private Music theme;
 
     private float health = 5;
 
@@ -98,6 +101,7 @@ public class FirstLevel extends GenericScreen {
     public void show() {
 
         loadMap();
+        loadMusic();
         setPhysics();
         clairo = new Clairo(world, 100,100);
         background = new Texture("backgrounds/cd-map-01-background.png");
@@ -169,6 +173,16 @@ public class FirstLevel extends GenericScreen {
         sceneHUD.addActor(jumpButton);
 
         createCollisionListener();
+    }
+
+
+    public void loadMusic(){
+        theme = manager.get("Music/lvl1.mp3");
+
+        // help button
+        if(Decay.prefs.getString("music").equals("ON")){
+            theme.play();
+        }
     }
 
     private void setPhysics() {
@@ -401,6 +415,7 @@ public class FirstLevel extends GenericScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     // response
+                    theme.stop();
                     game.setScreen(new LoadingScreen(game,Screens.HOME));
                 }
             });
@@ -439,6 +454,7 @@ public class FirstLevel extends GenericScreen {
             else if(v3.x>244 && v3.x<339 && v3.y>48 && v3.y<144){
 
                 clairo.setRight();
+
                 }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();

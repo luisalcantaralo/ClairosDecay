@@ -44,7 +44,6 @@ public class Splash implements Screen {
 
         view  =new StretchViewport(WIDTH, HEIGHT, camera);
         batch = new SpriteBatch();
-
         textFondo = new Texture("misc/company-logo.png");
 
 

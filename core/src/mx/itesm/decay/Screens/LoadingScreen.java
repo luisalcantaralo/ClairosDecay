@@ -31,6 +31,7 @@ public class LoadingScreen extends GenericScreen{
     private int progress;
     private Text text;
 
+
     private Texture loadingTexture;
 
 
@@ -77,7 +78,7 @@ public class LoadingScreen extends GenericScreen{
     }
 
     private void loadLevel1Resources() {
-        
+        manager.load("Music/MainMenu.mp3",Music.class);
     }
 
     private void loadSettingsResources() {
@@ -108,11 +109,12 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Music/MainMenu.mp3",Music.class);
         manager.load("Music/lvl1.mp3",Music.class);
 
+        manager.load("Music/MainMenu.mp3",Music.class);
 
 
         manager.load("Items/LifeBarContainer.png",Texture.class);
-
         manager.load("Items/TimeBar.png",Texture.class);
+
 
     }
 

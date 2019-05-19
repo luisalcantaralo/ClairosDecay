@@ -69,6 +69,7 @@ public class Home extends GenericScreen{
         if(Decay.prefs.getString("music").equals("ON")){
             menuTheme.play();
         }
+        menuLevel = manager.get("Music/lvl1.mp3");
     }
 
     public void loadBackground(){
@@ -90,6 +91,8 @@ public class Home extends GenericScreen{
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 // response
+
+                //menuTheme.stop();
                 menuBoolean = true;
                 game.setScreen(new IntroScreen(game, "New threat: A new bug was detected disturbing peace.\n" +
                         "Its last known location: ChinaTown \n" +
@@ -195,6 +198,7 @@ public class Home extends GenericScreen{
             manager.unload("menu/cd-button-back.png");
             manager.unload("menu/cd-about-us.png");
             manager.unload("Music/MainMenu.mp3");
+            menuTheme.dispose();
 
         }
     }

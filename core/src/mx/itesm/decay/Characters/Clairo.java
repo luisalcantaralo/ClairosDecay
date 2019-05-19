@@ -65,7 +65,9 @@ public class Clairo extends Sprite {
     public boolean touchingBox;
     public boolean transform;
 
-    public static Music clairoWalkingAudio;
+
+    private Music running;
+    private Music jumping;
 
     //private final TestScreen screen;
 
@@ -78,7 +80,6 @@ public class Clairo extends Sprite {
         timer = 0;
         canJump = true;
         transform = false;
-        clairoWalkingAudio = Gdx.audio.newMusic(Gdx.files.internal("Music/footsteps.mp3"));
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -122,6 +123,10 @@ public class Clairo extends Sprite {
 
         setRegion(new TextureRegion(new Texture("Characters/Detective/DetectiveRun.png")));
 
+
+        running = Gdx.audio.newMusic(Gdx.files.internal("SFX/Running.mp3"));
+        jumping = Gdx.audio.newMusic(Gdx.files.internal("SFX/Propulsor.mp3"));
+
     }
 
     public void update(float dt){
@@ -139,18 +144,28 @@ public class Clairo extends Sprite {
         }
         else{
             if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb && !touchingBox) {
+                if(Decay.prefs.getBoolean("sound")) {
+                    jumping.play();
+                }
                 currentState = State.JUMPING;
             }
             else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
                 currentState = State.CLIMBING;
             }
             else if (body.getLinearVelocity().y < 0 && !canClimb && !touchingBox) {
+                if(Decay.prefs.getBoolean("sound")) {
+                    jumping.play();
+                }
                 currentState = State.FALLING;
             }
             else if (body.getLinearVelocity().y < 0 && canClimb ) {
                 currentState = State.CLIMBING;
             }
             else if (body.getLinearVelocity().x != 0 && !touchingBox) {
+                if(Decay.prefs.getBoolean("sound")){
+                    running.play();
+                }
+
                 currentState = State.RUNNING;
 
             }
@@ -252,6 +267,9 @@ public class Clairo extends Sprite {
 
 
         if(currentState == State.RUNNING){
+
+            jumping.stop();
+
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
@@ -263,6 +281,9 @@ public class Clairo extends Sprite {
             }
         }
         else if(currentState == State.JUMPING){
+            if(Decay.prefs.getBoolean("sound")){
+                running.stop();
+            }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
@@ -275,6 +296,9 @@ public class Clairo extends Sprite {
         }
 
         else if(currentState == State.FALLING){
+            if(Decay.prefs.getBoolean("sound")){
+                running.stop();
+            }
 
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
@@ -291,6 +315,12 @@ public class Clairo extends Sprite {
             }
         }
         else {
+            if(Decay.prefs.getBoolean("sound")) {
+                running.stop();
+                jumping.stop();
+            }
+
+
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
                 isRunningRight = true;
 
