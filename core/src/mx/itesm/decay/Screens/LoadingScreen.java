@@ -11,6 +11,8 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
+import mx.itesm.decay.Screens.Maps.FirstLevel;
+import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Menu.About;
 import mx.itesm.decay.Screens.Menu.Home;
 import mx.itesm.decay.Screens.Menu.Settings;
@@ -19,8 +21,7 @@ public class LoadingScreen extends GenericScreen{
 
     // Loading Animation
     private static final float TIME_BETWEEN_FRAMES = 0.05f;
-    private Sprite loadingSprite;
-    private float timerAnimation = TIME_BETWEEN_FRAMES;
+    private float timer;
 
     // AssetManager
     private AssetManager manager;
@@ -38,6 +39,7 @@ public class LoadingScreen extends GenericScreen{
     public LoadingScreen(Decay game, Screens nextScreen){
         this.game = game;
         this.nextScreen=nextScreen;
+        timer = 0;
 
         Decay.prefs = Gdx.app.getPreferences("my-preferences");
 
@@ -78,16 +80,20 @@ public class LoadingScreen extends GenericScreen{
     }
 
     private void loadLevel1Resources() {
+        manager.load("backgrounds/cd-map-01-background.png", Texture.class);
+        manager.load("UI/cd-button-right.png", Texture.class);
+        manager.load("UI/cd-button-left.png",Texture.class);
+        manager.load("UI/cd-a-button.png", Texture.class);
+        manager.load("UI/cd-pause-button.png", Texture.class);
+        manager.load("UI/pause-screen.png",Texture.class);
+        manager.load("UI/cd-pause-pressed-button.png", Texture.class);
+        manager.load("menu/cd-back-to-menu-button.png", Texture.class);
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+        manager.load("Items/TimeBar.png",Texture.class);
+
         manager.load("Music/MainMenu.mp3",Music.class);
     }
 
-    private void loadSettingsResources() {
-        
-    }
-
-    private void loadAboutResources() {
-        
-    }
 
     private void loadHomeResources() {
         manager.load("menu/cd-menu-buildings.png", Texture.class);
@@ -112,9 +118,6 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Music/MainMenu.mp3",Music.class);
 
 
-        manager.load("Items/LifeBarContainer.png",Texture.class);
-        manager.load("Items/TimeBar.png",Texture.class);
-
 
     }
 
@@ -125,10 +128,12 @@ public class LoadingScreen extends GenericScreen{
                     game.setScreen(new Home(game));
                     break;
                 case LEVEL_ONE:
-                    loadLevel1Resources();
-                    break;
+                    if (timer > 6){
+                        game.setScreen(new FirstLevel(game));
+                        break;
+                    }
                 case LEVEL_TWO:
-                    loadLevel2Resources();
+                    game.setScreen(new SecondLevel(game));
                     break;
                 case LEVEL_THREE:
                     loadLevel3Resources();
@@ -144,13 +149,20 @@ public class LoadingScreen extends GenericScreen{
     public void show() {
         text = new Text();
         loadNextScreenResources();
-        loadingTexture = new Texture("backgrounds/cd-simple-background.png");
+        if (nextScreen == Screens.LEVEL_ONE){
+            loadingTexture = new Texture("misc/cd-mission-chinatown.png");
+        }
+        else {
+            loadingTexture = new Texture("backgrounds/cd-simple-background.png");
+        }
 
     }
 
     @Override
     public void render(float delta) {
         deleteScreen();
+        float time = Gdx.graphics.getDeltaTime();
+        timer += time;
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(loadingTexture, 0, 0);
