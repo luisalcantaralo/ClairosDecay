@@ -21,10 +21,13 @@ public class Box extends Sprite {
 
     Texture boxTexture;
 
-
+    float initialX;
+    float initialY;
 
     public Box(World world, float x, float y){
         this.world = world;
+        this.initialX = x;
+        this.initialY = y;
 
         boxTexture = new Texture("Items/Box.png");
 
@@ -37,6 +40,9 @@ public class Box extends Sprite {
     public void update(){
         if(body.getLinearVelocity().y < 0 && body.getLinearVelocity().x != 0){
             body.setLinearVelocity(new Vector2(0, body.getLinearVelocity().y));
+        }
+        if(body.getPosition().y < 0){
+            body.setTransform( this.initialX, this.initialY,0);
         }
         setPosition((body.getPosition().x)-getWidth()/2, (body.getPosition().y)-getHeight()/2);
         setRegion(new TextureRegion(boxTexture));
