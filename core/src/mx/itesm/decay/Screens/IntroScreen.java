@@ -41,7 +41,7 @@ public class IntroScreen extends GenericScreen {
         batch.begin();
         batch.draw(texture,0,0);
         if(timer > 6){
-            game.setScreen(new FirstLevel(game));
+            game.setScreen(new LoadingScreen(game, Screens.LEVEL_ONE));
         }
         batch.end();
 

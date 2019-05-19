@@ -12,6 +12,8 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.IntroScreen;
+import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Screens;
 
 public class Home extends GenericScreen{
     private final Decay game;
@@ -94,9 +96,10 @@ public class Home extends GenericScreen{
 
                 //menuTheme.stop();
                 menuBoolean = true;
-                game.setScreen(new IntroScreen(game, "New threat: A new bug was detected disturbing peace.\n" +
+                game.setScreen(new LoadingScreen(game, Screens.LEVEL_ONE));
+                /*game.setScreen(new IntroScreen(game, "New threat: A new bug was detected disturbing peace.\n" +
                         "Its last known location: ChinaTown \n" +
-                        "Your mission: Neutralize it.\n", 1, WIDTH/2, HEIGHT-10));
+                        "Your mission: Neutralize it.\n", 1, WIDTH/2, HEIGHT-10));*/
 
             }
         });

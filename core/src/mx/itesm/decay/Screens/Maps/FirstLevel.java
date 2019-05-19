@@ -109,7 +109,7 @@ public class FirstLevel extends GenericScreen {
         loadMusic();
         setPhysics();
         clairo = new Clairo(world, 100,100);
-        background = new Texture("backgrounds/cd-map-01-background.png");
+        background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
@@ -133,24 +133,24 @@ public class FirstLevel extends GenericScreen {
         imgHealthBarC.setPosition(GenericScreen.WIDTH*0.05f - imgHealthBarC.getImageWidth(), GenericScreen.HEIGHT*0.9f - imgHealthBarC.getImageHeight());
         imgHeathBar.setPosition(GenericScreen.WIDTH*0.055f - imgHeathBar.getImageWidth(), GenericScreen.HEIGHT*0.91f - imgHeathBar.getImageHeight());
         //MOVEMENT BUTTONS
-        Texture rightTexture= new Texture("UI/cd-button-right.png");
+        Texture rightTexture= manager.get("UI/cd-button-right.png");
         TextureRegionDrawable trdRightButton= new TextureRegionDrawable(new TextureRegion(rightTexture));
         ImageButton rightButton= new ImageButton(trdRightButton);
         rightButton.setPosition(rightButton.getWidth()*1.5f+100,rightButton.getHeight()/2);
 
 
-        Texture leftTexture= new Texture("UI/cd-button-left.png");
+        Texture leftTexture= manager.get("UI/cd-button-left.png");
         TextureRegionDrawable trdLeftButton= new TextureRegionDrawable(new TextureRegion(leftTexture));
         ImageButton leftButton= new ImageButton(trdLeftButton);
         leftButton.setPosition(leftButton.getWidth()-rightButton.getWidth()/2,leftButton.getHeight()/2);
 
-        Texture jumpTexture= new Texture("UI/cd-a-button.png");
+        Texture jumpTexture= manager.get("UI/cd-a-button.png");
         TextureRegionDrawable trdJumpButton= new TextureRegionDrawable(new TextureRegion(jumpTexture));
         ImageButton jumpButton= new ImageButton(trdJumpButton);
         jumpButton.setPosition(GenericScreen.WIDTH-jumpButton.getWidth()*2,jumpButton.getHeight()/2);
 
         // PAUSE
-        pauseButton= new Texture("UI/cd-pause-button.png");
+        pauseButton= manager.get("UI/cd-pause-button.png");
         TextureRegionDrawable trdPauseButton = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton pauseButtonImage = new ImageButton(trdPauseButton);
         pauseButtonImage.setPosition(GenericScreen.WIDTH - pauseButtonImage.getWidth()*2, GenericScreen.HEIGHT - pauseButtonImage.getHeight()*1.5f);
@@ -397,13 +397,12 @@ public class FirstLevel extends GenericScreen {
         public PauseScene(Viewport view, Batch batch, final Decay game) {
             super(view, batch);
             this.game=game;
-            Texture textureRectangle= new Texture("UI/pause-screen.png");
+            Texture textureRectangle= manager.get("UI/pause-screen.png");
             Image imgRectangle= new Image(textureRectangle);
             imgRectangle.setPosition(0.08f*GenericScreen.WIDTH,0.06f*GenericScreen.HEIGHT);
             this.addActor(imgRectangle);
 
-            final Decay game2= game;
-            Texture backBtn= new Texture("UI/cd-pause-pressed-button.png");
+            Texture backBtn= manager.get("UI/cd-pause-pressed-button.png");
             TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backBtn));
             ImageButton backButton = new ImageButton(trdBack);
             backButton.setPosition(GenericScreen.WIDTH - backBtn.getWidth()*2, GenericScreen.HEIGHT - backBtn.getHeight()*1.5f);
@@ -418,7 +417,7 @@ public class FirstLevel extends GenericScreen {
                     clairo.disableControls=false;
                 }
             });
-            Texture menuBtn= new Texture("menu/cd-back-to-menu-button.png");
+            Texture menuBtn= manager.get("menu/cd-back-to-menu-button.png");
             TextureRegionDrawable trdMenu = new TextureRegionDrawable(new TextureRegion(menuBtn));
             ImageButton menuButton = new ImageButton(trdMenu);
             menuButton.setPosition(GenericScreen.WIDTH/2 - menuButton.getWidth()/2,GenericScreen.HEIGHT/2 - menuButton.getHeight()*1.1f);
