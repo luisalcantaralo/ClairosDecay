@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import mx.itesm.decay.Decay;
@@ -19,7 +20,6 @@ public class GameOver extends GenericScreen {
 
     private Screens screens;
     private Decay game;
-    private Texture backgroundTexture;
     Stage scene;
 
     public  GameOver(Decay game, Screens screens){
@@ -29,7 +29,6 @@ public class GameOver extends GenericScreen {
 
     @Override
     public void show() {
-        backgroundTexture = new Texture("misc/game-over.png");
         scene = new Stage(view);
         createButtons();
         Gdx.input.setInputProcessor(scene);
@@ -37,6 +36,11 @@ public class GameOver extends GenericScreen {
     }
 
     private void createButtons() {
+        //Message
+        Texture gameOver = new Texture("misc/game-over.png");
+        Image imageGameOver = new Image(gameOver);
+        imageGameOver.setPosition(GenericScreen.WIDTH/2 - gameOver.getWidth()/2, GenericScreen.HEIGHT/2 - gameOver.getHeight()/2);
+
         //BackToMenuButton
         Texture menuTexture = new Texture("menu/cd-back-to-menu-button.png");
         GenericButton buttonMenu = new GenericButton(menuTexture);
@@ -68,18 +72,16 @@ public class GameOver extends GenericScreen {
             }
         });
 
-
+        scene.addActor(imageGameOver);
         scene.addActor(buttonMenu.getImageButton());
         scene.addActor(buttonLevel.getImageButton());
+
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(backgroundTexture,GenericScreen.WIDTH/2 - backgroundTexture.getWidth()/3.5f,GenericScreen.HEIGHT/2);
-        batch.end();
         scene.draw();
 
     }
