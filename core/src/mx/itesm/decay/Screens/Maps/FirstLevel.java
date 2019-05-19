@@ -41,6 +41,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
@@ -88,6 +89,7 @@ public class FirstLevel extends GenericScreen {
     // Items
     Array<Box> boxes;
     Array<Turret> turrets;
+    Array<Enemy> enemies;
 
     // Text
     

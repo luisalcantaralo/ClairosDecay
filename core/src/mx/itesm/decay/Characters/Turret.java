@@ -88,8 +88,5 @@ public class Turret extends Sprite {
         Fixture fixture = body.createFixture(fix);
         body.setUserData("turret");
     }
-    public void move(float dt){
 
-
-    }
 }

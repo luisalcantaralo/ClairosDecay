@@ -38,6 +38,8 @@ public class Box extends Sprite {
     }
 
     public void update(){
+
+
         if(body.getLinearVelocity().y < 0 && body.getLinearVelocity().x != 0){
             body.setLinearVelocity(new Vector2(0, body.getLinearVelocity().y));
         }
@@ -55,7 +57,7 @@ public class Box extends Sprite {
         body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/2, getHeight()/2);
+        shape.setAsBox(getWidth(), getHeight()/2);
         fix = new FixtureDef();
         fix.shape = shape;
         fix.friction = 0;
