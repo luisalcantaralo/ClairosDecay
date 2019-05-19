@@ -73,6 +73,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        implementation "com.rafaskoberg.gdx:typing-label:1.0.4"
         
     }
 }
@@ -89,6 +90,7 @@ project(":ios") {
         implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
         implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
+        implementation "com.rafaskoberg.gdx:typing-label:1.0.4"
         
     }
 }
@@ -96,11 +98,11 @@ project(":ios") {
 project(":core") {
     apply plugin: "java"
 
-
     dependencies {
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        implementation "com.rafaskoberg.gdx:typing-label:1.0.4"
         
     }
 }
