@@ -237,7 +237,7 @@ public class SecondLevel extends GenericScreen {
 
         }
         if(state==GameStates.GAME_OVER){
-            game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
+            game.setScreen(new GameOver(game, Screens.LEVEL_TWO));
         }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
             state=GameStates.PAUSE;

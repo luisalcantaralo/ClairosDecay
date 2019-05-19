@@ -72,10 +72,10 @@ public class GameOver extends GenericScreen {
             }
         });
 
-
+        scene.addActor(imageGameOver);
         scene.addActor(buttonMenu.getImageButton());
         scene.addActor(buttonLevel.getImageButton());
-        scene.addActor(imageGameOver);
+
     }
 
     @Override
