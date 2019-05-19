@@ -87,10 +87,35 @@ public class Enemy extends Sprite {
 
         frames.clear();
 
+        for (int i = 0; i < 16; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
+        enemyPatrolling = new Animation(0.1f, frames);
+
+        frames.clear();
+
+        for (int i = 0; i < 16; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Dead/Dead.png"), i * 416, 0, 288, 288));
+        enemyPatrolling = new Animation(0.1f, frames);
+
+        frames.clear();
+
+        for (int i = 0; i < 16; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Draw/Enemy_IdleDraw.png"), i * 416, 0, 288, 288));
+        enemyPatrolling = new Animation(0.1f, frames);
+
+        frames.clear();
+
+
+        for (int i = 0; i < 16; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Shot.png"), i * 416, 0, 288, 288));
+        enemyPatrolling = new Animation(0.1f, frames);
+
+        frames.clear();
+
 
         setBounds(startPositionX, startPositionY, 25, 25);
 
-        boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
+        //boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
         setBounds(startPositionX, startPositionY, 150 / 9, 138 / 9);
         defineBox(startPositionX, startPositionY);

@@ -84,7 +84,6 @@ public class SecondLevel extends GenericScreen {
     // Items
     Array<Box> boxes;
     Array<Turret> turrets;
-    Enemy enemy;
 
 
     public SecondLevel(Decay game){
@@ -100,7 +99,6 @@ public class SecondLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,95);
-        enemy = new Enemy(world,100,95);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
