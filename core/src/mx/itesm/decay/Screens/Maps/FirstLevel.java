@@ -245,7 +245,6 @@ public class FirstLevel extends GenericScreen {
             }
             if(state==GameStates.GAME_OVER){
                 game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
-                Home.menuLevel.stop();
             }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
                 state=GameStates.PAUSE;
