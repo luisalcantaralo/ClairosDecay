@@ -35,7 +35,6 @@ public class Home extends GenericScreen{
     float timeCounter = 0;
 
     public static Music menuTheme;
-    public static Music menuLevel;
 
 
     //Loading
@@ -71,7 +70,6 @@ public class Home extends GenericScreen{
         if(Decay.prefs.getString("music").equals("ON")){
             menuTheme.play();
         }
-        menuLevel = manager.get("Music/lvl1.mp3");
     }
 
     public void loadBackground(){

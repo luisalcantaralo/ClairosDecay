@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import mx.itesm.decay.Characters.Box;
+import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.Turret;
 
 public class MapConverter {
@@ -82,6 +83,16 @@ public class MapConverter {
             turrets.add(new Turret(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE));
         }
         return turrets;
+    }
+
+    public static Array<Enemy> createEnemies(TiledMap mapa, World mundo) {
+        Array<Enemy> enemies = new Array<Enemy>();
+        MapObjects objects = mapa.getLayers().get("Enemies").getObjects();
+        for (MapObject object: objects){
+            enemies.add(new Enemy(mundo,((RectangleMapObject) object).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) object).getRectangle().y/TAM_BLOQUE));
+        }
+
+        return enemies;
     }
 
 

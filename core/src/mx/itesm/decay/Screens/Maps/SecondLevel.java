@@ -39,6 +39,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Clairo;
+import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
@@ -83,6 +84,7 @@ public class SecondLevel extends GenericScreen {
     // Items
     Array<Box> boxes;
     Array<Turret> turrets;
+    Enemy enemy;
 
 
     public SecondLevel(Decay game){
@@ -98,6 +100,7 @@ public class SecondLevel extends GenericScreen {
         loadMap();
         setPhysics();
         clairo = new Clairo(world, 100,95);
+        enemy = new Enemy(world,100,95);
         background = new Texture("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);

@@ -199,6 +199,7 @@ public class FirstLevel extends GenericScreen {
         MapConverter.createStairs(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
+        enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -250,6 +251,7 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 updateBoxes();
                 updateTurrets(time);
+                upddateEnemies(time);
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -275,6 +277,14 @@ public class FirstLevel extends GenericScreen {
         updateCamera();
             //b2dr.render(world,camera.combined);
     }
+
+    private void upddateEnemies(float time) {
+        for(Enemy enemy: enemies){
+            enemy.update(time);
+            enemy.draw(batch);
+        }
+    }
+
 
     private void updateTurrets(float dt) {
         for(Turret turret: turrets){

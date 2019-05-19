@@ -90,8 +90,10 @@ public class LoadingScreen extends GenericScreen{
         manager.load("menu/cd-back-to-menu-button.png", Texture.class);
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+        manager.load("Music/lvl1.mp3",Music.class);
+        manager.finishLoading();
 
-        manager.load("Music/MainMenu.mp3",Music.class);
     }
 
 
@@ -113,11 +115,8 @@ public class LoadingScreen extends GenericScreen{
         manager.load("menu/cd-about-us.png", Texture.class);
 
         manager.load("Music/MainMenu.mp3",Music.class);
-        manager.load("Music/lvl1.mp3",Music.class);
 
-        manager.load("Music/MainMenu.mp3",Music.class);
-
-
+        manager.finishLoading();
 
     }
 

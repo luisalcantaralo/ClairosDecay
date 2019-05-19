@@ -90,6 +90,11 @@ public class Enemy extends Sprite {
 
         setBounds(startPositionX, startPositionY, 25, 25);
 
+        boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
+        timer = 0;
+        setBounds(startPositionX, startPositionY, 150 / 9, 138 / 9);
+        defineBox(startPositionX, startPositionY);
+
         //defineClairo(startPositionX, startPositionY);
 
         // setRegion(new TextureRegion(new Texture("Characters/Detective/DetectiveRun.png")));
@@ -124,6 +129,21 @@ public class Enemy extends Sprite {
 
         return region;
 
+    }
+
+    public void defineBox(float x, float y){
+
+        bdef.position.set(x, y);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        body = world.createBody(bdef);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(getWidth()/2, getHeight()/2);
+        fix = new FixtureDef();
+        fix.shape = shape;
+        fix.friction = 0;
+        fix.density = 0.005f;
+        Fixture fixture = body.createFixture(fix);
+        body.setUserData("enemy");
     }
 
 }
