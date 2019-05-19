@@ -63,6 +63,8 @@ public class Clairo extends Sprite {
     public boolean canJump;
 
     public boolean touchingBox;
+    public boolean pushingBox;
+
     public boolean transform;
 
 
@@ -163,7 +165,7 @@ public class Clairo extends Sprite {
             else if (body.getLinearVelocity().y < 0 && canClimb ) {
                 currentState = State.CLIMBING;
             }
-            else if (body.getLinearVelocity().x != 0 && !touchingBox) {
+            else if (body.getLinearVelocity().x != 0 && !pushingBox) {
                 if(Decay.prefs.getBoolean("sound")){
                     running.play();
                 }
@@ -171,7 +173,7 @@ public class Clairo extends Sprite {
                 currentState = State.RUNNING;
 
             }
-            else if (body.getLinearVelocity().x != 0 && touchingBox && Math.abs(body.getLinearVelocity().x) > 2) {
+            else if (body.getLinearVelocity().x != 0 && pushingBox && Math.abs(body.getLinearVelocity().x) > 2) {
                 currentState = State.PUSHING;
             }
             else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting && currentState != State.CLIMBING) {

@@ -89,6 +89,9 @@ public class FirstLevel extends GenericScreen {
     Array<Box> boxes;
     Array<Turret> turrets;
 
+    // Text
+    
+
 
     public FirstLevel(Decay game){
         super(5);
@@ -320,13 +323,20 @@ public class FirstLevel extends GenericScreen {
                 Fixture fixtureA = contact.getFixtureA();
                 Fixture fixtureB = contact.getFixtureB();
 
+
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     clairo.canClimb = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
                     clairo.currentState = Clairo.State.IDLE;
                     clairo.body.setLinearVelocity(new Vector2(0,0));
-                    clairo.touchingBox = true;
+                    if(fixtureB.getBody().getPosition().y > fixtureA.getBody().getPosition().y+10){
+                        clairo.pushingBox = false;
+                    }
+                    else {
+                        clairo.pushingBox = true;
+                    }
+                        clairo.touchingBox = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
                     health --;
