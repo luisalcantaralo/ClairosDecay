@@ -336,7 +336,8 @@ public class FirstLevel extends GenericScreen {
                     else {
                         clairo.pushingBox = true;
                     }
-                        clairo.touchingBox = true;
+                    clairo.touchingBox = true;
+                    clairo.body.setLinearVelocity(0,0);
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
                     health --;

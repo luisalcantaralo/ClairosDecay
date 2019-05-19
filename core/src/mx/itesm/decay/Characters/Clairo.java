@@ -165,11 +165,10 @@ public class Clairo extends Sprite {
             else if (body.getLinearVelocity().y < 0 && canClimb ) {
                 currentState = State.CLIMBING;
             }
-            else if (body.getLinearVelocity().x != 0 && !pushingBox) {
+            else if (body.getLinearVelocity().x != 0 && !pushingBox && (body.getLinearVelocity().x < -50 || body.getLinearVelocity().x > 50)) {
                 if(Decay.prefs.getBoolean("sound")){
                     running.play();
                 }
-
                 currentState = State.RUNNING;
 
             }
