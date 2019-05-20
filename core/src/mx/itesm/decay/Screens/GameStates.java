@@ -4,5 +4,6 @@ public enum GameStates {
     PLAYING,
     PAUSE,
     GAME_OVER,
-    NEXT
+    NEXT,
+    SHOWING
 }

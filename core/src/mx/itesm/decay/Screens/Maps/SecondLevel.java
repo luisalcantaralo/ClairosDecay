@@ -208,7 +208,7 @@ public class SecondLevel extends GenericScreen {
     }
 
 
-    private void upddateEnemies(float time) {
+    private void updateEnemies(float time) {
         for(Enemy enemy: enemies){
             enemy.update(time);
             enemy.draw(batch);
