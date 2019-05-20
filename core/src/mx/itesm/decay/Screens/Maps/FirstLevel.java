@@ -47,6 +47,7 @@ import mx.itesm.decay.Characters.FatGuy;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
+import mx.itesm.decay.Display.CharacterDialog;
 import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
@@ -94,7 +95,8 @@ public class FirstLevel extends GenericScreen {
     Array<Bullet> bullets;
 
     // Text
-    
+    CharacterDialog clairoDialog;
+
 
 
     public FirstLevel(Decay game){
@@ -118,6 +120,7 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setCatchBackKey(true);
         bullets = new Array<Bullet>();
 
+        clairoDialog = new CharacterDialog("Hello my name is Luis", clairo.body);
 
     }
 
@@ -200,7 +203,7 @@ public class FirstLevel extends GenericScreen {
         MapConverter.createStairs(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
-        enemies = MapConverter.createEnemies(map, world);
+        //enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -251,7 +254,7 @@ public class FirstLevel extends GenericScreen {
 
                 updateBoxes();
                 updateTurrets(time);
-                updateEnemies(time);
+                //updateEnemies(time);
                 if (bullets.size >= 1){
                     updateBullets();
                 }
@@ -327,7 +330,16 @@ public class FirstLevel extends GenericScreen {
                 bullets.removeIndex(i);
             }
             if(b.getBulletSprite().getBoundingRectangle().overlaps(clairo.getBoundingRectangle())){
-                bullets.removeIndex(i);
+                if(b.izquierda){
+                    if (b.getBulletSprite().getX() - clairo.getX() < 7) {
+                        bullets.removeIndex(i);
+                    }
+                }
+                else{
+                    if ( clairo.getX() - b.getBulletSprite().getX()  < -5) {
+                        bullets.removeIndex(i);
+                    }
+                }
             }
         }
         if (bullets.size >= 1){

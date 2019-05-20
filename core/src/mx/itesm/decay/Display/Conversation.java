@@ -42,7 +42,7 @@ public class Conversation extends GenericScreen {
 
     public void adjustTypingConfigs() {
         // Only allow two chars per frame
-        TypingConfig.CHAR_LIMIT_PER_FRAME = 2;
+        TypingConfig.CHAR_LIMIT_PER_FRAME = 1;
 
         // Change color used by CLEARCOLOR token
         TypingConfig.DEFAULT_CLEAR_COLOR = Color.WHITE;
@@ -61,8 +61,6 @@ public class Conversation extends GenericScreen {
         text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
         text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
         text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
-
-
 
 
         // Create label
@@ -121,11 +119,6 @@ public class Conversation extends GenericScreen {
 
         label = createTypingLabel();
 
-        labelEvent = new TypingLabel("", skin);
-        labelEvent.setAlignment(Align.left, Align.center);
-        labelEvent.pause();
-        labelEvent.setVisible(false);
-
         buttonPause = new TextButton("Pause", skin);
         buttonPause.addListener(new ClickListener() {
             @Override
@@ -161,7 +154,6 @@ public class Conversation extends GenericScreen {
 
         table.bottom().pad(40f);
         table.add(label).colspan(8).growX().minHeight(200f).maxHeight(200f);
-        table.add(labelEvent).colspan(4).align(Align.center);
         table.row().uniform().center();
         table.add(buttonSkip).colspan(7).right();
         table.row();

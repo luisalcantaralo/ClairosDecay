@@ -10,7 +10,7 @@ public class Bullet {
     private float x;
     private float y;
     private boolean visible;
-    private boolean izquierda;
+    public boolean izquierda;
 
     private Texture bulletTexture;
     private Sprite bulletSprite;
