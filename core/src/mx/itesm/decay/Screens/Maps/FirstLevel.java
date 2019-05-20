@@ -48,6 +48,7 @@ import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.CharacterDialog;
+import mx.itesm.decay.Display.Text;
 import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
@@ -97,6 +98,13 @@ public class FirstLevel extends GenericScreen {
 
     // Text
     CharacterDialog clairoDialog;
+    Text text;
+
+    //Conversation
+    boolean talkBegin=false;
+    float talkTimer=0;
+    int minutes=3;
+    float timer=60;
 
 
 
@@ -114,14 +122,16 @@ public class FirstLevel extends GenericScreen {
         loadMusic();
         setPhysics();
         clairo = new Clairo(world, 100,100);
-        fatGuy= new FatGuy(world, 700,600);
+        fatGuy= new FatGuy(world, 150,100); //700,600
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
         bullets = new Array<Bullet>();
         clairoDialog = new CharacterDialog("Hello my name is Luis", clairo.body);
+        text= new Text();
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
+
 
 
     }
@@ -264,6 +274,7 @@ public class FirstLevel extends GenericScreen {
                 }
                 clairo.draw(batch);
                 fatGuy.draw(batch);
+                if(talkBegin) {talk(delta);}
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
@@ -287,6 +298,31 @@ public class FirstLevel extends GenericScreen {
             pauseScene.draw();}
         updateCamera();
             b2dr.render(world,camera.combined);
+    }
+
+    private void talk(float dt) {
+        talkTimer += dt;
+        clairo.disableControls = true;
+
+        if(talkTimer < 3){
+            text.showText(batch, "Hey, have you seen a bug around here?", 950, clairo.getY()+200);
+        }
+
+        if(talkTimer > 3 && talkTimer < 6){
+            text.showText(batch, "Yeah, she just ran passed me,\nif you hurry you might catch her up.", 1300, 300);
+
+        }
+        if(talkTimer > 6 && talkTimer < 10){
+            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", 1300, 350);
+
+        }
+        if(talkTimer > 10 && talkTimer < 12){
+            text.showText(batch, "We're doing the best we can sir.", 950, 300);
+        }
+        if(talkTimer > 12){
+            talkBegin = false;
+            clairo.disableControls = false;
+        }
     }
 
     private void updateEnemies(float time) {
