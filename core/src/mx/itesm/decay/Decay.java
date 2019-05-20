@@ -12,15 +12,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+import mx.itesm.decay.Display.Conversation;
 import mx.itesm.decay.Screens.Dev.Test;
 import mx.itesm.decay.Screens.GameOver;
 import mx.itesm.decay.Screens.LoadingScreen;
+import mx.itesm.decay.Screens.Maps.FirstLevel;
 import mx.itesm.decay.Screens.Maps.SecondLevel;
 import mx.itesm.decay.Screens.Screens;
 import mx.itesm.decay.Screens.Splash;
 import mx.itesm.decay.Screens.TestLevel1Screen;
 import mx.itesm.decay.Screens.Menu.Home;
-
+import mx.itesm.decay.Screens.TextTest;
 
 
 public class Decay extends Game{

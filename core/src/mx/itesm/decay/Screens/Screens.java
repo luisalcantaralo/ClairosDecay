@@ -5,5 +5,4 @@ public enum Screens {
     LEVEL_ONE,
     LEVEL_TWO,
     LEVEL_THREE,
-
 }
