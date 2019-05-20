@@ -185,7 +185,7 @@ public class SecondLevel extends GenericScreen {
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
 
-        //enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -208,7 +208,7 @@ public class SecondLevel extends GenericScreen {
     }
 
 
-    private void upddateEnemies(float time) {
+    private void updateEnemies(float time) {
         for(Enemy enemy: enemies){
             enemy.update(time);
             enemy.draw(batch);
@@ -249,6 +249,7 @@ public class SecondLevel extends GenericScreen {
             batch.begin();
             updateBoxes();
             updateTurrets(time);
+            updateEnemies(time);
             if (bullets.size >= 1){
                 updateBullets();
             }
@@ -487,6 +488,7 @@ public class SecondLevel extends GenericScreen {
             this.addActor(backButton);
         }
     }
+
 
     private class ProcesadorEntrada implements InputProcessor {
 
