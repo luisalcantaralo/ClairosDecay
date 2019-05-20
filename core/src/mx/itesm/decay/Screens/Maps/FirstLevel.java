@@ -67,6 +67,7 @@ public class FirstLevel extends GenericScreen {
     private OrthogonalTiledMapRenderer mapRenderer;
 
     private Clairo clairo;
+    private FatGuy fatGuy;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -113,6 +114,7 @@ public class FirstLevel extends GenericScreen {
         loadMusic();
         setPhysics();
         clairo = new Clairo(world, 100,100);
+        fatGuy= new FatGuy(world, 100,500);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -239,6 +241,7 @@ public class FirstLevel extends GenericScreen {
                 world.step(delta, 6,2);
 
                 clairo.update(time);
+                fatGuy.update(time);
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
@@ -260,6 +263,7 @@ public class FirstLevel extends GenericScreen {
                     updateBullets();
                 }
                 clairo.draw(batch);
+                fatGuy.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
