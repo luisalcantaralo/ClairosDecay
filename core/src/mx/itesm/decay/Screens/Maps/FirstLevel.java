@@ -126,7 +126,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         loadMusic();
         setPhysics();
-        clairo = new Clairo(world, 640,600);
+        clairo = new Clairo(world, 100,100);
         fatGuy= new FatGuy(world, 700,600);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -346,11 +346,11 @@ public class FirstLevel extends GenericScreen {
 
             if (distancey <= 20 && distancey >= -20) {
                 enemy.currentState = Enemy.State.RUNNING;
-                if (distancex < 30 && distancex > 0) {
+                if (distancex < 5 && distancex > 0) {
                     if(!enemy.isTouching){
                         enemy.isLeft = true;
                     }
-                } else if (distancex > -30 && distancex < 0) {
+                } else if (distancex > -5 && distancex < 0) {
                     if(!enemy.isTouching){
                         enemy.isLeft = false;
                     }
