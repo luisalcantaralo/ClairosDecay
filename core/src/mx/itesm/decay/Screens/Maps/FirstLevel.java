@@ -199,7 +199,7 @@ public class FirstLevel extends GenericScreen {
         MapConverter.createStairs(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
-        enemies = MapConverter.createEnemies(map, world);
+        //enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -208,13 +208,14 @@ public class FirstLevel extends GenericScreen {
 
 
     private void loadMap() {
-        manager.setLoader(TiledMap.class,
+        AssetManager assetManager = new AssetManager();
+        assetManager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        manager.load("maps/cd-map-01.tmx", TiledMap.class);
-        manager.finishLoading(); // blocks app
+        assetManager.load("maps/cd-map-01.tmx", TiledMap.class);
+        assetManager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-01.tmx");
+        map = assetManager.get("maps/cd-map-01.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
     }
 
@@ -251,7 +252,7 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
                 updateBoxes();
                 updateTurrets(time);
-                upddateEnemies(time);
+                //upddateEnemies(time);
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
