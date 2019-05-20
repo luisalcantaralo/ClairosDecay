@@ -96,12 +96,15 @@ public class FirstLevel extends GenericScreen {
     Array<Enemy> enemies;
     Array<Bullet> bullets;
 
+    boolean isDisable;
+
     // Text
     CharacterDialog clairoDialog;
     Text text;
 
     //Conversation
     boolean talkBegin=false;
+    int talking = 0;
     float talkTimer=0;
     int minutes=3;
     float timer=60;
@@ -113,6 +116,7 @@ public class FirstLevel extends GenericScreen {
         this.game = game;
         state = GameStates.PLAYING;
         manager = game.getAssetManager();
+        this.isDisable = false;
     }
 
     @Override
@@ -121,7 +125,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         loadMusic();
         setPhysics();
-        clairo = new Clairo(world, 20,100);
+        clairo = new Clairo(world, 630,600);
         fatGuy= new FatGuy(world, 700,600);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -257,6 +261,7 @@ public class FirstLevel extends GenericScreen {
 
                 if(clairo.getX() > 650 && clairo.getY()>=fatGuy.getY()){
                     talkBegin=true;
+                    isDisable = true;
                 }
 
                 batch.setProjectionMatrix(camera.combined);
@@ -280,7 +285,7 @@ public class FirstLevel extends GenericScreen {
                 }
                 clairo.draw(batch);
                 fatGuy.draw(batch);
-                if(talkBegin) {talk(delta);}
+                if(talkBegin && talking == 0) {talk(delta);}
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
@@ -308,7 +313,7 @@ public class FirstLevel extends GenericScreen {
 
     private void talk(float dt) {
         talkTimer += dt;
-
+        clairo.disableControls = true;
         if(talkTimer < 3){
             text.showText(batch, "Hey, have you seen a bug around here?", clairo.getX(), clairo.getY()+50);
         }
@@ -326,6 +331,7 @@ public class FirstLevel extends GenericScreen {
         }
         if(talkTimer > 12){
             talkBegin = false;
+            talking ++;
             clairo.disableControls = false;
         }
     }
@@ -343,7 +349,7 @@ public class FirstLevel extends GenericScreen {
             turret.draw(batch);
             float distancex = turret.getX() - clairo.getClairoX();
             float distancey = turret.getY() - clairo.getClairoY();
-            if (turret.getTimerBullet() >= 2) {
+            if (turret.getTimerBullet() >= 2 && !isDisable) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
                         Bullet b = turret.shoot(true);

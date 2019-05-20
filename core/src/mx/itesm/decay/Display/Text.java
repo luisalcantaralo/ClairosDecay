@@ -16,7 +16,7 @@ public class Text {
     }
 
     public void scaleText(){
-        font.getData().setScale(0.2f,0.2f);
+        font.getData().setScale(0.3f,0.3f);
     }
     public void showText(SpriteBatch batch, String message, float x, float y) {
         glyph.setText(font, message);
