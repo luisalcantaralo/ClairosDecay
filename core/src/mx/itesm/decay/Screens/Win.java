@@ -61,7 +61,7 @@ public class Win extends GenericScreen {
                 super.clicked(event, x, y);
                 switch (screens){
                     case LEVEL_ONE:
-                        game.setScreen(new SecondLevel(game));
+                        game.setScreen(new LoadingScreen(game,Screens.LEVEL_TWO));
                         break;
                     case LEVEL_TWO:
                 }
