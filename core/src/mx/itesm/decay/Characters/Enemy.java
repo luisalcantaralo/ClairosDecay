@@ -23,7 +23,6 @@ import mx.itesm.decay.Decay;
 
 public class Enemy extends Sprite {
 
-    // Clairo's State
     public enum State {
         SHOT, DEAD, PATROLLING, DRAW, SHOOTING, RUNNING
     }
@@ -82,7 +81,7 @@ public class Enemy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 416, 0, 220, 220));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 426, 0, 426, 402));
         enemyPatrolling = new Animation(0.1f, frames);
 
 
@@ -124,11 +123,10 @@ public class Enemy extends Sprite {
          **/
 
 
-        setBounds(startPositionX, startPositionY, 25, 25);
 
         //boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
-        setBounds(startPositionX, startPositionY, 150 / 9, 138 / 9);
+        setBounds(startPositionX, startPositionY, 426 / 11, 402 / 11);
         defineBox(startPositionX, startPositionY);
 
         //defineClairo(startPositionX, startPositionY);

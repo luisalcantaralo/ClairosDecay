@@ -1,9 +1,10 @@
-package mx.itesm.decay.Display;
+package mx.itesm.decay.Screens;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,25 +21,20 @@ import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 
 import mx.itesm.decay.Generators.GenericScreen;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.visible;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
-public class Conversation extends GenericScreen {
-    Skin skin;
-    Stage stage;
+public class TextTest extends GenericScreen {
+    Skin        skin;
+    Stage       stage;
     SpriteBatch batch;
     TypingLabel label;
     TypingLabel labelEvent;
-    TextButton buttonPause;
+    TextButton  buttonPause;
     TextButton  buttonResume;
     TextButton  buttonRestart;
     TextButton  buttonSkip;
 
-    public Conversation(){
 
-    }
 
     public void adjustTypingConfigs() {
         // Only allow two chars per frame
@@ -51,14 +47,21 @@ public class Conversation extends GenericScreen {
         TypingConfig.FORCE_COLOR_MARKUP_BY_DEFAULT = true;
     }
 
-    public void update(float delta) {
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-    }
     public TypingLabel createTypingLabel() {
         // Create text with tokens
         final StringBuilder text = new StringBuilder();
-        text.append("Hello, my name is, {WAIT=1}Luis");
-
+        text.append("{SLOWER}{COLOR=SCARLET}{EASE=-8;2;1} Welcome,{WAIT} {VAR=title}!{ENDEASE}");
+        text.append("{FAST}\n\n");
+        text.append("{RESET} This is a {SHAKE}simple test{ENDSHAKE} to show you");
+        text.append("{COLOR=ROYAL} {JUMP}how to make dialogues {SLOW}fun again!{ENDJUMP}{WAIT}");
+        text.append("{NORMAL}{CLEARCOLOR}{SICK} With this library{ENDSICK} you can control the flow of the text with");
+        text.append("{COLOR=#ff0000} {SHAKE=0.5;2;3}tokens{ENDSHAKE},{CLEARCOLOR}{WAIT=0.7}");
+        text.append("{SPEED=2.50}{COLOR=LIME} making the text go really fast{WAIT}");
+        text.append("{SPEED=0.25}{COLOR=FOREST} or {WAVE=0.66}extremely slow.{ENDWAVE}");
+        text.append("{RESET} You can also wait for a {SHAKE=1;2;2}second{ENDSHAKE}{WAIT=1} {SHAKE=1;2;3}or two{ENDSHAKE}{WAIT=2},");
+        text.append("{COLOR=LIME} just to catch an event in code{EVENT=sample}!{WAIT}");
+        text.append("{NORMAL}\n\n");
+        text.append("{COLOR=GOLDENROD}{SLOWER} {WAVE=2;1;1;3}Imagine the possibilities! =D{ENDWAVE}");
 
         // Create label
         final TypingLabel label = new TypingLabel(text, skin);
@@ -66,6 +69,8 @@ public class Conversation extends GenericScreen {
         // Make the label wrap to new lines, respecting the table's layout.
         label.setWrap(true);
 
+        // Set variable replacements for the {VAR} token
+        label.setVariable("title", "curious human");
 
         // Set an event listener for when the {EVENT} token is reached and for the char progression ends.
         label.setTypingListener(new TypingAdapter() {
@@ -98,15 +103,18 @@ public class Conversation extends GenericScreen {
         return label;
     }
 
+    public void update(float delta) {
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+    }
+
+
     @Override
     public void show() {
         adjustTypingConfigs();
 
-
-
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skins/uiskin.json"));
-        skin.getAtlas().getTextures().iterator().next().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
         float scale = 1;
         skin.getFont("default-font").getData().setScale(scale);
         stage = new Stage(new ScreenViewport());
@@ -155,15 +163,16 @@ public class Conversation extends GenericScreen {
             }
         });
 
-        table.bottom().pad(40f);
+        table.pad(50f);
         table.debugCell();
-        table.add(label).colspan(8).growX().minHeight(200f).maxHeight(200f);
-        table.add(labelEvent).colspan(4).align(Align.center);
-        table.row().uniform().center();
-        table.add(buttonSkip).colspan(7).right();
+        table.add(label).colspan(4).growX();
         table.row();
-        table.add().space(50f);
+        table.add(labelEvent).colspan(4).align(Align.center);
+        table.row().uniform().expand().growX().space(40).center();
+        table.add(buttonPause, buttonResume, buttonRestart, buttonSkip);
+
         table.pack();
+        Table.debugCellColor.set(Color.BLUE);
     }
 
     @Override
@@ -174,6 +183,11 @@ public class Conversation extends GenericScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -191,4 +205,7 @@ public class Conversation extends GenericScreen {
         stage.dispose();
         skin.dispose();
     }
+
+
+
 }
