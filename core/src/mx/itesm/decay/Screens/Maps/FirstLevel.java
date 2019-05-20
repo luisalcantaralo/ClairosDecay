@@ -357,7 +357,7 @@ public class FirstLevel extends GenericScreen {
             enemy.update(time);
             enemy.draw(batch);
 
-
+            /**
             float distancex = enemy.getX() - clairo.getClairoX();
             float distancey = enemy.getY() - clairo.getClairoY();
 
@@ -375,7 +375,7 @@ public class FirstLevel extends GenericScreen {
 
             }else {
                 enemy.currentState = Enemy.State.PATROLLING;
-            }
+            }**/
 
         }
     }
@@ -498,6 +498,9 @@ public class FirstLevel extends GenericScreen {
                     clairo.body.setLinearVelocity(0,0);
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
+                    health --;
+                }
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("enemy")){
                     health --;
                 }
 

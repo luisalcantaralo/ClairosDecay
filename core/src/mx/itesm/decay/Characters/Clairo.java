@@ -127,9 +127,9 @@ public class Clairo extends Sprite {
 
 
         running = Gdx.audio.newMusic(Gdx.files.internal("SFX/Running.mp3"));
-        running.setVolume(0.01f);
+        running.setVolume(0.2f);
         jumping = Gdx.audio.newMusic(Gdx.files.internal("SFX/Propulsor.mp3"));
-        jumping.setVolume(0.01f);
+        jumping.setVolume(0.2f);
 
     }
 
