@@ -8,15 +8,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Text {
     private BitmapFont font;
+
     GlyphLayout glyph = new GlyphLayout();
 
     public Text() {
         font = new BitmapFont(Gdx.files.internal("fonts/dialogue.fnt"));
     }
-
+    public void scaleText(){
+        font.getData().setScale(0.2f,0.2f);
+    }
     public void showText(SpriteBatch batch, String message, float x, float y) {
         glyph.setText(font, message);
-        float textWidth = glyph.width;
+        float textWidth = glyph.width/200;
         font.draw(batch, glyph, x-textWidth/2, y);
         
     }

@@ -191,6 +191,8 @@ public class Clairo extends Sprite {
 
     private void updateMovement() {
         Vector2 clairoWorldCenter = body.getWorldCenter();
+
+        if(!disableControls) {
         /*
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING ){
             body.setLinearVelocity(new Vector2(0, 5f));
@@ -262,90 +264,86 @@ public class Clairo extends Sprite {
         */
 
 
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING){
-            body.setLinearVelocity(new Vector2(0, 70f));
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE){
-            body.applyLinearImpulse(new Vector2(0, 200f), clairoWorldCenter, true);
-        }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING && (Gdx.input.isKeyPressed(Input.Keys.LEFT)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))){
-
-            body.applyLinearImpulse(new Vector2(0, 400f), clairoWorldCenter, true);
-        }
-
-
-        if(currentState == State.RUNNING){
-
-            jumping.stop();
-
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-                isRunningRight = true;
-
-                body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
-                isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
-            }
-        }
-        else if(currentState == State.JUMPING){
-            if(Decay.prefs.getBoolean("sound")){
-                running.stop();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-                isRunningRight = true;
-
-                body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
-                isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
-            }
-        }
-
-        else if(currentState == State.FALLING){
-            if(Decay.prefs.getBoolean("sound")){
-                running.stop();
+            if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING) {
+                body.setLinearVelocity(new Vector2(0, 70f));
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-                isRunningRight = true;
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState == State.IDLE) {
+                body.applyLinearImpulse(new Vector2(0, 200f), clairoWorldCenter, true);
+            } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != State.JUMPING && currentState != State.FALLING && (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
 
-                body.applyLinearImpulse(new Vector2(10f, -15f), clairoWorldCenter, true);
+                body.applyLinearImpulse(new Vector2(0, 400f), clairoWorldCenter, true);
             }
-            else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
-                isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, -15f), clairoWorldCenter, true);
-            }
-            else{
-                body.applyLinearImpulse(new Vector2(0, -4f), clairoWorldCenter, true);
 
+
+            if (currentState == State.RUNNING) {
+
+                jumping.stop();
+
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    isRunningRight = true;
+
+                    body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    isRunningRight = false;
+                    body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
+                }
+            } else if (currentState == State.JUMPING) {
+                if (Decay.prefs.getBoolean("sound")) {
+                    running.stop();
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    isRunningRight = true;
+
+                    body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    isRunningRight = false;
+                    body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
+                }
+            } else if (currentState == State.FALLING) {
+                if (Decay.prefs.getBoolean("sound")) {
+                    running.stop();
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    isRunningRight = true;
+
+                    body.applyLinearImpulse(new Vector2(10f, -15f), clairoWorldCenter, true);
+                } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    isRunningRight = false;
+                    body.applyLinearImpulse(new Vector2(-10f, -15f), clairoWorldCenter, true);
+                } else {
+                    body.applyLinearImpulse(new Vector2(0, -4f), clairoWorldCenter, true);
+
+                }
+            } else {
+                if (Decay.prefs.getBoolean("sound")) {
+                    running.stop();
+                    jumping.stop();
+                }
+
+
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    isRunningRight = true;
+
+                    body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    isRunningRight = false;
+                    body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
+                }
+            }
+
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                body.setLinearVelocity(0, body.getLinearVelocity().y);
             }
         }
         else {
-            if(Decay.prefs.getBoolean("sound")) {
-                running.stop();
-                jumping.stop();
-            }
-
-
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-                isRunningRight = true;
-
-                body.applyLinearImpulse(new Vector2(10f, 0), clairoWorldCenter, true);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
-                isRunningRight = false;
-                body.applyLinearImpulse(new Vector2(-10f, 0), clairoWorldCenter, true);
-            }
+            body.setLinearVelocity(0,0);
+            currentState = State.IDLE;
         }
-
-        if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            body.setLinearVelocity(0,body.getLinearVelocity().y);
-        }
-
     }
 
 

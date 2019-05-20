@@ -121,7 +121,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         loadMusic();
         setPhysics();
-        clairo = new Clairo(world, 100,100);
+        clairo = new Clairo(world, 20,100);
         fatGuy= new FatGuy(world, 150,100); //700,600
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -132,7 +132,7 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
 
-
+        text.scaleText();
 
     }
 
@@ -256,7 +256,7 @@ public class FirstLevel extends GenericScreen {
                 clairo.update(time);
                 fatGuy.update(time);
 
-                if(clairo.getX() > 135 && clairo.getY() > 110){
+                if(clairo.getX() > 135){
                     System.out.println("Entre");
                     talkBegin=true;
                 }
@@ -310,22 +310,21 @@ public class FirstLevel extends GenericScreen {
 
     private void talk(float dt) {
         talkTimer += dt;
-        clairo.disableControls = true;
 
         if(talkTimer < 3){
-            text.showText(batch, "Hey, have you seen a bug around here?", clairo.getX(), clairo.getY()+20);
+            text.showText(batch, "Hey, have you seen a bug around here?", clairo.getX(), clairo.getY()+40);
         }
 
         if(talkTimer > 3 && talkTimer < 6){
-            text.showText(batch, "Yeah, she just ran passed me,\nif you hurry you might catch her up.", clairo.getX(), 20);
+            text.showText(batch, "Yeah, she just ran passed me,\nif you hurry you might catch her up.", fatGuy.getX(), fatGuy.getY()+40);
 
         }
         if(talkTimer > 6 && talkTimer < 10){
-            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", clairo.getX(), 20);
+            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", fatGuy.getX(), fatGuy.getY()+40);
 
         }
         if(talkTimer > 10 && talkTimer < 12){
-            text.showText(batch, "We're doing the best we can sir.", clairo.getX(), 20);
+            text.showText(batch, "We're doing the best we can sir.", clairo.getX(), clairo.getY()+40);
         }
         if(talkTimer > 12){
             talkBegin = false;

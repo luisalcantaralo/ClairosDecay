@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import mx.itesm.decay.Decay;
+
 
 public class FatGuy extends Sprite {
     // Box2d
@@ -48,6 +50,7 @@ public class FatGuy extends Sprite {
         shape.setAsBox(getWidth()/2, getHeight()/2);
         FixtureDef fix = new FixtureDef();
         fix.shape = shape;
+        fix.filter.groupIndex = Decay.GROUP_PLAYER;
         body.setUserData("fat");
         Fixture fixture = body.createFixture(fix);
     }
