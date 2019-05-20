@@ -90,6 +90,8 @@ public class SecondLevel extends GenericScreen {
     Array<Enemy> enemies;
     Array<Bullet> bullets;
 
+    float objectiveTimer=0;
+
 
     public SecondLevel(Decay game){
         super(5);
@@ -110,6 +112,10 @@ public class SecondLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
+
+        camera.position.x = 520;
+        camera.position.y = 430;
+        camera.update();
 
     }
 
@@ -224,7 +230,7 @@ public class SecondLevel extends GenericScreen {
         if(clairo.getX() > 520 && clairo.getY() > 430){
             Decay.prefs.putString("level", "2");
             state = GameStates.NEXT;
-            game.setScreen(new ThirdLevel(game));
+            game.setScreen(new Win(game, Screens.LEVEL_TWO));
         }
 
         if(state==GameStates.PLAYING){
@@ -242,7 +248,13 @@ public class SecondLevel extends GenericScreen {
 
             mapRenderer.setView(camera);
             mapRenderer.render();
-            updateCamera();
+            if(objectiveTimer < 6.5){
+                showObjective(delta);
+            }
+            else {
+                updateCamera();
+
+            }
             mapRenderer.setView(camera);
             mapRenderer.render();
 
@@ -264,7 +276,6 @@ public class SecondLevel extends GenericScreen {
                 state = GameStates.GAME_OVER;
             }
 
-
         }
         if(state==GameStates.GAME_OVER){
             game.setScreen(new GameOver(game, Screens.LEVEL_TWO));
@@ -276,7 +287,18 @@ public class SecondLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
-        updateCamera();
+    }
+
+    private void showObjective(float dt) {
+        objectiveTimer += dt;
+
+        if(objectiveTimer > 3){
+            camera.position.x -= 1.55;
+            camera.position.y -= 1.5;
+        }
+
+        camera.update();
+
     }
 
     private void updateTurrets(float dt) {
@@ -443,6 +465,17 @@ public class SecondLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
+        sceneHUD.dispose();
+        manager.unload("backgrounds/cd-map-01-background.png");
+        manager.unload("UI/cd-button-right.png");
+        manager.unload("UI/cd-button-left.png");
+        manager.unload("UI/cd-a-button.png");
+        manager.unload("UI/cd-pause-button.png");
+        manager.unload("UI/pause-screen.png");
+        manager.unload("UI/cd-pause-pressed-button.png");
+        manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Music/lvl1.mp3");
+        clairo.dispose();
     }
 
     private class PauseScene extends Stage {

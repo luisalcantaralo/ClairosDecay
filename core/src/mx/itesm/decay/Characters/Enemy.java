@@ -60,8 +60,8 @@ public class Enemy extends Sprite {
     // Animation Details
     public float timer;
     public boolean isRunningRight;
-    private boolean isLeft;
-    public boolean isShooting = false;
+    public boolean isLeft;
+    public boolean isTouching = false;
 
     // Movement
 
@@ -72,6 +72,7 @@ public class Enemy extends Sprite {
 
         currentState = State.PATROLLING;
         previousState = State.RUNNING;
+        isLeft = true;
         isRunningRight = true;
         timer = 0;
 
@@ -83,41 +84,13 @@ public class Enemy extends Sprite {
 
 
         frames.clear();
-        /**
-
-         for (int i = 0; i < 16; i++)
-         frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
-         enemyPatrolling = new Animation(0.1f, frames);
-
-         frames.clear();
 
 
-         for (int i = 0; i < 16; i++)
-         frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
-         enemyPatrolling = new Animation(0.1f, frames);
+         for (int i = 0; i < 6; i++)
+         frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 426, 0, 426, 402));
+         enemyRunning= new Animation(0.1f, frames);
 
          frames.clear();
-
-         for (int i = 0; i < 16; i++)
-         frames.add(new TextureRegion(new Texture("Characters/Enemy/Shoot/IdleShoot.png"), i * 416, 0, 288, 288));
-         enemyPatrolling = new Animation(0.1f, frames);
-
-         frames.clear();
-
-
-         for (int i = 0; i < 16; i++)
-         frames.add(new TextureRegion(new Texture("Characters/Enemy/Draw/Enemy_IdleDraw.png"), i * 416, 0, 288, 288));
-         enemyPatrolling = new Animation(0.1f, frames);
-
-         frames.clear();
-
-
-         for (int i = 0; i < 16; i++)
-         frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 416, 0, 288, 288));
-         enemyPatrolling = new Animation(0.1f, frames);
-
-         frames.clear();
-         **/
 
 
 
@@ -140,48 +113,69 @@ public class Enemy extends Sprite {
     public void update(float dt) {
         setPosition((body.getPosition().x) - getWidth() / 2, (body.getPosition().y) - getHeight() / 2);
         setRegion(getFrame(dt));
-        System.out.println( startPositionX - enemyRatioXP+" "+body.getPosition().x + " "+  startPositionX + enemyRatioXP);
 
-        if (isRunningRight) {
+        if (currentState == State.PATROLLING) {
+            if (isRunningRight) {
 
-            if(body.getPosition().x < startPositionX + enemyRatioXP){
-                body.setLinearVelocity(new Vector2(enemySpeed, 0));
+                if(body.getPosition().x < startPositionX + enemyRatioXP){
+                    body.setLinearVelocity(new Vector2(enemySpeed, 0));
+                }
+
+                if (body.getPosition().x >= (startPositionX + enemyRatioXP)){
+                    isRunningRight=false;
+                }
+
+
+            }else{
+
+                if(body.getPosition().x > startPositionX){
+                    body.setLinearVelocity(new Vector2(-enemySpeed, 0));
+                }
+
+
+                if (body.getPosition().x <= (startPositionX - enemyRatioXP)){
+                    isRunningRight=true;
+                }
+
             }
+        }else  if (currentState == State.RUNNING) {
 
-            if (body.getPosition().x >= (startPositionX + enemyRatioXP)){
-                isRunningRight=false;
+            System.out.println(currentState);
+            if (isLeft) {
+                isRunningRight = false;
+                body.setLinearVelocity(new Vector2(-5*enemySpeed, 0));
+
+
+
+            }else{
+                isRunningRight = true;
+                body.setLinearVelocity(new Vector2(5*enemySpeed, 0));
+
+
             }
-
-
-        }else{
-
-            if(body.getPosition().x > startPositionX){
-                body.setLinearVelocity(new Vector2(-enemySpeed, 0));
-            }
-
-
-            if (body.getPosition().x <= (startPositionX - enemyRatioXP)){
-                isRunningRight=true;
-            }
-
         }
 
 
-        /**
-         if(isRunningRight && body.getPosition().x <= startPositionX + enemyRatioXP){
-         isRunningRight=false;
 
-         }
-         if(!isRunningRight && body.getPosition().x >= startPositionX - enemyRatioXP){isRunningRight=true;}
 
-         **/
+
     }
 
     public TextureRegion getFrame(float dt){
         TextureRegion region;
         timer += dt;
 
-        region = enemyPatrolling.getKeyFrame(timer, true);
+        switch (currentState){
+            case RUNNING:
+                region = enemyRunning.getKeyFrame(timer, true);
+                break;
+            case PATROLLING:
+                region = enemyPatrolling.getKeyFrame(timer, true);
+                break;
+            default:
+                region = enemyPatrolling.getKeyFrame(timer, true);
+
+        }
 
         if(isRunningRight && region.isFlipX()){
             region.flip(true,false);
