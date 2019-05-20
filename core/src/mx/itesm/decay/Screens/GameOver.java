@@ -14,6 +14,7 @@ import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.Maps.FirstLevel;
 import mx.itesm.decay.Screens.Maps.SecondLevel;
+import mx.itesm.decay.Screens.Maps.ThirdLevel;
 import mx.itesm.decay.Screens.Menu.Settings;
 
 public class GameOver extends GenericScreen {
@@ -68,6 +69,8 @@ public class GameOver extends GenericScreen {
                         break;
                     case LEVEL_TWO:
                         game.setScreen(new SecondLevel(game));
+                    case LEVEL_THREE:
+                        game.setScreen(new ThirdLevel(game));
                 }
             }
         });

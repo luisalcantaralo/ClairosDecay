@@ -221,7 +221,7 @@ public class SecondLevel extends GenericScreen {
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
-        if(clairo.getX() > 520 && clairo.getY() > 447){
+        if(clairo.getX() > 520 && clairo.getY() > 430){
             Decay.prefs.putString("level", "2");
             state = GameStates.NEXT;
             game.setScreen(new ThirdLevel(game));
