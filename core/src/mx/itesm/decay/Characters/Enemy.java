@@ -65,9 +65,6 @@ public class Enemy extends Sprite {
 
     // Movement
 
-
-    //private final TestScreen screen;
-
     public Enemy(World world, float x, float y) {
         this.world = world;
         this.startPositionX = x;

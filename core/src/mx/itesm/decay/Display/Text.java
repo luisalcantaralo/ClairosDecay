@@ -12,7 +12,6 @@ public class Text {
 
     public Text() {
         font = new BitmapFont(Gdx.files.internal("fonts/dialogue.fnt"));
-
     }
 
     public void showText(SpriteBatch batch, String message, float x, float y) {
