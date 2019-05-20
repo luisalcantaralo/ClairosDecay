@@ -245,10 +245,6 @@ public class FirstLevel extends GenericScreen {
                 game.setScreen(new SecondLevel(game));
             }
 
-            else if(clairo.getX() > 135 && clairo.getY() > 110){
-                System.out.println("Entre");
-                talk(delta);
-            }
 
             if(state==GameStates.PLAYING){
 
@@ -259,6 +255,11 @@ public class FirstLevel extends GenericScreen {
 
                 clairo.update(time);
                 fatGuy.update(time);
+
+                if(clairo.getX() > 135 && clairo.getY() > 110){
+                    System.out.println("Entre");
+                    talkBegin=true;
+                }
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
@@ -312,19 +313,19 @@ public class FirstLevel extends GenericScreen {
         clairo.disableControls = true;
 
         if(talkTimer < 3){
-            text.showText(batch, "Hey, have you seen a bug around here?", 950, clairo.getY()+200);
+            text.showText(batch, "Hey, have you seen a bug around here?", clairo.getX(), clairo.getY()+20);
         }
 
         if(talkTimer > 3 && talkTimer < 6){
-            text.showText(batch, "Yeah, she just ran passed me,\nif you hurry you might catch her up.", 1300, 300);
+            text.showText(batch, "Yeah, she just ran passed me,\nif you hurry you might catch her up.", clairo.getX(), 20);
 
         }
         if(talkTimer > 6 && talkTimer < 10){
-            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", 1300, 350);
+            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", clairo.getX(), 20);
 
         }
         if(talkTimer > 10 && talkTimer < 12){
-            text.showText(batch, "We're doing the best we can sir.", 950, 300);
+            text.showText(batch, "We're doing the best we can sir.", clairo.getX(), 20);
         }
         if(talkTimer > 12){
             talkBegin = false;
