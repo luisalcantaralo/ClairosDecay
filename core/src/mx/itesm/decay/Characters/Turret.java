@@ -21,8 +21,6 @@ public class Turret extends Sprite {
     private Body body;
     private BodyDef bdef = new BodyDef();
     private Animation<TextureRegion> turretAnimation;
-    private Array<Bullet> bullets;
-    private Bullet bullet;
     private float timerBullet;
 
 
@@ -94,18 +92,10 @@ public class Turret extends Sprite {
         body.setUserData("turret");
     }
 
-    public Array<Bullet> getBullets() {
-        return bullets;
-    }
 
     public Bullet shoot(boolean izquierda){
         Bullet b = new Bullet(body.getPosition().x,body.getPosition().y, izquierda);
         return b;
-    }
-
-
-    public void setBullet(Bullet bullet) {
-        this.bullet = bullet;
     }
 
     public float getTimerBullet() {

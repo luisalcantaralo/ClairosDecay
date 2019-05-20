@@ -236,11 +236,18 @@ public class FirstLevel extends GenericScreen {
     @Override
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
+        System.out.println(clairo.getClairoX());
+        System.out.println(clairo.getClairoY());
         float time = Gdx.graphics.getDeltaTime();
             if(clairo.getX() > 700 && clairo.getY() > 530){
                 Decay.prefs.putString("level", "2");
                 state = GameStates.NEXT;
                 game.setScreen(new SecondLevel(game));
+            }
+
+            else if(clairo.getX() > 135 && clairo.getY() > 110){
+                System.out.println("Entre");
+                talk(delta);
             }
 
             if(state==GameStates.PLAYING){
