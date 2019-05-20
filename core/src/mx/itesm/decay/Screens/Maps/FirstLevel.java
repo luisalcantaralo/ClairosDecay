@@ -117,12 +117,12 @@ public class FirstLevel extends GenericScreen {
         fatGuy= new FatGuy(world, 700,600);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
+        bullets = new Array<Bullet>();
+        clairoDialog = new CharacterDialog("Hello my name is Luis", clairo.body);
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
-        bullets = new Array<Bullet>();
 
-        clairoDialog = new CharacterDialog("Hello my name is Luis", clairo.body);
 
     }
 
@@ -302,18 +302,14 @@ public class FirstLevel extends GenericScreen {
             turret.draw(batch);
             float distancex = turret.getX() - clairo.getClairoX();
             float distancey = turret.getY() - clairo.getClairoY();
-            float time = turret.getTimerBullet();
-            System.out.println(time);
             if (turret.getTimerBullet() >= 2) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
                         Bullet b = turret.shoot(true);
-                        turret.setBullet(b);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     } else if (distancex >= -200 && distancex <= 0) {
                         Bullet b = turret.shoot(false);
-                        turret.setBullet(b);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     }
@@ -349,10 +345,8 @@ public class FirstLevel extends GenericScreen {
                 }
             }
         }
-        if (bullets.size >= 1){
-            for (Bullet bullet:bullets){
-                bullet.render(batch);
-            }
+        for (Bullet bullet:bullets){
+            bullet.render(batch);
         }
     }
 
