@@ -388,6 +388,11 @@ public class FirstLevel extends GenericScreen {
                     }
                 }
             }
+            for (Box box:boxes){
+                if (b.getBulletSprite().getBoundingRectangle().overlaps(box.getBoundingRectangle())){
+                    bullets.removeIndex(i);
+                }
+            }
         }
         for (Bullet bullet:bullets){
             bullet.render(batch);
