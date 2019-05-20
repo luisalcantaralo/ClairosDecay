@@ -39,7 +39,7 @@ public class Bullet {
     public void update(){
         x += speed;
         bulletSprite.setX(x + speed);
-        if (x > 300 || x < -300){
+        if (x > x+200 || x < x-200){
             visible = false;
         }
     }
