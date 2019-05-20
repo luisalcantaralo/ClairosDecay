@@ -56,7 +56,7 @@ import mx.itesm.decay.Screens.Menu.Home;
 import mx.itesm.decay.Screens.Screens;
 import mx.itesm.decay.Screens.Win;
 
-public class SecondLevel extends GenericScreen {
+public class ThirdLevel extends GenericScreen {
 
     private Decay game;
     private final AssetManager manager;
@@ -91,7 +91,7 @@ public class SecondLevel extends GenericScreen {
     Array<Bullet> bullets;
 
 
-    public SecondLevel(Decay game){
+    public ThirdLevel(Decay game){
         super(5);
         this.game = game;
         state = GameStates.PLAYING;
@@ -157,7 +157,7 @@ public class SecondLevel extends GenericScreen {
                 state= GameStates.PAUSE;
                 if (state==GameStates.PAUSE) {
                     // Activar escenaPausa y pasarle el control
-                    pauseScene = new SecondLevel.PauseScene(vistaHUD, batch, game);
+                    pauseScene = new ThirdLevel.PauseScene(vistaHUD, batch, game);
                     Gdx.input.setInputProcessor(pauseScene);
                 }
             }
@@ -198,10 +198,10 @@ public class SecondLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        manager.load("maps/cd-map-02.tmx", TiledMap.class);
+        manager.load("maps/cd-map-03.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-02.tmx");
+        map = manager.get("maps/cd-map-03.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
 
@@ -222,9 +222,9 @@ public class SecondLevel extends GenericScreen {
         if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
         if(clairo.getX() > 520 && clairo.getY() > 447){
-            Decay.prefs.putString("level", "2");
+            Decay.prefs.putString("level", "4");
             state = GameStates.NEXT;
-            game.setScreen(new ThirdLevel(game));
+            game.setScreen(new Win(game,Screens.LEVEL_ONE));
         }
 
         if(state==GameStates.PLAYING){
@@ -530,7 +530,7 @@ public class SecondLevel extends GenericScreen {
                 state= GameStates.PAUSE;
                 if (state==GameStates.PAUSE) {
                     // Activar escenaPausa y pasarle el control
-                    pauseScene = new SecondLevel.PauseScene(vistaHUD, batch, game);
+                    pauseScene = new ThirdLevel.PauseScene(vistaHUD, batch, game);
                     Gdx.input.setInputProcessor(pauseScene);
                 }}
             else{
@@ -572,4 +572,3 @@ public class SecondLevel extends GenericScreen {
     }
 
 }
-
