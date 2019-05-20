@@ -275,6 +275,7 @@ public class Clairo extends Sprite {
             case IDLE:
                 region = clairoStand.getKeyFrame(timer, true);
                 break;
+
             case RUNNING:
                 region = clairoRun.getKeyFrame(timer, true);
                 break;
