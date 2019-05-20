@@ -11,8 +11,8 @@ public class Text {
 
     GlyphLayout glyph = new GlyphLayout();
 
-    public Text() {
-        font = new BitmapFont(Gdx.files.internal("fonts/dialogue.fnt"));
+    public Text(String path) {
+        font = new BitmapFont(Gdx.files.internal(path));
     }
     public void scaleText(){
         font.getData().setScale(0.2f,0.2f);

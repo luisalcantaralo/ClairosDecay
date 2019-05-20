@@ -150,7 +150,7 @@ public class LoadingScreen extends GenericScreen{
 
     @Override
     public void show() {
-        text = new Text();
+        text = new Text("fonts/dialogue.fnt");
         loadNextScreenResources();
         if (nextScreen == Screens.LEVEL_ONE){
             loadingTexture = new Texture("misc/cd-mission-chinatown.png");

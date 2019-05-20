@@ -24,7 +24,7 @@ public class BlackScreen extends GenericScreen {
     }
     @Override
     public void show() {
-        text = new Text();
+        text = new Text("fonts/dialogue.fnt");
     }
 
     @Override
