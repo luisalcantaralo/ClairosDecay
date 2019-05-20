@@ -109,7 +109,7 @@ public class FirstLevel extends GenericScreen {
     float talkTimer=0;
     int minutes=3;
     float timer=60;
-
+    float objectiveTimer = 0;
 
 
     public FirstLevel(Decay game){
@@ -127,7 +127,7 @@ public class FirstLevel extends GenericScreen {
         loadMusic();
         setPhysics();
         clairo = new Clairo(world, 100,100);
-        fatGuy= new FatGuy(world, 700,600);
+        fatGuy= new FatGuy(world, 700,550);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
         bullets = new Array<Bullet>();
@@ -136,7 +136,9 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
-
+        camera.position.x = 600;
+        camera.position.y = 540;
+        camera.update();
 
     }
 
@@ -270,7 +272,12 @@ public class FirstLevel extends GenericScreen {
 
                 mapRenderer.setView(camera);
                 mapRenderer.render();
-                updateCamera();
+                if(objectiveTimer < 10.65){
+                    showObjective(delta);
+                }
+                else {
+                    updateCamera();
+                }
                 mapRenderer.setView(camera);
                 mapRenderer.render();
 
@@ -306,8 +313,18 @@ public class FirstLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
-        updateCamera();
-            b2dr.render(world,camera.combined);
+    }
+
+    private void showObjective(float dt) {
+        objectiveTimer += dt;
+
+        if(objectiveTimer > 6){
+            camera.position.x -= 1.5;
+            camera.position.y -= 1.5;
+        }
+
+        camera.update();
+
     }
 
     private void talk(float dt) {
