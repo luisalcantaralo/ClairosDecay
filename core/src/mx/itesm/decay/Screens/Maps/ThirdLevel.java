@@ -49,6 +49,7 @@ import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
 import mx.itesm.decay.Screens.BlackScreen;
+import mx.itesm.decay.Screens.Final;
 import mx.itesm.decay.Screens.GameOver;
 import mx.itesm.decay.Screens.GameStates;
 import mx.itesm.decay.Screens.LoadingScreen;
@@ -221,10 +222,10 @@ public class ThirdLevel extends GenericScreen {
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
-        if(clairo.getX() > 470 && clairo.getY() > 50){
+        if(clairo.getX() > 480 && clairo.getY() > 50){
             Decay.prefs.putString("level", "4");
             state = GameStates.NEXT;
-            game.setScreen(new Win(game,Screens.HOME));
+            game.setScreen(new Final(game));
         }
 
         if(state==GameStates.PLAYING){
@@ -442,6 +443,17 @@ public class ThirdLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
+        sceneHUD.dispose();
+        manager.unload("backgrounds/cd-map-01-background.png");
+        manager.unload("UI/cd-button-right.png");
+        manager.unload("UI/cd-button-left.png");
+        manager.unload("UI/cd-a-button.png");
+        manager.unload("UI/cd-pause-button.png");
+        manager.unload("UI/pause-screen.png");
+        manager.unload("UI/cd-pause-pressed-button.png");
+        manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Music/lvl1.mp3");
+        clairo.dispose();
     }
 
     private class PauseScene extends Stage {
