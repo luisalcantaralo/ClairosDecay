@@ -67,6 +67,7 @@ public class SecondLevel extends GenericScreen {
     private Clairo clairo;
 
     private World world;
+
     private Box2DDebugRenderer b2dr;
 
     private Texture background;
