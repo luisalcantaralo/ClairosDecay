@@ -37,7 +37,7 @@ public class GameOver extends GenericScreen {
 
     private void createButtons() {
         //Message
-        Texture gameOver = new Texture("misc/game-over.png");
+        final Texture gameOver = new Texture("misc/game-over.png");
         Image imageGameOver = new Image(gameOver);
         imageGameOver.setPosition(GenericScreen.WIDTH/2 - gameOver.getWidth()/2, GenericScreen.HEIGHT/2 - gameOver.getHeight()/2);
 
@@ -67,7 +67,10 @@ public class GameOver extends GenericScreen {
                         game.setScreen(new LoadingScreen(game, Screens.LEVEL_ONE));
                         break;
                     case LEVEL_TWO:
-                        game.setScreen(new SecondLevel(game));
+                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_TWO));
+                        break;
+                    case LEVEL_THREE:
+                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_THREE));
                 }
             }
         });
