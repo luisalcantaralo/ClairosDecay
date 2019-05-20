@@ -81,7 +81,7 @@ public class Enemy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 426, 0, 426, 402));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 426+120, 80, 426-270, 332));
         enemyPatrolling = new Animation(0.1f, frames);
 
 
@@ -126,7 +126,7 @@ public class Enemy extends Sprite {
 
         //boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
-        setBounds(startPositionX, startPositionY, 426 / 11, 402 / 11);
+        setBounds(startPositionX, startPositionY, 156 / 11, 332 / 11);
         defineBox(startPositionX, startPositionY);
 
         //defineClairo(startPositionX, startPositionY);
