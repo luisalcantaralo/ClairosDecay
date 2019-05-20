@@ -61,7 +61,7 @@ public class Enemy extends Sprite {
     public float timer;
     public boolean isRunningRight;
     public boolean isLeft;
-    public boolean isShooting = false;
+    public boolean isTouching = false;
 
     // Movement
 
