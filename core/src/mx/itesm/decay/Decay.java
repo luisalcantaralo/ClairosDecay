@@ -34,12 +34,11 @@ public class Decay extends Game{
 
     public Decay(){
         assetManager = new AssetManager();
-
     }
 
     @Override
     public void create(){
-        setScreen(new Splash(this));
+        setScreen(new Conversation());
     }
 
     public AssetManager getAssetManager() {
