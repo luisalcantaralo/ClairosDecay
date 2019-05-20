@@ -58,6 +58,7 @@ import mx.itesm.decay.Screens.GameStates;
 import mx.itesm.decay.Screens.LoadingScreen;
 import mx.itesm.decay.Screens.Menu.Home;
 import mx.itesm.decay.Screens.Screens;
+import mx.itesm.decay.Screens.Win;
 
 public class FirstLevel extends GenericScreen {
 
@@ -243,7 +244,7 @@ public class FirstLevel extends GenericScreen {
             if(clairo.getX() > 700 && clairo.getY() > 530){
                 Decay.prefs.putString("level", "2");
                 state = GameStates.NEXT;
-                game.setScreen(new SecondLevel(game));
+                game.setScreen(new Win(game, Screens.LEVEL_ONE));
             }
 
 
