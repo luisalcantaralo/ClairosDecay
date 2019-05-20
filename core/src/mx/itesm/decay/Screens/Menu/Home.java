@@ -87,7 +87,7 @@ public class Home extends GenericScreen{
         // press start button
         Texture textureStart = manager.get("menu/cd-button-start.png");
         buttonStart = new GenericButton(textureStart);
-        buttonStart.setPosition(WIDTH/2 - buttonStart.getWidth()/2, HEIGHT/10 - buttonStart.getHeight()/2);
+        buttonStart.setPosition(WIDTH/2 - buttonStart.getWidth()/2, HEIGHT/8 - buttonStart.getHeight()/2);
         buttonStart.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
