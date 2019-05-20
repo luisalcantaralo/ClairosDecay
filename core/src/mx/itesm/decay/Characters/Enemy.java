@@ -51,10 +51,7 @@ public class Enemy extends Sprite {
     // Animations
     private Animation<TextureRegion> enemyPatrolling;
     private Animation<TextureRegion> enemyRunning;
-    private Animation<TextureRegion> enemyShooting;
-    private Animation<TextureRegion> enemyShot;
-    private Animation<TextureRegion> enemyDead;
-    private Animation<TextureRegion> enemyDrawing;
+    private Animation<TextureRegion> enemyPushing;
 
 
     // Animation Details
@@ -85,6 +82,7 @@ public class Enemy extends Sprite {
 
         frames.clear();
 
+        /**
 
          for (int i = 0; i < 6; i++)
          frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 426, 0, 426, 402));
@@ -92,20 +90,18 @@ public class Enemy extends Sprite {
 
          frames.clear();
 
+        for (int i = 0; i < 11; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Pushing/Enemy Push.png"), i * 348, 0, 348-20, 402+40));
+        enemyRunning= new Animation(0.1f, frames);
+
+        frames.clear();
+         **/
 
 
-        //boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
         setBounds(startPositionX, startPositionY, 170/11, 300 / 11);
         defineBox(startPositionX, startPositionY);
 
-        //defineClairo(startPositionX, startPositionY);
-
-        // setRegion(new TextureRegion(new Texture("Characters/Detective/DetectiveRun.png")));
-
-
-        //running = Gdx.audio.newMusic(Gdx.files.internal("SFX/Running.mp3"));
-        //jumping = Gdx.audio.newMusic(Gdx.files.internal("SFX/Propulsor.mp3"));
 
     }
 
@@ -138,7 +134,9 @@ public class Enemy extends Sprite {
                 }
 
             }
-        }else  if (currentState == State.RUNNING) {
+        }
+
+        /**else  if (currentState == State.RUNNING) {
 
             System.out.println(currentState);
             if (isLeft) {
@@ -153,11 +151,7 @@ public class Enemy extends Sprite {
 
 
             }
-        }
-
-
-
-
+        }**/
 
     }
 
@@ -169,9 +163,9 @@ public class Enemy extends Sprite {
             case RUNNING:
                 region = enemyRunning.getKeyFrame(timer, true);
                 break;
-            case PATROLLING:
+            /**case PATROLLING:
                 region = enemyPatrolling.getKeyFrame(timer, true);
-                break;
+                break;**/
             default:
                 region = enemyPatrolling.getKeyFrame(timer, true);
 
