@@ -49,6 +49,7 @@ import mx.itesm.decay.Generators.GenericScreen;
 
 import mx.itesm.decay.Generators.PauseScene;
 import mx.itesm.decay.Screens.BlackScreen;
+import mx.itesm.decay.Screens.Final;
 import mx.itesm.decay.Screens.GameOver;
 import mx.itesm.decay.Screens.GameStates;
 import mx.itesm.decay.Screens.LoadingScreen;
@@ -185,7 +186,7 @@ public class ThirdLevel extends GenericScreen {
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
 
-        //enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -208,12 +209,6 @@ public class ThirdLevel extends GenericScreen {
     }
 
 
-    private void upddateEnemies(float time) {
-        for(Enemy enemy: enemies){
-            enemy.update(time);
-            enemy.draw(batch);
-        }
-    }
 
 
 
@@ -221,10 +216,10 @@ public class ThirdLevel extends GenericScreen {
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
-        if(clairo.getX() > 470 && clairo.getY() > 50){
+        if(clairo.getX() > 480 && clairo.getY() > 50){
             Decay.prefs.putString("level", "4");
             state = GameStates.NEXT;
-            game.setScreen(new Win(game,Screens.HOME));
+            game.setScreen(new Final(game));
         }
 
         if(state==GameStates.PLAYING){
@@ -249,6 +244,7 @@ public class ThirdLevel extends GenericScreen {
             batch.begin();
             updateBoxes();
             updateTurrets(time);
+            updateEnemies(time);
             if (bullets.size >= 1){
                 updateBullets();
             }
@@ -339,6 +335,34 @@ public class ThirdLevel extends GenericScreen {
         for(Box box: boxes){
             box.update();
             box.draw(batch);
+        }
+    }
+
+    private void updateEnemies(float time) {
+        for(Enemy enemy: enemies){
+            enemy.update(time);
+            enemy.draw(batch);
+
+
+            float distancex = enemy.getX() - clairo.getClairoX();
+            float distancey = enemy.getY() - clairo.getClairoY();
+
+            if (distancey <= 20 && distancey >= -20) {
+                enemy.currentState = Enemy.State.RUNNING;
+                if (distancex < 30 && distancex > 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = true;
+                    }
+                } else if (distancex > -30 && distancex < 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = false;
+                    }
+                }
+
+            }else {
+                enemy.currentState = Enemy.State.PATROLLING;
+            }
+
         }
     }
 
@@ -442,6 +466,17 @@ public class ThirdLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
+        sceneHUD.dispose();
+        manager.unload("backgrounds/cd-map-01-background.png");
+        manager.unload("UI/cd-button-right.png");
+        manager.unload("UI/cd-button-left.png");
+        manager.unload("UI/cd-a-button.png");
+        manager.unload("UI/cd-pause-button.png");
+        manager.unload("UI/pause-screen.png");
+        manager.unload("UI/cd-pause-pressed-button.png");
+        manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Music/lvl1.mp3");
+        clairo.dispose();
     }
 
     private class PauseScene extends Stage {

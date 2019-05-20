@@ -68,9 +68,11 @@ public class GameOver extends GenericScreen {
                         game.setScreen(new LoadingScreen(game, Screens.LEVEL_ONE));
                         break;
                     case LEVEL_TWO:
-                        game.setScreen(new SecondLevel(game));
+                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_TWO));
+                        break;
                     case LEVEL_THREE:
-                        game.setScreen(new ThirdLevel(game));
+                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_THREE));
+                        break;
                 }
             }
         });

@@ -11,18 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
-import mx.itesm.decay.Screens.Maps.SecondLevel;
-import mx.itesm.decay.Screens.Maps.ThirdLevel;
 
-public class Win extends GenericScreen {
-    private Screens screens;
+public class Final extends GenericScreen {
     private Decay game;
     Stage scene;
 
-
-    public Win(Decay game, Screens screens){
+    public Final(Decay game){
         this.game = game;
-        this.screens = screens;
     }
 
     @Override
@@ -52,39 +47,16 @@ public class Win extends GenericScreen {
             }
         });
 
-        //BackToLevel
-        Texture levelTexture = new Texture("menu/cd-retry-button.png");
-        GenericButton buttonLevel = new GenericButton(levelTexture);
-        buttonLevel.setPosition(GenericScreen.WIDTH/2 - buttonLevel.getWidth()/2, GenericScreen.HEIGHT/2.5f - buttonLevel.getHeight()/2);
-        buttonLevel.getImageButton().addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                switch (screens){
-                    case LEVEL_ONE:
-                        game.setScreen(new LoadingScreen(game,Screens.LEVEL_TWO));
-                        break;
-                    case LEVEL_TWO:
-                        game.setScreen(new LoadingScreen(game,Screens.LEVEL_THREE));
-                        break;
-                }
-            }
-        });
-
         scene.addActor(imageGameOver);
         scene.addActor(buttonMenu.getImageButton());
-        scene.addActor(buttonLevel.getImageButton());
 
     }
 
-
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         scene.draw();
-
     }
 
     @Override
