@@ -85,6 +85,7 @@ public class Enemy extends Sprite {
             frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 416, 0, 220, 220));
         enemyPatrolling = new Animation(0.1f, frames);
 
+
         frames.clear();
         /**
 
