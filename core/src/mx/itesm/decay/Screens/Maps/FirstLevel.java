@@ -288,6 +288,7 @@ public class FirstLevel extends GenericScreen {
                 batch.begin();
 
                 updateBoxes();
+
                 updateTurrets(time);
                 updateEnemies(time);
                 if (bullets.size >= 1) {
