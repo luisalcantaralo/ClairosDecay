@@ -68,4 +68,7 @@ public class Bullet {
         this.visible = visible;
     }
 
+    public Sprite getBulletSprite() {
+        return bulletSprite;
+    }
 }

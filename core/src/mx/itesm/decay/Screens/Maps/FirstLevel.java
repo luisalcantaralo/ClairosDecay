@@ -326,6 +326,9 @@ public class FirstLevel extends GenericScreen {
             else {
                 bullets.removeIndex(i);
             }
+            if(b.getBulletSprite().getBoundingRectangle().overlaps(clairo.getBoundingRectangle())){
+                bullets.removeIndex(i);
+            }
         }
         if (bullets.size >= 1){
             for (Bullet bullet:bullets){
