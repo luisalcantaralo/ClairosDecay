@@ -223,6 +223,7 @@ public class FirstLevel extends GenericScreen {
 
     @Override
     public void render(float delta) {
+        if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
             if(clairo.getX() > 700 && clairo.getY() > 530){
                 Decay.prefs.putString("level", "2");
@@ -333,11 +334,13 @@ public class FirstLevel extends GenericScreen {
                 if(b.izquierda){
                     if (b.getBulletSprite().getX() - clairo.getX() < 7) {
                         bullets.removeIndex(i);
+                        health--;
                     }
                 }
                 else{
                     if ( clairo.getX() - b.getBulletSprite().getX()  < -5) {
                         bullets.removeIndex(i);
+                        health--;
                     }
                 }
             }
@@ -409,7 +412,6 @@ public class FirstLevel extends GenericScreen {
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
                     health --;
-                    if(health <= 0) state = GameStates.GAME_OVER;
                 }
 
             }
