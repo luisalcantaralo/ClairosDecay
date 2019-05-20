@@ -315,8 +315,8 @@ public class SecondLevel extends GenericScreen {
         objectiveTimer += dt;
 
         if(objectiveTimer > 3){
-            camera.position.x -= 1.65;
-            camera.position.y -= 1.55;
+            camera.position.x -= 2.33;
+            camera.position.y -= 1.75;
         }
 
         camera.update();

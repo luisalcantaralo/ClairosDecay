@@ -272,7 +272,7 @@ public class FirstLevel extends GenericScreen {
 
                 mapRenderer.setView(camera);
                 mapRenderer.render();
-                if(objectiveTimer < 10.65){
+                if(objectiveTimer < 10.5){
                     showObjective(delta);
                 }
                 else {
@@ -319,8 +319,8 @@ public class FirstLevel extends GenericScreen {
         objectiveTimer += dt;
 
         if(objectiveTimer > 6){
-            camera.position.x -= 1.5;
-            camera.position.y -= 1.5;
+            camera.position.x -= 1.75;
+            camera.position.y -= 1.55;
         }
 
         camera.update();
