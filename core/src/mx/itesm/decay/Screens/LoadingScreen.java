@@ -14,6 +14,7 @@ import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.Maps.FirstLevel;
 import mx.itesm.decay.Screens.Maps.SecondLevel;
+import mx.itesm.decay.Screens.Maps.ThirdLevel;
 import mx.itesm.decay.Screens.Menu.About;
 import mx.itesm.decay.Screens.Menu.Home;
 import mx.itesm.decay.Screens.Menu.Settings;
@@ -74,6 +75,20 @@ public class LoadingScreen extends GenericScreen{
     }
 
     private void loadLevel3Resources() {
+        manager.load("backgrounds/cd-map-01-background.png", Texture.class);
+        manager.load("UI/cd-button-right.png", Texture.class);
+        manager.load("UI/cd-button-left.png",Texture.class);
+        manager.load("UI/cd-a-button.png", Texture.class);
+        manager.load("UI/cd-pause-button.png", Texture.class);
+        manager.load("UI/pause-screen.png",Texture.class);
+        manager.load("UI/cd-pause-pressed-button.png", Texture.class);
+        manager.load("menu/cd-back-to-menu-button.png", Texture.class);
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+        manager.load("Items/TimeBar.png",Texture.class);
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+        manager.load("Music/lvl1.mp3",Music.class);
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+        manager.load("Items/TimeBar.png",Texture.class);
     }
 
     private void loadLevel2Resources() {
@@ -153,7 +168,7 @@ public class LoadingScreen extends GenericScreen{
                     game.setScreen(new SecondLevel(game));
                     break;
                 case LEVEL_THREE:
-                    loadLevel3Resources();
+                    game.setScreen(new ThirdLevel(game));
                     break;
             }
         }

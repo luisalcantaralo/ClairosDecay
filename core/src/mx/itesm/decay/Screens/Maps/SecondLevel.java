@@ -224,7 +224,7 @@ public class SecondLevel extends GenericScreen {
         if(clairo.getX() > 520 && clairo.getY() > 447){
             Decay.prefs.putString("level", "2");
             state = GameStates.NEXT;
-            game.setScreen(new ThirdLevel(game));
+            game.setScreen(new Win(game, Screens.LEVEL_TWO));
         }
 
         if(state==GameStates.PLAYING){
