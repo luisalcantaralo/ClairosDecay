@@ -14,12 +14,13 @@ public class Text {
     public Text(String path) {
         font = new BitmapFont(Gdx.files.internal(path));
     }
+
     public void scaleText(){
         font.getData().setScale(0.2f,0.2f);
     }
     public void showText(SpriteBatch batch, String message, float x, float y) {
         glyph.setText(font, message);
-        float textWidth = glyph.width/200;
+        float textWidth = glyph.width;
         font.draw(batch, glyph, x-textWidth/2, y);
         
     }
