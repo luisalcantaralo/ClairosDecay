@@ -38,7 +38,7 @@ public class Decay extends Game{
 
     @Override
     public void create(){
-        setScreen(new Conversation());
+        setScreen(new LoadingScreen(this, Screens.LEVEL_ONE));
     }
 
     public AssetManager getAssetManager() {
