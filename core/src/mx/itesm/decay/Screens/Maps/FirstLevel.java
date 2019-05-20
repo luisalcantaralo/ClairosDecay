@@ -244,7 +244,7 @@ public class FirstLevel extends GenericScreen {
             if(clairo.getX() > 700 && clairo.getY() > 530){
                 Decay.prefs.putString("level", "2");
                 state = GameStates.NEXT;
-                game.setScreen(new Win(game, Screens.LEVEL_ONE));
+                game.setScreen(new Win(game,Screens.LEVEL_ONE));
             }
 
 
@@ -519,7 +519,6 @@ public class FirstLevel extends GenericScreen {
         manager.unload("menu/cd-back-to-menu-button.png");
         manager.unload("Music/lvl1.mp3");
         clairo.dispose();
-
     }
 
     private class PauseScene extends Stage {
