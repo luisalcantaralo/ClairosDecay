@@ -57,7 +57,12 @@ public class Conversation extends GenericScreen {
     public TypingLabel createTypingLabel() {
         // Create text with tokens
         final StringBuilder text = new StringBuilder();
-        text.append("Hello, my name is, {WAIT=1}Luis");
+        text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
+        text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
+        text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
+        text.append("Hello, my name is, {WAIT=1}Luis. This is a test to see the dialog");
+
+
 
 
         // Create label
@@ -101,8 +106,6 @@ public class Conversation extends GenericScreen {
     @Override
     public void show() {
         adjustTypingConfigs();
-
-
 
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skins/uiskin.json"));
@@ -155,8 +158,8 @@ public class Conversation extends GenericScreen {
             }
         });
 
+
         table.bottom().pad(40f);
-        table.debugCell();
         table.add(label).colspan(8).growX().minHeight(200f).maxHeight(200f);
         table.add(labelEvent).colspan(4).align(Align.center);
         table.row().uniform().center();

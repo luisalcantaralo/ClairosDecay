@@ -126,7 +126,7 @@ public class Enemy extends Sprite {
 
         //boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
-        setBounds(startPositionX, startPositionY, 156 / 11, 332 / 11);
+        setBounds(startPositionX, startPositionY, 156 / 11, 250 / 11);
         defineBox(startPositionX, startPositionY);
 
         //defineClairo(startPositionX, startPositionY);
@@ -138,8 +138,6 @@ public class Enemy extends Sprite {
         //jumping = Gdx.audio.newMusic(Gdx.files.internal("SFX/Propulsor.mp3"));
 
     }
-
-
 
 
     public void update(float dt) {
