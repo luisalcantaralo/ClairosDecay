@@ -107,6 +107,7 @@ public class FirstLevel extends GenericScreen {
     boolean talkBegin=false;
     int talking = 0;
     float talkTimer=0;
+    float objectiveTimer=0;
     int minutes=3;
     float timer=60;
 
@@ -115,7 +116,7 @@ public class FirstLevel extends GenericScreen {
     public FirstLevel(Decay game){
         super(5);
         this.game = game;
-        state = GameStates.PLAYING;
+        state = GameStates.SHOWING;
         manager = game.getAssetManager();
         this.isDisable = false;
     }
@@ -126,8 +127,8 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         loadMusic();
         setPhysics();
-        clairo = new Clairo(world, 650,600);
-        fatGuy= new FatGuy(world, 700,600);
+        clairo = new Clairo(world, 100,100);
+        fatGuy= new FatGuy(world, 700,550);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
         bullets = new Array<Bullet>();
@@ -136,7 +137,10 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
-
+        state = GameStates.PLAYING;
+        camera.position.x = 650;
+        camera.position.y = 540;
+        camera.update();
 
     }
 
@@ -239,75 +243,100 @@ public class FirstLevel extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        if(health <= 0) state = GameStates.GAME_OVER;
-        float time = Gdx.graphics.getDeltaTime();
-            if(clairo.getX() > 700 && clairo.getY() > 530){
+
+
+            if (health <= 0) state = GameStates.GAME_OVER;
+            float time = Gdx.graphics.getDeltaTime();
+            if (clairo.getX() > 700 && clairo.getY() > 530) {
                 Decay.prefs.putString("level", "2");
+                Decay.prefs.flush();
                 state = GameStates.NEXT;
-                game.setScreen(new Win(game,Screens.LEVEL_ONE));
+                game.setScreen(new Win(game, Screens.LEVEL_ONE));
             }
 
 
-            if(state==GameStates.PLAYING){
+            if (state == GameStates.PLAYING) {
 
-                Gdx.gl.glClearColor(1,1,1,0);
+                Gdx.gl.glClearColor(1, 1, 1, 0);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-                world.step(delta, 6,2);
+                world.step(delta, 6, 2);
 
                 clairo.update(time);
                 fatGuy.update(time);
 
-                if(clairo.getX() > 650 && clairo.getY()>=fatGuy.getY()){
-                    talkBegin=true;
+                if (clairo.getX() > 650 && clairo.getY() >= fatGuy.getY()) {
+                    talkBegin = true;
                     isDisable = true;
                 }
 
                 batch.setProjectionMatrix(camera.combined);
                 batch.begin();
-                batch.draw(background,0,0, background.getWidth(), background.getHeight());
+                batch.draw(background, 0, 0, background.getWidth(), background.getHeight());
                 batch.end();
 
                 mapRenderer.setView(camera);
                 mapRenderer.render();
-                updateCamera();
+                if(objectiveTimer < 12.7){
+                    showObjective(delta);
+                }else {
+                    updateCamera();
+                }
                 mapRenderer.setView(camera);
                 mapRenderer.render();
 
                 batch.begin();
 
                 updateBoxes();
+
                 updateTurrets(time);
                 updateEnemies(time);
-                if (bullets.size >= 1){
+                if (bullets.size >= 1) {
                     updateBullets();
                 }
                 clairo.draw(batch);
                 fatGuy.draw(batch);
-                if(talkBegin && talking == 0) {talk(delta);}
+                if (talkBegin && talking == 0) {
+                    talk(delta);
+                }
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
-                sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
+                sceneHUD.getActors().get(1).setWidth((float) 57.6 * health);
 
                 sceneHUD.draw();
 
-                if(clairo.currentState == Clairo.State.DEAD) {
+                if (clairo.currentState == Clairo.State.DEAD) {
                     state = GameStates.GAME_OVER;
                 }
 
             }
-            if(state==GameStates.GAME_OVER){
+            if (state == GameStates.GAME_OVER) {
                 game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
             }
-        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-                state=GameStates.PAUSE;
+            if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+                state = GameStates.PAUSE;
                 pauseScene = new PauseScene(vistaHUD, batch, game);
                 Gdx.input.setInputProcessor(pauseScene);
+            }
+            if (state == GameStates.PAUSE) {
+                pauseScene.draw();
+            }
+            b2dr.render(world, camera.combined);
+
+    }
+
+    private void showObjective(float dt) {
+        objectiveTimer += dt;
+
+        if(objectiveTimer > 7){
+            camera.position.x -= 1.5;
+            camera.position.y -= 1.2;
         }
-        if(state==GameStates.PAUSE){
-            pauseScene.draw();}
-        updateCamera();
-            b2dr.render(world,camera.combined);
+
+
+        camera.update();
+
+
     }
 
     private void talk(float dt) {
@@ -322,7 +351,7 @@ public class FirstLevel extends GenericScreen {
 
         }
         if(talkTimer > 6 && talkTimer < 10){
-            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before\npanic overtakes the city.", fatGuy.getX()-25, fatGuy.getY()+50);
+            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", fatGuy.getX(), fatGuy.getY()+50);
 
         }
         if(talkTimer > 10 && talkTimer < 12){
@@ -443,7 +472,6 @@ public class FirstLevel extends GenericScreen {
                 Fixture fixtureA = contact.getFixtureA();
                 Fixture fixtureB = contact.getFixtureB();
 
-
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     clairo.canClimb = true;
                 }
@@ -519,6 +547,7 @@ public class FirstLevel extends GenericScreen {
         manager.unload("menu/cd-back-to-menu-button.png");
         manager.unload("Music/lvl1.mp3");
         clairo.dispose();
+
     }
 
     private class PauseScene extends Stage {

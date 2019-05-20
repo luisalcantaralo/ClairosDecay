@@ -127,9 +127,9 @@ public class Clairo extends Sprite {
 
 
         running = Gdx.audio.newMusic(Gdx.files.internal("SFX/Running.mp3"));
-        running.setVolume(0.2f);
+        running.setVolume(0.01f);
         jumping = Gdx.audio.newMusic(Gdx.files.internal("SFX/Propulsor.mp3"));
-        jumping.setVolume(0.1f);
+        jumping.setVolume(0.01f);
 
     }
 
@@ -156,6 +156,7 @@ public class Clairo extends Sprite {
         else{
             if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb && !touchingBox) {
                 if(Decay.prefs.getBoolean("sound")) {
+                    jumping.setVolume(0.01f);
                     jumping.play();
                 }
                 currentState = State.JUMPING;
@@ -165,6 +166,7 @@ public class Clairo extends Sprite {
             }
             else if (body.getLinearVelocity().y < 0 && !canClimb && !touchingBox) {
                 if(Decay.prefs.getBoolean("sound")) {
+                    jumping.setVolume(0.01f);
                     jumping.play();
                 }
                 currentState = State.FALLING;
@@ -174,6 +176,7 @@ public class Clairo extends Sprite {
             }
             else if (body.getLinearVelocity().x != 0 && !pushingBox && (body.getLinearVelocity().x < -50 || body.getLinearVelocity().x > 50)) {
                 if(Decay.prefs.getBoolean("sound")){
+                    running.setVolume(0.01f);
                     running.play();
                 }
                 currentState = State.RUNNING;
