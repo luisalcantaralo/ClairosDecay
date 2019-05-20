@@ -104,6 +104,7 @@ public class SecondLevel extends GenericScreen {
         setPhysics();
         clairo = new Clairo(world, 100,95);
         background = new Texture("backgrounds/cd-map-01-background.png");
+        bullets = new Array<Bullet>();
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
@@ -241,6 +242,9 @@ public class SecondLevel extends GenericScreen {
             batch.begin();
             updateBoxes();
             updateTurrets(time);
+            if (bullets.size >= 1){
+                updateBullets();
+            }
             clairo.draw(batch);
             batch.end();
             batch.setProjectionMatrix(camaraHUD.combined);
@@ -266,9 +270,27 @@ public class SecondLevel extends GenericScreen {
     }
 
     private void updateTurrets(float dt) {
-        for(Turret turret: turrets){
+        for(Turret turret: turrets) {
             turret.update(dt);
             turret.draw(batch);
+            float distancex = turret.getX() - clairo.getClairoX();
+            float distancey = turret.getY() - clairo.getClairoY();
+            if (turret.getTimerBullet() >= 2) {
+                if (distancey <= 20 && distancey >= -20) {
+                    if (distancex <= 200 && distancex >= 0) {
+                        Bullet b = turret.shoot(true);
+                        bullets.add(b);
+                        turret.setTimerBullet(0);
+                    } else if (distancex >= -200 && distancex <= 0) {
+                        Bullet b = turret.shoot(false);
+                        bullets.add(b);
+                        turret.setTimerBullet(0);
+                    }
+                }
+            }
+            else{
+                turret.setTimerBullet(turret.getTimerBullet() + dt);
+            }
         }
     }
     private void updateBullets(){
