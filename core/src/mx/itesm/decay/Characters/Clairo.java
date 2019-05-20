@@ -141,6 +141,13 @@ public class Clairo extends Sprite {
 
     }
 
+    public float getClairoX(){
+        return body.getPosition().x;
+    }
+    public float getClairoY(){
+        return body.getPosition().y;
+    }
+
     private void updateState(float dt) {
 
         if(body.getPosition().y < 0){

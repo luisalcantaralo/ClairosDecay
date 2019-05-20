@@ -40,6 +40,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 
 import mx.itesm.decay.Characters.Box;
+import mx.itesm.decay.Characters.Bullet;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
@@ -90,6 +91,7 @@ public class FirstLevel extends GenericScreen {
     Array<Box> boxes;
     Array<Turret> turrets;
     Array<Enemy> enemies;
+    Array<Bullet> bullets;
 
     // Text
     
@@ -114,6 +116,7 @@ public class FirstLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
+        bullets = new Array<Bullet>();
 
 
     }
@@ -249,7 +252,9 @@ public class FirstLevel extends GenericScreen {
                 updateBoxes();
                 updateTurrets(time);
                 updateEnemies(time);
-
+                if (bullets.size >= 1){
+                    updateBullets();
+                }
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -284,9 +289,41 @@ public class FirstLevel extends GenericScreen {
     }
 
     private void updateTurrets(float dt) {
-        for(Turret turret: turrets){
+        for(Turret turret: turrets) {
             turret.update(dt);
             turret.draw(batch);
+            float distancex = turret.getX() - clairo.getClairoX();
+            float distancey = turret.getY() - clairo.getClairoY();
+            if (turret.getTimerBullet() == 0) {
+                if (distancey <= 20 && distancey >= -20) {
+                    if (distancex <= 200 && distancex >= 0) {
+                        Bullet b = turret.shoot(true);
+                        turret.setBullet(b);
+                        bullets.add(b);
+                    } else if (distancex >= -200 && distancex <= 0) {
+                        Bullet b = turret.shoot(false);
+                        turret.setBullet(b);
+                        bullets.add(b);
+                    }
+                }
+            }
+        }
+    }
+
+    private void updateBullets(){
+        for (int i = 0; i < bullets.size; i++){
+            Bullet b = bullets.get(i);
+            if (b.isVisible()){
+                b.update();
+            }
+            else {
+                bullets.removeIndex(i);
+            }
+        }
+        if (bullets.size > 1){
+            for (Bullet bullet:bullets){
+                bullet.render(batch);
+            }
         }
     }
 
