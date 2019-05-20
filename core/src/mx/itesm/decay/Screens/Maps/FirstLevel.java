@@ -193,6 +193,8 @@ public class FirstLevel extends GenericScreen {
         Box2D.init();
         world = new World(new Vector2(0, -200.81f), true);
 
+        MapConverter.createBodies(map, world);
+        MapConverter.createStairs(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
         enemies = MapConverter.createEnemies(map, world);
@@ -365,6 +367,8 @@ public class FirstLevel extends GenericScreen {
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
                     clairo.currentState = Clairo.State.IDLE;
                     clairo.touchingBox = false;
+                    clairo.pushingBox = false;
+
                 }
             }
 

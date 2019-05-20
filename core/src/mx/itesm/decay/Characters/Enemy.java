@@ -175,7 +175,6 @@ public class Enemy extends Sprite {
         fix = new FixtureDef();
         fix.shape = shape;
         fix.friction = 0;
-        fix.density = 0.005f;
         Fixture fixture = body.createFixture(fix);
         body.setUserData("enemy");
     }

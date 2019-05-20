@@ -666,7 +666,6 @@
  </objectgroup>
  <objectgroup id="15" name="Enemies">
   <object id="76" x="1152" y="2496" width="128" height="128"/>
-  <object id="77" x="448" y="2496" width="64" height="128"/>
   <object id="78" x="960" y="2176" width="128" height="128"/>
   <object id="79" x="2176" y="2176" width="128" height="128"/>
   <object id="81" x="3264" y="2496" width="128" height="128"/>
