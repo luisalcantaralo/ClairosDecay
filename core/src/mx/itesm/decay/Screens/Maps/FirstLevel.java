@@ -294,18 +294,25 @@ public class FirstLevel extends GenericScreen {
             turret.draw(batch);
             float distancex = turret.getX() - clairo.getClairoX();
             float distancey = turret.getY() - clairo.getClairoY();
-            if (turret.getTimerBullet() == 0) {
+            float time = turret.getTimerBullet();
+            System.out.println(time);
+            if (turret.getTimerBullet() >= 2) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
                         Bullet b = turret.shoot(true);
                         turret.setBullet(b);
                         bullets.add(b);
+                        turret.setTimerBullet(0);
                     } else if (distancex >= -200 && distancex <= 0) {
                         Bullet b = turret.shoot(false);
                         turret.setBullet(b);
                         bullets.add(b);
+                        turret.setTimerBullet(0);
                     }
                 }
+            }
+            else{
+                turret.setTimerBullet(turret.getTimerBullet() + dt);
             }
         }
     }
@@ -320,7 +327,7 @@ public class FirstLevel extends GenericScreen {
                 bullets.removeIndex(i);
             }
         }
-        if (bullets.size > 1){
+        if (bullets.size >= 1){
             for (Bullet bullet:bullets){
                 bullet.render(batch);
             }
