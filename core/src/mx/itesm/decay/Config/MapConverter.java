@@ -16,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import mx.itesm.decay.Characters.Box;
-import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.Turret;
 
 public class MapConverter {
@@ -58,7 +57,7 @@ public class MapConverter {
             bodyStair.setUserData("stair");
 
             rectangulo.dispose();
-        }
+            }
     }
 
     public static Array<Box> createBoxes(TiledMap mapa, World mundo){
@@ -85,15 +84,6 @@ public class MapConverter {
         return turrets;
     }
 
-    public static Array<Enemy> createEnemies(TiledMap mapa, World mundo) {
-        Array<Enemy> enemies = new Array<Enemy>();
-        MapObjects objects = mapa.getLayers().get("Enemies").getObjects();
-        for (MapObject object: objects){
-            enemies.add(new Enemy(mundo,((RectangleMapObject) object).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) object).getRectangle().y/TAM_BLOQUE));
-        }
-
-        return enemies;
-    }
 
 
     private static PolygonShape getRectangle(RectangleMapObject objeto) {

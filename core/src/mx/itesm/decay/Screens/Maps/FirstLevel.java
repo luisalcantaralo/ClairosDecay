@@ -197,9 +197,10 @@ public class FirstLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
+        //MapConverter.createEnemies(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
-        enemies = MapConverter.createEnemies(map, world);
+        //enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();

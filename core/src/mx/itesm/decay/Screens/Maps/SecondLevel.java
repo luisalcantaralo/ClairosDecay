@@ -84,6 +84,7 @@ public class SecondLevel extends GenericScreen {
     // Items
     Array<Box> boxes;
     Array<Turret> turrets;
+    Array<Enemy> enemies;
 
 
     public SecondLevel(Decay game){
@@ -175,8 +176,10 @@ public class SecondLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        //boxes = MapConverter.createBoxes(map, world);
-        //turrets = MapConverter.createTurrets(map, world);
+        boxes = MapConverter.createBoxes(map, world);
+        turrets = MapConverter.createTurrets(map, world);
+
+        //enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -189,14 +192,23 @@ public class SecondLevel extends GenericScreen {
         manager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        manager.load("maps/cd-map-02.tmx", TiledMap.class);
+        manager.load("maps/cd-map-04.tmx", TiledMap.class);
         manager.finishLoading(); // blocks app
 
-        map = manager.get("maps/cd-map-02.tmx");
+        map = manager.get("maps/cd-map-04.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
 
 
     }
+
+
+    private void upddateEnemies(float time) {
+        for(Enemy enemy: enemies){
+            enemy.update(time);
+            enemy.draw(batch);
+        }
+    }
+
 
 
     @Override

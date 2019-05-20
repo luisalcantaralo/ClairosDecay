@@ -82,10 +82,18 @@ public class Enemy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 416, 0, 288, 288));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 416, 0, 220, 220));
         enemyPatrolling = new Animation(0.1f, frames);
 
         frames.clear();
+        /**
+
+        for (int i = 0; i < 16; i++)
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
+        enemyPatrolling = new Animation(0.1f, frames);
+
+        frames.clear();
+
 
         for (int i = 0; i < 16; i++)
             frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
@@ -94,10 +102,11 @@ public class Enemy extends Sprite {
         frames.clear();
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Dead/Dead.png"), i * 416, 0, 288, 288));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Shoot/IdleShoot.png"), i * 416, 0, 288, 288));
         enemyPatrolling = new Animation(0.1f, frames);
 
         frames.clear();
+
 
         for (int i = 0; i < 16; i++)
             frames.add(new TextureRegion(new Texture("Characters/Enemy/Draw/Enemy_IdleDraw.png"), i * 416, 0, 288, 288));
@@ -107,10 +116,11 @@ public class Enemy extends Sprite {
 
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Shot.png"), i * 416, 0, 288, 288));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 416, 0, 288, 288));
         enemyPatrolling = new Animation(0.1f, frames);
 
         frames.clear();
+         **/
 
 
         setBounds(startPositionX, startPositionY, 25, 25);
