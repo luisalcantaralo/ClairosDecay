@@ -126,7 +126,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         loadMusic();
         setPhysics();
-        clairo = new Clairo(world, 630,600);
+        clairo = new Clairo(world, 650,600);
         fatGuy= new FatGuy(world, 700,600);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -219,7 +219,7 @@ public class FirstLevel extends GenericScreen {
         MapConverter.createStairs(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
-        //enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -278,7 +278,7 @@ public class FirstLevel extends GenericScreen {
 
                 updateBoxes();
                 updateTurrets(time);
-                //updateEnemies(time);
+                updateEnemies(time);
                 if (bullets.size >= 1){
                     updateBullets();
                 }
@@ -322,7 +322,7 @@ public class FirstLevel extends GenericScreen {
 
         }
         if(talkTimer > 6 && talkTimer < 10){
-            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before panic\novertakes the city.", fatGuy.getX(), fatGuy.getY()+50);
+            text.showText(batch, "These bugs are getting out of hand,\nyou ought to control the situation before\npanic overtakes the city.", fatGuy.getX()-25, fatGuy.getY()+50);
 
         }
         if(talkTimer > 10 && talkTimer < 12){
