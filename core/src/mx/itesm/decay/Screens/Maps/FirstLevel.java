@@ -223,7 +223,6 @@ public class FirstLevel extends GenericScreen {
         turrets = MapConverter.createTurrets(map, world);
         enemies = MapConverter.createEnemies(map, world);
 
-
         b2dr = new Box2DDebugRenderer();
     }
 
@@ -329,6 +328,10 @@ public class FirstLevel extends GenericScreen {
     }
 
     private void talk(float dt) {
+        clairo.currentState = Clairo.State.IDLE;
+        clairo.jumping.stop();
+        clairo.running.stop();
+
         talkTimer += dt;
         clairo.disableControls = true;
         if(talkTimer < 3){

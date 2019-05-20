@@ -68,8 +68,8 @@ public class Clairo extends Sprite {
     public boolean transform;
 
 
-    private Music running;
-    private Music jumping;
+    public Music running;
+    public Music jumping;
 
     //private final TestScreen screen;
 
