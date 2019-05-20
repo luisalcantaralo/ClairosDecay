@@ -278,11 +278,11 @@ public class SecondLevel extends GenericScreen {
             if (turret.getTimerBullet() >= 2) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
-                        Bullet b = turret.shoot(true);
+                        Bullet b = turret.shoot(true,2);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     } else if (distancex >= -200 && distancex <= 0) {
-                        Bullet b = turret.shoot(false);
+                        Bullet b = turret.shoot(false,2);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     }

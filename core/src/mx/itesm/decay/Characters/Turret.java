@@ -93,8 +93,8 @@ public class Turret extends Sprite {
     }
 
 
-    public Bullet shoot(boolean izquierda){
-        Bullet b = new Bullet(body.getPosition().x,body.getPosition().y, izquierda);
+    public Bullet shoot(boolean izquierda, int speed){
+        Bullet b = new Bullet(body.getPosition().x,body.getPosition().y, izquierda, speed);
         return b;
     }
 

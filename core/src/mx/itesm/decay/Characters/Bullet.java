@@ -15,9 +15,10 @@ public class Bullet {
     private Texture bulletTexture;
     private Sprite bulletSprite;
 
-    public Bullet(float x, float y, boolean izquierda){
+    public Bullet(float x, float y, boolean izquierda, int speed){
         this.x = x;
         this.y = y;
+        this.speed = speed;
 
         bulletTexture = new Texture("Turret/bullet.png");
         bulletSprite = new Sprite(bulletTexture);
@@ -25,10 +26,7 @@ public class Bullet {
         this.izquierda = izquierda;
         this.visible = true;
         if (izquierda){
-            speed = -1;
-        }
-        else {
-            speed = 1;
+            this.speed *= -1;
         }
     }
 

@@ -239,8 +239,6 @@ public class FirstLevel extends GenericScreen {
     @Override
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
-        System.out.println(clairo.getClairoX());
-        System.out.println(clairo.getClairoY());
         float time = Gdx.graphics.getDeltaTime();
             if(clairo.getX() > 700 && clairo.getY() > 530){
                 Decay.prefs.putString("level", "2");
@@ -352,11 +350,11 @@ public class FirstLevel extends GenericScreen {
             if (turret.getTimerBullet() >= 2 && !isDisable) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
-                        Bullet b = turret.shoot(true);
+                        Bullet b = turret.shoot(true, 1);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     } else if (distancex >= -200 && distancex <= 0) {
-                        Bullet b = turret.shoot(false);
+                        Bullet b = turret.shoot(false, 1);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     }
@@ -509,6 +507,16 @@ public class FirstLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
+        sceneHUD.dispose();
+        manager.unload("backgrounds/cd-map-01-background.png");
+        manager.unload("UI/cd-button-right.png");
+        manager.unload("UI/cd-button-left.png");
+        manager.unload("UI/cd-a-button.png");
+        manager.unload("UI/cd-pause-button.png");
+        manager.unload("UI/pause-screen.png");
+        manager.unload("UI/cd-pause-pressed-button.png");
+        manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Music/lvl1.mp3");
     }
 
     private class PauseScene extends Stage {
