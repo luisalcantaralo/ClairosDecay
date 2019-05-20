@@ -221,10 +221,10 @@ public class ThirdLevel extends GenericScreen {
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
-        if(clairo.getX() > 520 && clairo.getY() > 447){
+        if(clairo.getX() > 470 && clairo.getY() > 50){
             Decay.prefs.putString("level", "4");
             state = GameStates.NEXT;
-            game.setScreen(new Win(game,Screens.LEVEL_ONE));
+            game.setScreen(new Win(game,Screens.HOME));
         }
 
         if(state==GameStates.PLAYING){
@@ -258,7 +258,7 @@ public class ThirdLevel extends GenericScreen {
             sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
 
             sceneHUD.draw();
-
+            System.out.println(clairo.getY());
             if(clairo.currentState == Clairo.State.DEAD) {
                 state = GameStates.GAME_OVER;
             }
@@ -266,7 +266,7 @@ public class ThirdLevel extends GenericScreen {
 
         }
         if(state==GameStates.GAME_OVER){
-            game.setScreen(new GameOver(game, Screens.LEVEL_TWO));
+            game.setScreen(new GameOver(game, Screens.LEVEL_THREE));
         }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
             state=GameStates.PAUSE;

@@ -346,12 +346,16 @@ public class FirstLevel extends GenericScreen {
 
             if (distancey <= 20 && distancey >= -20) {
                 enemy.currentState = Enemy.State.RUNNING;
-                if (distancex <= 30 && distancex >= 0) {
-                    enemy.isLeft = true;
-                } else if (distancex >= -30 && distancex <= 0) {
-                    enemy.isLeft = false;
-
+                if (distancex < 30 && distancex > 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = true;
+                    }
+                } else if (distancex > -30 && distancex < 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = false;
+                    }
                 }
+
             }else {
                 enemy.currentState = Enemy.State.PATROLLING;
             }

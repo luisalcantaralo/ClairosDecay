@@ -14,6 +14,7 @@ import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.Maps.FirstLevel;
 import mx.itesm.decay.Screens.Maps.SecondLevel;
+import mx.itesm.decay.Screens.Maps.ThirdLevel;
 import mx.itesm.decay.Screens.Menu.Settings;
 
 public class GameOver extends GenericScreen {
@@ -37,7 +38,7 @@ public class GameOver extends GenericScreen {
 
     private void createButtons() {
         //Message
-        final Texture gameOver = new Texture("misc/game-over.png");
+        Texture gameOver = new Texture("misc/game-over.png");
         Image imageGameOver = new Image(gameOver);
         imageGameOver.setPosition(GenericScreen.WIDTH/2 - gameOver.getWidth()/2, GenericScreen.HEIGHT/2 - gameOver.getHeight()/2);
 
@@ -67,10 +68,9 @@ public class GameOver extends GenericScreen {
                         game.setScreen(new LoadingScreen(game, Screens.LEVEL_ONE));
                         break;
                     case LEVEL_TWO:
-                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_TWO));
-                        break;
+                        game.setScreen(new SecondLevel(game));
                     case LEVEL_THREE:
-                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_THREE));
+                        game.setScreen(new ThirdLevel(game));
                 }
             }
         });
