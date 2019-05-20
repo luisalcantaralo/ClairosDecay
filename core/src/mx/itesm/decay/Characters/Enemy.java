@@ -39,8 +39,7 @@ public class Enemy extends Sprite {
     float startPositionX;
     float startPositionY;
     float enemySpeed = 5;
-    float enemyRatioXN = 15;
-    float enemyRatioXP = 15;
+    float enemyRatioXP = 10;
 
     public State currentState;
     public State previousState;
@@ -61,6 +60,7 @@ public class Enemy extends Sprite {
     // Animation Details
     public float timer;
     public boolean isRunningRight;
+    private boolean isLeft;
     public boolean isShooting = false;
 
     // Movement
@@ -78,52 +78,52 @@ public class Enemy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 426+120, 80, 426-270, 332));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 426+120, 80, 426-220, 332));
         enemyPatrolling = new Animation(0.1f, frames);
 
 
         frames.clear();
         /**
 
-        for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
-        enemyPatrolling = new Animation(0.1f, frames);
+         for (int i = 0; i < 16; i++)
+         frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
+         enemyPatrolling = new Animation(0.1f, frames);
 
-        frames.clear();
-
-
-        for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
-        enemyPatrolling = new Animation(0.1f, frames);
-
-        frames.clear();
-
-        for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Shoot/IdleShoot.png"), i * 416, 0, 288, 288));
-        enemyPatrolling = new Animation(0.1f, frames);
-
-        frames.clear();
+         frames.clear();
 
 
-        for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Draw/Enemy_IdleDraw.png"), i * 416, 0, 288, 288));
-        enemyPatrolling = new Animation(0.1f, frames);
+         for (int i = 0; i < 16; i++)
+         frames.add(new TextureRegion(new Texture("Characters/Enemy/Shot/Shot.png"), i * 416, 0, 288, 288));
+         enemyPatrolling = new Animation(0.1f, frames);
 
-        frames.clear();
+         frames.clear();
+
+         for (int i = 0; i < 16; i++)
+         frames.add(new TextureRegion(new Texture("Characters/Enemy/Shoot/IdleShoot.png"), i * 416, 0, 288, 288));
+         enemyPatrolling = new Animation(0.1f, frames);
+
+         frames.clear();
 
 
-        for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 416, 0, 288, 288));
-        enemyPatrolling = new Animation(0.1f, frames);
+         for (int i = 0; i < 16; i++)
+         frames.add(new TextureRegion(new Texture("Characters/Enemy/Draw/Enemy_IdleDraw.png"), i * 416, 0, 288, 288));
+         enemyPatrolling = new Animation(0.1f, frames);
 
-        frames.clear();
+         frames.clear();
+
+
+         for (int i = 0; i < 16; i++)
+         frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 416, 0, 288, 288));
+         enemyPatrolling = new Animation(0.1f, frames);
+
+         frames.clear();
          **/
 
 
 
         //boxTexture = new TextureRegion(new Texture("Turret/turret.png"), 0, 0, 150, 138);
         timer = 0;
-        setBounds(startPositionX, startPositionY, 156 / 11, 250 / 11);
+        setBounds(startPositionX, startPositionY, 170/11, 300 / 11);
         defineBox(startPositionX, startPositionY);
 
         //defineClairo(startPositionX, startPositionY);
@@ -140,14 +140,41 @@ public class Enemy extends Sprite {
     public void update(float dt) {
         setPosition((body.getPosition().x) - getWidth() / 2, (body.getPosition().y) - getHeight() / 2);
         setRegion(getFrame(dt));
+        System.out.println( startPositionX - enemyRatioXP+" "+body.getPosition().x + " "+  startPositionX + enemyRatioXP);
 
-        if (body.getPosition().x <= startPositionX - enemyRatioXN) {
-            body.applyLinearImpulse(new Vector2(enemySpeed, 0), body.getWorldCenter(), true);
-        } else if (body.getPosition().x >= startPositionX + enemyRatioXP){
-            body.applyLinearImpulse(new Vector2(-enemySpeed, 0), body.getWorldCenter(), true);
+        if (isRunningRight) {
+
+            if(body.getPosition().x < startPositionX + enemyRatioXP){
+                body.setLinearVelocity(new Vector2(enemySpeed, 0));
+            }
+
+            if (body.getPosition().x >= (startPositionX + enemyRatioXP)){
+                isRunningRight=false;
+            }
+
+
         }else{
-            body.applyLinearImpulse(new Vector2(enemySpeed, 0), body.getWorldCenter(), true);
+
+            if(body.getPosition().x > startPositionX){
+                body.setLinearVelocity(new Vector2(-enemySpeed, 0));
+            }
+
+
+            if (body.getPosition().x <= (startPositionX - enemyRatioXP)){
+                isRunningRight=true;
+            }
+
         }
+
+
+        /**
+         if(isRunningRight && body.getPosition().x <= startPositionX + enemyRatioXP){
+         isRunningRight=false;
+
+         }
+         if(!isRunningRight && body.getPosition().x >= startPositionX - enemyRatioXP){isRunningRight=true;}
+
+         **/
     }
 
     public TextureRegion getFrame(float dt){
@@ -155,6 +182,14 @@ public class Enemy extends Sprite {
         timer += dt;
 
         region = enemyPatrolling.getKeyFrame(timer, true);
+
+        if(isRunningRight && region.isFlipX()){
+            region.flip(true,false);
+        }
+
+        if(!isRunningRight && !region.isFlipX()){
+            region.flip(true,false);
+        }
 
         return region;
 
@@ -166,7 +201,7 @@ public class Enemy extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(getWidth()/2, getHeight()/2);
+        shape.setAsBox(getWidth()/6, getHeight()/2);
         fix = new FixtureDef();
         fix.shape = shape;
         fix.friction = 0;
