@@ -315,6 +315,7 @@ public class FirstLevel extends GenericScreen {
             pauseScene.draw();}
     }
 
+
     private void showObjective(float dt) {
         objectiveTimer += dt;
 
