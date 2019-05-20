@@ -38,6 +38,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 
 
 import mx.itesm.decay.Characters.Box;
+import mx.itesm.decay.Characters.Bullet;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
@@ -70,6 +71,7 @@ public class SecondLevel extends GenericScreen {
     private Texture background;
     private Texture healthBarC;
     private Texture healthBar;
+    private float health=5;
 
     //HUD
     private OrthographicCamera camaraHUD;
@@ -85,6 +87,7 @@ public class SecondLevel extends GenericScreen {
     Array<Box> boxes;
     Array<Turret> turrets;
     Array<Enemy> enemies;
+    Array<Bullet> bullets;
 
 
     public SecondLevel(Decay game){
@@ -236,8 +239,8 @@ public class SecondLevel extends GenericScreen {
             mapRenderer.render();
 
             batch.begin();
-            //updateBoxes();
-            //updateTurrets();
+            updateBoxes();
+            updateTurrets(time);
             clairo.draw(batch);
             batch.end();
             batch.setProjectionMatrix(camaraHUD.combined);
@@ -268,7 +271,39 @@ public class SecondLevel extends GenericScreen {
             turret.draw(batch);
         }
     }
-
+    private void updateBullets(){
+        for (int i = 0; i < bullets.size; i++){
+            Bullet b = bullets.get(i);
+            if (b.isVisible()){
+                b.update();
+            }
+            else {
+                bullets.removeIndex(i);
+            }
+            if(b.getBulletSprite().getBoundingRectangle().overlaps(clairo.getBoundingRectangle())){
+                if(b.izquierda){
+                    if (b.getBulletSprite().getX() - clairo.getX() < 7) {
+                        bullets.removeIndex(i);
+                        health--;
+                    }
+                }
+                else{
+                    if ( clairo.getX() - b.getBulletSprite().getX()  < -5) {
+                        bullets.removeIndex(i);
+                        health--;
+                    }
+                }
+            }
+            for (Box box:boxes){
+                if (b.getBulletSprite().getBoundingRectangle().overlaps(box.getBoundingRectangle())){
+                    bullets.removeIndex(i);
+                }
+            }
+        }
+        for (Bullet bullet:bullets){
+            bullet.render(batch);
+        }
+    }
     private void updateBoxes() {
         for(Box box: boxes){
             box.update();
@@ -311,14 +346,24 @@ public class SecondLevel extends GenericScreen {
                 Fixture fixtureA = contact.getFixtureA();
                 Fixture fixtureB = contact.getFixtureB();
 
+
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     clairo.canClimb = true;
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
-                    Gdx.app.log("CoNtacto!", "con caja");
+                    clairo.currentState = Clairo.State.IDLE;
+                    clairo.body.setLinearVelocity(new Vector2(0,0));
+                    if(fixtureB.getBody().getPosition().y > fixtureA.getBody().getPosition().y+10){
+                        clairo.pushingBox = false;
+                    }
+                    else {
+                        clairo.pushingBox = true;
+                    }
+                    clairo.touchingBox = true;
+                    clairo.body.setLinearVelocity(0,0);
                 }
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("turret")){
-                    state = GameStates.GAME_OVER;
+                    health --;
                 }
 
             }
@@ -330,6 +375,13 @@ public class SecondLevel extends GenericScreen {
 
                 if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("stair")){
                     clairo.canClimb = false;
+
+                }
+                if(fixtureB.getBody().getUserData().equals("clairo") && fixtureA.getBody().getUserData().equals("box")){
+                    clairo.currentState = Clairo.State.IDLE;
+                    clairo.touchingBox = false;
+                    clairo.pushingBox = false;
+
                 }
             }
 
@@ -343,6 +395,7 @@ public class SecondLevel extends GenericScreen {
 
         });
     }
+
 
     @Override
     public void pause() {
