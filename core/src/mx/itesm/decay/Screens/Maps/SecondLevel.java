@@ -106,7 +106,7 @@ public class SecondLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 100,95);
+        clairo = new Clairo(world, 150,95);
         background = manager.get("backgrounds/cd-map-01-background.png");
         bullets = new Array<Bullet>();
         createHUD();
@@ -294,8 +294,8 @@ public class SecondLevel extends GenericScreen {
         objectiveTimer += dt;
 
         if(objectiveTimer > 3){
-            camera.position.x -= 2;
-            camera.position.y -= 1.75;
+            camera.position.x -= 2.15;
+            camera.position.y -= 1.90;
         }
 
         camera.update();

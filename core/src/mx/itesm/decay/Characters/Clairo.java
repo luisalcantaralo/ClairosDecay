@@ -196,7 +196,7 @@ public class Clairo extends Sprite {
         Vector2 clairoWorldCenter = body.getWorldCenter();
 
         if (!disableControls) {
-
+        /*
             if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING) {
                 body.setLinearVelocity(new Vector2(0, 5f));
             }
@@ -257,9 +257,9 @@ public class Clairo extends Sprite {
             if (!rightKeyPressed && !leftKeyPressed) {
                 body.setLinearVelocity(0, body.getLinearVelocity().y);
             }
+            */
 
 
-            /*
             if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING) {
                 body.setLinearVelocity(new Vector2(0, 70f));
             }
@@ -340,9 +340,8 @@ public class Clairo extends Sprite {
             body.setLinearVelocity(0,0);
             currentState = State.IDLE;
         }
-        */
-        }
     }
+
 
 
     public TextureRegion getFrame(float dt){
