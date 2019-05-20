@@ -164,12 +164,13 @@ public class SecondLevel extends GenericScreen {
 
         sceneHUD = new Stage(vistaHUD);
         Gdx.input.setInputProcessor(sceneHUD);
+        sceneHUD.addActor(imgHealthBarC);
+        sceneHUD.addActor(imgHeathBar);
         sceneHUD.addActor(pauseButtonImage);
         sceneHUD.addActor(rightButton);
         sceneHUD.addActor(leftButton);
         sceneHUD.addActor(jumpButton);
-        sceneHUD.addActor(imgHealthBarC);
-        sceneHUD.addActor(imgHeathBar);
+
         createCollisionListener();
     }
 
@@ -217,6 +218,7 @@ public class SecondLevel extends GenericScreen {
 
     @Override
     public void render(float delta) {
+        if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
 
 
@@ -248,6 +250,8 @@ public class SecondLevel extends GenericScreen {
             clairo.draw(batch);
             batch.end();
             batch.setProjectionMatrix(camaraHUD.combined);
+            sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
+
             sceneHUD.draw();
 
             if(clairo.currentState == Clairo.State.DEAD) {
@@ -417,7 +421,6 @@ public class SecondLevel extends GenericScreen {
 
         });
     }
-
 
     @Override
     public void pause() {
