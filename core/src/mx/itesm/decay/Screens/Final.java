@@ -30,7 +30,7 @@ public class Final extends GenericScreen {
 
     private void createButtons() {
         //Message
-        Texture gameOver = new Texture("misc/first-level-completed.png");
+        Texture gameOver = new Texture("UI/cd-won.png");
         Image imageGameOver = new Image(gameOver);
         imageGameOver.setPosition(GenericScreen.WIDTH/2 - gameOver.getWidth()/2, GenericScreen.HEIGHT/2 - gameOver.getHeight()/2);
 
