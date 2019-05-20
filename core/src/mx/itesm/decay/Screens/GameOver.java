@@ -64,7 +64,7 @@ public class GameOver extends GenericScreen {
                 super.clicked(event, x, y);
                 switch (screens){
                     case LEVEL_ONE:
-                        game.setScreen(new FirstLevel(game));
+                        game.setScreen(new LoadingScreen(game, Screens.LEVEL_ONE));
                         break;
                     case LEVEL_TWO:
                         game.setScreen(new SecondLevel(game));
