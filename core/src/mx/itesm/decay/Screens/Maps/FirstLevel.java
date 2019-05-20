@@ -180,7 +180,6 @@ public class FirstLevel extends GenericScreen {
         createCollisionListener();
     }
 
-
     public void loadMusic(){
         theme = manager.get("Music/lvl1.mp3");
 
@@ -197,29 +196,26 @@ public class FirstLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        //MapConverter.createEnemies(map, world);
+        MapConverter.createEnemies(map, world);
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
-        //enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
     }
-
-
 
     private void loadMap() {
         AssetManager assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class,
                 new TmxMapLoader(
                         new InternalFileHandleResolver()));
-        assetManager.load("maps/cd-map-01.tmx", TiledMap.class);
+        assetManager.load("maps/cd-map-04.tmx", TiledMap.class);
         assetManager.finishLoading(); // blocks app
 
-        map = assetManager.get("maps/cd-map-01.tmx");
+        map = assetManager.get("maps/cd-map-04.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
     }
-
 
     @Override
     public void render(float delta) {
@@ -251,9 +247,11 @@ public class FirstLevel extends GenericScreen {
                 mapRenderer.render();
 
                 batch.begin();
+
                 updateBoxes();
                 updateTurrets(time);
-                //upddateEnemies(time);
+                updateEnemies(time);
+
                 clairo.draw(batch);
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
@@ -280,13 +278,12 @@ public class FirstLevel extends GenericScreen {
             //b2dr.render(world,camera.combined);
     }
 
-    private void upddateEnemies(float time) {
+    private void updateEnemies(float time) {
         for(Enemy enemy: enemies){
             enemy.update(time);
             enemy.draw(batch);
         }
     }
-
 
     private void updateTurrets(float dt) {
         for(Turret turret: turrets){
