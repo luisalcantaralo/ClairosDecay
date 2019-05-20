@@ -442,4 +442,11 @@ public class Clairo extends Sprite {
     public void draw(SpriteBatch batch){
         super.draw(batch);
     }
+
+    public void dispose(){
+        getTexture().dispose();
+        running.dispose();
+        jumping.dispose();
+
+    }
 }

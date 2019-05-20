@@ -517,6 +517,8 @@ public class FirstLevel extends GenericScreen {
         manager.unload("UI/cd-pause-pressed-button.png");
         manager.unload("menu/cd-back-to-menu-button.png");
         manager.unload("Music/lvl1.mp3");
+        clairo.dispose();
+
     }
 
     private class PauseScene extends Stage {
