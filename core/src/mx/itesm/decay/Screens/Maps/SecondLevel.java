@@ -270,7 +270,7 @@ public class SecondLevel extends GenericScreen {
 
             mapRenderer.setView(camera);
             mapRenderer.render();
-            if(objectiveTimer < 6.5){
+            if(objectiveTimer < 6.0){
                 showObjective(delta);
             }
             else {
@@ -315,7 +315,7 @@ public class SecondLevel extends GenericScreen {
         objectiveTimer += dt;
 
         if(objectiveTimer > 3){
-            camera.position.x -= 2.33;
+            camera.position.x -= 2;
             camera.position.y -= 1.75;
         }
 
