@@ -12,6 +12,7 @@ import mx.itesm.decay.Decay;
 import mx.itesm.decay.Generators.GenericButton;
 import mx.itesm.decay.Generators.GenericScreen;
 import mx.itesm.decay.Screens.Maps.SecondLevel;
+import mx.itesm.decay.Screens.Maps.ThirdLevel;
 
 public class Win extends GenericScreen {
     private Screens screens;
@@ -64,6 +65,10 @@ public class Win extends GenericScreen {
                         game.setScreen(new LoadingScreen(game,Screens.LEVEL_TWO));
                         break;
                     case LEVEL_TWO:
+                        game.setScreen(new LoadingScreen(game,Screens.LEVEL_THREE));
+                        break;
+                    case LEVEL_THREE:
+                        break;
                 }
             }
         });

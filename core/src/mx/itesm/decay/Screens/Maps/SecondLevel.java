@@ -224,7 +224,7 @@ public class SecondLevel extends GenericScreen {
         if(clairo.getX() > 520 && clairo.getY() > 447){
             Decay.prefs.putString("level", "2");
             state = GameStates.NEXT;
-            game.setScreen(new ThirdLevel(game));
+            game.setScreen(new Win(game, Screens.LEVEL_TWO));
         }
 
         if(state==GameStates.PLAYING){
@@ -443,6 +443,17 @@ public class SecondLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
+        sceneHUD.dispose();
+        manager.unload("backgrounds/cd-map-01-background.png");
+        manager.unload("UI/cd-button-right.png");
+        manager.unload("UI/cd-button-left.png");
+        manager.unload("UI/cd-a-button.png");
+        manager.unload("UI/cd-pause-button.png");
+        manager.unload("UI/pause-screen.png");
+        manager.unload("UI/cd-pause-pressed-button.png");
+        manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Music/lvl1.mp3");
+        clairo.dispose();
     }
 
     private class PauseScene extends Stage {
