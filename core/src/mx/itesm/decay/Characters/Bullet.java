@@ -23,7 +23,7 @@ public class Bullet {
         bulletSprite = new Sprite(bulletTexture);
         bulletSprite.setPosition(x, y);
         this.izquierda = izquierda;
-        visible = true;
+        this.visible = true;
         if (izquierda){
             speed = -1;
         }
@@ -52,16 +52,8 @@ public class Bullet {
         return y;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
     public boolean isVisible() {
         return visible;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
     }
 
     public void setX(float x) {
@@ -74,10 +66,6 @@ public class Bullet {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    public Sprite getBulletSprite(){
-        return bulletSprite;
     }
 
 }

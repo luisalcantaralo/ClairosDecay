@@ -40,7 +40,7 @@ public class Turret extends Sprite {
         this.world = world;
         this.startPositionX = x;
         this.startPositionY = y;
-        this.timerBullet = 0;
+        this.timerBullet = 300;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
