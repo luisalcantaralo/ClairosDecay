@@ -53,7 +53,7 @@ public class Win extends GenericScreen {
         });
 
         //BackToLevel
-        Texture levelTexture = new Texture("menu/cd-retry-button.png");
+        Texture levelTexture = new Texture("UI/cd-next-level.png");
         GenericButton buttonLevel = new GenericButton(levelTexture);
         buttonLevel.setPosition(GenericScreen.WIDTH/2 - buttonLevel.getWidth()/2, GenericScreen.HEIGHT/2.5f - buttonLevel.getHeight()/2);
         buttonLevel.getImageButton().addListener(new ClickListener(){
