@@ -258,8 +258,7 @@ public class ThirdLevel extends GenericScreen {
             if(clairo.currentState == Clairo.State.DEAD) {
                 state = GameStates.GAME_OVER;
             }
-
-
+            
         }
         if(state==GameStates.GAME_OVER){
             game.setScreen(new GameOver(game, Screens.LEVEL_THREE));
