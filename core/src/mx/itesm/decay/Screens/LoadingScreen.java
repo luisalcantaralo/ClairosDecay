@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import mx.itesm.decay.Decay;
 import mx.itesm.decay.Display.Text;
@@ -92,7 +93,9 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Items/TimeBar.png",Texture.class);
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Music/lvl1.mp3",Music.class);
-        manager.finishLoading();
+        manager.load("Items/LifeBarContainer.png",Texture.class);
+        manager.load("Items/TimeBar.png",Texture.class);
+        //manager.finishLoading();
 
     }
 
@@ -114,9 +117,10 @@ public class LoadingScreen extends GenericScreen{
         manager.load("menu/cd-button-back.png", Texture.class);
         manager.load("menu/cd-about-us.png", Texture.class);
 
+
         manager.load("Music/MainMenu.mp3",Music.class);
 
-        manager.finishLoading();
+        //manager.finishLoading();
 
     }
 
@@ -127,10 +131,8 @@ public class LoadingScreen extends GenericScreen{
                     game.setScreen(new Home(game));
                     break;
                 case LEVEL_ONE:
-                    if (timer > 6){
-                        game.setScreen(new FirstLevel(game));
-                        break;
-                    }
+                    game.setScreen(new FirstLevel(game));
+                    break;
                 case LEVEL_TWO:
                     game.setScreen(new SecondLevel(game));
                     break;
@@ -186,6 +188,6 @@ public class LoadingScreen extends GenericScreen{
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 }
