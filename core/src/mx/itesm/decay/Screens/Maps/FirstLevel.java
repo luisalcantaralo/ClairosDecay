@@ -104,6 +104,7 @@ public class FirstLevel extends GenericScreen {
 
     //Conversation
     boolean talkBegin=false;
+    int talking = 0;
     float talkTimer=0;
     int minutes=3;
     float timer=60;
@@ -124,7 +125,7 @@ public class FirstLevel extends GenericScreen {
         loadMap();
         loadMusic();
         setPhysics();
-        clairo = new Clairo(world, 20,100);
+        clairo = new Clairo(world, 630,600);
         fatGuy= new FatGuy(world, 700,600);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -284,7 +285,7 @@ public class FirstLevel extends GenericScreen {
                 }
                 clairo.draw(batch);
                 fatGuy.draw(batch);
-                if(talkBegin) {talk(delta);}
+                if(talkBegin && talking == 0) {talk(delta);}
                 batch.end();
                 batch.setProjectionMatrix(camaraHUD.combined);
                 sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
@@ -312,7 +313,7 @@ public class FirstLevel extends GenericScreen {
 
     private void talk(float dt) {
         talkTimer += dt;
-
+        clairo.disableControls = true;
         if(talkTimer < 3){
             text.showText(batch, "Hey, have you seen a bug around here?", clairo.getX(), clairo.getY()+50);
         }
@@ -330,6 +331,7 @@ public class FirstLevel extends GenericScreen {
         }
         if(talkTimer > 12){
             talkBegin = false;
+            talking ++;
             clairo.disableControls = false;
         }
     }
