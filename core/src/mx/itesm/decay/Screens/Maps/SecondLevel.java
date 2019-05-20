@@ -218,6 +218,27 @@ public class SecondLevel extends GenericScreen {
         for(Enemy enemy: enemies){
             enemy.update(time);
             enemy.draw(batch);
+
+
+            float distancex = enemy.getX() - clairo.getClairoX();
+            float distancey = enemy.getY() - clairo.getClairoY();
+
+            if (distancey <= 20 && distancey >= -20) {
+                enemy.currentState = Enemy.State.RUNNING;
+                if (distancex < 30 && distancex > 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = true;
+                    }
+                } else if (distancex > -30 && distancex < 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = false;
+                    }
+                }
+
+            }else {
+                enemy.currentState = Enemy.State.PATROLLING;
+            }
+
         }
     }
 

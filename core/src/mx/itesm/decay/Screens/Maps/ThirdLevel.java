@@ -185,7 +185,7 @@ public class ThirdLevel extends GenericScreen {
         boxes = MapConverter.createBoxes(map, world);
         turrets = MapConverter.createTurrets(map, world);
 
-        //enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -208,12 +208,6 @@ public class ThirdLevel extends GenericScreen {
     }
 
 
-    private void upddateEnemies(float time) {
-        for(Enemy enemy: enemies){
-            enemy.update(time);
-            enemy.draw(batch);
-        }
-    }
 
 
 
@@ -249,6 +243,7 @@ public class ThirdLevel extends GenericScreen {
             batch.begin();
             updateBoxes();
             updateTurrets(time);
+            updateEnemies(time);
             if (bullets.size >= 1){
                 updateBullets();
             }
@@ -339,6 +334,34 @@ public class ThirdLevel extends GenericScreen {
         for(Box box: boxes){
             box.update();
             box.draw(batch);
+        }
+    }
+
+    private void updateEnemies(float time) {
+        for(Enemy enemy: enemies){
+            enemy.update(time);
+            enemy.draw(batch);
+
+
+            float distancex = enemy.getX() - clairo.getClairoX();
+            float distancey = enemy.getY() - clairo.getClairoY();
+
+            if (distancey <= 20 && distancey >= -20) {
+                enemy.currentState = Enemy.State.RUNNING;
+                if (distancex < 30 && distancex > 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = true;
+                    }
+                } else if (distancex > -30 && distancex < 0) {
+                    if(!enemy.isTouching){
+                        enemy.isLeft = false;
+                    }
+                }
+
+            }else {
+                enemy.currentState = Enemy.State.PATROLLING;
+            }
+
         }
     }
 
