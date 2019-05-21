@@ -9,16 +9,19 @@ public class Bullet {
     private float speed;
     private float x;
     private float y;
+    private float damage;
+
     private boolean visible;
     public boolean izquierda;
 
     private Texture bulletTexture;
     private Sprite bulletSprite;
 
-    public Bullet(float x, float y, boolean izquierda, int speed){
+    public Bullet(float x, float y, boolean izquierda, int speed, float damage){
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.damage = damage;
 
         bulletTexture = new Texture("Turret/bullet.png");
         bulletSprite = new Sprite(bulletTexture);
@@ -44,6 +47,10 @@ public class Bullet {
 
     public float getX() {
         return x;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 
     public float getY() {

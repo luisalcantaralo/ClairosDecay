@@ -69,7 +69,6 @@ public class CharacterSelection extends GenericScreen {
 
             }
         });
-
         sceneSettings.addActor(buttonBack.getImageButton());
 
     }
