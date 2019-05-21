@@ -25,6 +25,8 @@ public class Home extends GenericScreen{
     private Texture menuLogo;
 
     private GenericButton buttonStart;
+    private GenericButton buttonStart1;
+
     private GenericButton buttonHelp;
     private GenericButton buttonSettings;
 
@@ -88,6 +90,7 @@ public class Home extends GenericScreen{
         Texture textureStart = manager.get("menu/cd-button-start.png");
         buttonStart = new GenericButton(textureStart);
         buttonStart.setPosition(WIDTH/2 - buttonStart.getWidth()/2, HEIGHT/8 - buttonStart.getHeight()/2);
+        buttonStart.setScale(-1200,500);
         buttonStart.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -100,6 +103,28 @@ public class Home extends GenericScreen{
 
             }
         });
+
+        buttonStart1 = new GenericButton(textureStart);
+        buttonStart1.setPosition(WIDTH/2 - buttonStart.getWidth()/2, HEIGHT/8 - buttonStart.getHeight()/2);
+        buttonStart1.setScale(1200,500);
+        buttonStart1.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                // response
+
+                //menuTheme.stop();
+                menuBoolean = true;
+                game.setScreen(new LoadingScreen(game,Screens.LEVEL_ONE));
+
+            }
+        });
+
+
+
+
+
+
         // help button
         Texture textureHelp = manager.get("menu/cd-button-help.png");
         buttonHelp = new GenericButton(textureHelp);
@@ -129,6 +154,7 @@ public class Home extends GenericScreen{
 
 
         sceneMenu.addActor(buttonStart.getImageButton());
+        sceneMenu.addActor(buttonStart1.getImageButton());
         sceneMenu.addActor(buttonHelp.getImageButton());
         sceneMenu.addActor(buttonSettings.getImageButton());
     }
