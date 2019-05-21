@@ -566,7 +566,11 @@ public class FirstLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
-        sceneHUD.dispose();manager.unload("backgrounds/cd-map-01-background.png");
+        sceneHUD.dispose();
+        pauseScene.dispose();
+        clairo.dispose();
+
+        manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");
         manager.unload("UI/cd-a-button.png");
@@ -580,7 +584,6 @@ public class FirstLevel extends GenericScreen {
         manager.unload("Music/lvl1.mp3");
         manager.unload("Items/LifeBarContainer.png");
         manager.unload("Items/TimeBar.png");
-        clairo.dispose();
 
     }
 
