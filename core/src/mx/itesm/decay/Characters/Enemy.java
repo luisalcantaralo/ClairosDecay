@@ -148,8 +148,8 @@ public class Enemy extends Sprite {
         timer += dt;
 
         switch (currentState){
-            case RUNNING:
-                region = enemyRunning.getKeyFrame(timer, true);
+            case SHOOTING:
+                region = enemyPushing.getKeyFrame(timer, true);
                 break;
             case PATROLLING:
                 region = enemyPatrolling.getKeyFrame(timer, true);

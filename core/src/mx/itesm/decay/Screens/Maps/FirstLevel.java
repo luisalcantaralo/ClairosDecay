@@ -366,7 +366,7 @@ public class FirstLevel extends GenericScreen {
             float distancey = enemy.getY() - clairo.getClairoY();
 
             if (distancey <= 20 && distancey >= -20) {
-                if (distancex <= 10 && distancex >= 0) {
+                if (distancex <= 50 && distancex >= 0) {
 
                     if(enemy.currentState == Enemy.State.SHOOTING){
                         enemy.isLeft = true;
@@ -376,7 +376,7 @@ public class FirstLevel extends GenericScreen {
                     }
                     enemy.currentState = Enemy.State.SHOOTING;
 
-                } else if (distancex >= -10 && distancex <= 0) {
+                } else if (distancex >= -50 && distancex <= 0) {
 
                     if(enemy.currentState == Enemy.State.SHOOTING) {
 
