@@ -210,7 +210,7 @@ public class SecondLevel extends GenericScreen {
 
         map = assetManager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-
+        assetManager.dispose();
 
     }
 

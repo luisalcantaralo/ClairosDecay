@@ -236,6 +236,7 @@ public class FirstLevel extends GenericScreen {
 
         map = assetManager.get("maps/cd-map-04.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
+        assetManager.dispose();
     }
 
     @Override
@@ -567,8 +568,8 @@ public class FirstLevel extends GenericScreen {
         map.dispose();
         mapRenderer.dispose();
         sceneHUD.dispose();
-        pauseScene.dispose();
         clairo.dispose();
+
 
         manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
