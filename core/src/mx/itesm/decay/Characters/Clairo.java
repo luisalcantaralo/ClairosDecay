@@ -92,42 +92,78 @@ public class Clairo extends Sprite {
         }
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
+        if(Decay.prefs.getString("choice").equals("clairo")) {
+            for (int i = 0; i < 13; i++)
+                frames.add(new TextureRegion(new Texture("Characters/Detective/Idle/Detective_Idle.png"), i * 288, 0, 288, 288));
 
-        for(int i = 0; i < 13; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Idle/Detective_Idle.png"), i * 288, 0, 288, 288));
-        clairoStand = new Animation(0.1f, frames);
+            clairoStand = new Animation(0.1f, frames);
 
-        frames.clear();
+            frames.clear();
 
-        for(int i = 0; i < 6; i++){
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 426, 110, 426, 292));
+            for (int i = 0; i < 6; i++) {
+                frames.add(new TextureRegion(new Texture("Characters/Detective/Run/Detective_Run.png"), i * 426, 110, 426, 292));
+            }
+            clairoRun = new Animation<TextureRegion>(0.1f, frames);
+
+            frames.clear();
+
+            for (int i = 3; i < 13; i++)
+                frames.add(new TextureRegion(new Texture("Characters/Detective/Jump/Detective_Jump.png"), i * 426, 40, 426, 362));
+            clairoJump = new Animation(0.1f, frames);
+
+            frames.clear();
+
+            for (int i = 0; i < 6; i++)
+                frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 80, 284, 178));
+            clairoClimb = new Animation(0.1f, frames);
+
+            frames.clear();
+
+            for (int i = 0; i < 6; i++)
+                frames.add(new TextureRegion(new Texture("Characters/Detective/Push/Detective_Push.png"), i * 348, 50, 348, 350));
+            clairoPushing = new Animation(0.1f, frames);
+
+            frames.clear();
+
+            for (int i = 1; i < 10; i++)
+                frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 50, 234, 268));
+            clairoShoot = new Animation(0.1f, frames);
         }
-        clairoRun = new Animation<TextureRegion>(0.1f, frames);
+        else if(Decay.prefs.getString("choice").equals("kase")){
 
-        frames.clear();
+            for (int i = 0; i < 4; i++)
+                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/idle/GirlDetective_Idle.png"), i * 426, 0, 426, 403));
 
-         for(int i = 3; i < 13; i++)
-             frames.add(new TextureRegion(new Texture("Characters/Detective/Jump/Detective_Jump.png"), i * 426, 40, 426, 362));
-        clairoJump = new Animation(0.1f, frames);
 
-        frames.clear();
+            clairoStand = new Animation(0.1f, frames);
 
-        for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Detective_Climb.png"), i * 284, 80, 284, 178));
-        clairoClimb = new Animation(0.1f, frames);
+            frames.clear();
 
-        frames.clear();
+            for (int i = 0; i < 8; i++) {
+                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/run/GirlDetective_Run.png"), i * 426, 0, 426, 402));
+            }
+            clairoRun = new Animation<TextureRegion>(0.1f, frames);
 
-        for(int i = 0; i < 6; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Detective/Push/Detective_Push.png"), i * 348, 50, 348, 350));
-        clairoPushing = new Animation(0.1f, frames);
+            frames.clear();
 
-        frames.clear();
+            for (int i = 0; i < 7; i++)
+                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/jump/GirlDetective_Jump.png"), i * 426, 0, 426, 403));
+            clairoJump = new Animation(0.1f, frames);
 
-         for(int i = 1; i < 10; i++)
-             frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 50, 234, 268));
-        clairoShoot = new Animation(0.1f, frames);
+            frames.clear();
 
+            for (int i = 0; i < 6; i++)
+                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/climb/GirlDetective_Climb.png"), i * 426, 0, 426, 403));
+            clairoClimb = new Animation(0.1f, frames);
+
+            frames.clear();
+
+            for (int i = 0; i < 16; i++)
+                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/Push/DetectiveGirl-Push.png"), i * 426, 0, 426, 402));
+            clairoPushing = new Animation(0.1f, frames);
+
+
+        }
         setBounds(startPositionX,startPositionY,25, 25);
 
         defineClairo(startPositionX, startPositionY);

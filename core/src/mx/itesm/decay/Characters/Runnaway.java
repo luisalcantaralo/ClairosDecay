@@ -90,8 +90,6 @@ public class Runnaway extends Sprite {
         setRegion(new TextureRegion(new Texture("Characters/Runnaway/Runnaway_Running/Runnaway.png")));
 
 
-
-
     }
 
     public void update(float dt){
@@ -105,9 +103,7 @@ public class Runnaway extends Sprite {
 
     private void updateMovement() {
 
-
     }
-
 
     public TextureRegion getFrame(float dt){
         TextureRegion region;

@@ -44,6 +44,7 @@ import mx.itesm.decay.Characters.Bullet;
 import mx.itesm.decay.Characters.Clairo;
 import mx.itesm.decay.Characters.Enemy;
 import mx.itesm.decay.Characters.FatGuy;
+import mx.itesm.decay.Characters.Runnaway;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Config.MapConverter;
 import mx.itesm.decay.Decay;
@@ -69,6 +70,7 @@ public class FirstLevel extends GenericScreen {
     private OrthogonalTiledMapRenderer mapRenderer;
 
     private Clairo clairo;
+    private Runnaway kase;
     private FatGuy fatGuy;
 
     private World world;
@@ -329,8 +331,6 @@ public class FirstLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
-            Gdx.app.log("X: ", String.valueOf(clairo.getX()));
-            Gdx.app.log("Y: ", String.valueOf(clairo.getY()));
 
     }
 

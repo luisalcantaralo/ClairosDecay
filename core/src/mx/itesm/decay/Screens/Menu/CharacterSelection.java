@@ -23,8 +23,9 @@ public class CharacterSelection extends GenericScreen {
     private Texture settingsTitle;
     // buttons
     private GenericButton buttonBack;
-    private GenericButton buttonOnMusic;
-    private GenericButton buttonOffMusic;
+    private GenericButton buttonClairo;
+    private GenericButton buttonKase;
+
 
 
     // stage
@@ -51,15 +52,17 @@ public class CharacterSelection extends GenericScreen {
     }
 
     private void loadSettings() {
+
+
         //background
         settingsBackground = manager.get("backgrounds/cd-simple-background.png");
         settingsBuildings = manager.get("menu/cd-menu-buildings.png");
 
-        if(Decay.prefs.getString("girl").equals("OFF")){
-            characterGirl = manager.get("menu/cd-girl-blocked.png");
+        if(Decay.prefs.getString("girl").equals("ON")){
+            characterGirl = manager.get("menu/cd-girl-unlocked.png");
         }
         else {
-            characterGirl = manager.get("menu/cd-girl-unlocked.png");
+            characterGirl = manager.get("menu/cd-girl-blocked.png");
         }
         characterLocked = manager.get("menu/cd-unlocked.png");
         settingsTitle = manager.get("menu/cd-characters.png");
@@ -77,7 +80,48 @@ public class CharacterSelection extends GenericScreen {
 
             }
         });
+
+        // clairo
+        Texture textureClairo = characterLocked;
+
+        buttonClairo = new GenericButton(textureClairo);
+        buttonClairo.setPosition(WIDTH/3+characterLocked.getWidth(), HEIGHT/2 - characterLocked.getHeight() / 2);
+        buttonClairo.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                // response
+                Decay.prefs.putString("choice", "clairo");
+                Decay.prefs.flush();
+
+                game.setScreen(new Home(game));
+
+            }
+        });
+
+        // kase
+        Texture textureKase = characterGirl;
+
+        buttonKase = new GenericButton(textureKase);
+        buttonKase.setPosition(WIDTH/3-characterLocked.getWidth(), HEIGHT/2 - characterLocked.getHeight() / 2);
+        buttonKase.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                // response
+                if(Decay.prefs.getString("girl").equals("ON")){
+                    Decay.prefs.putString("choice", "kase");
+                    Decay.prefs.flush();
+                }
+                Decay.prefs.flush();
+                game.setScreen(new Home(game));
+
+            }
+        });
+        Decay.prefs.flush();
         sceneSettings.addActor(buttonBack.getImageButton());
+        sceneSettings.addActor(buttonClairo.getImageButton());
+        sceneSettings.addActor(buttonKase.getImageButton());
 
     }
 
@@ -95,8 +139,6 @@ public class CharacterSelection extends GenericScreen {
         batch.draw(settingsBackground, 0, 0);
         batch.draw(settingsBuildings, -640, 0);
         batch.draw(settingsTitle, WIDTH/2 - settingsTitle.getWidth()/2, HEIGHT - settingsTitle.getHeight() * 1.5f);
-        batch.draw(characterGirl, WIDTH/3 - characterGirl.getWidth()/2, HEIGHT/2 - characterGirl.getHeight()/2);
-        batch.draw(characterLocked, WIDTH/3 + characterLocked.getWidth(), HEIGHT/2 - characterLocked.getHeight()/2);
 
         batch.end();
 
