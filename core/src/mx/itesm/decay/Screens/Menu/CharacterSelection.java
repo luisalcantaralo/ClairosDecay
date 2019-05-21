@@ -54,7 +54,7 @@ public class CharacterSelection extends GenericScreen {
         settingsBackground = manager.get("backgrounds/cd-simple-background.png");
         settingsBuildings = manager.get("menu/cd-menu-buildings.png");
         settingsMonitor = manager.get("menu/cd-settings-monitor.png");
-        settingsTitle = manager.get("menu/cd-settings-title.png");
+        settingsTitle = manager.get("menu/cd-characters.png");
 
         // back button
         Texture textureBack = manager.get("menu/cd-button-back.png");

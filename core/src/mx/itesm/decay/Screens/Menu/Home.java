@@ -155,9 +155,10 @@ public class Home extends GenericScreen{
             }
         });
 
-        // settings button
-        characterSelection = new GenericButton(textureSettings);
-        characterSelection.setPosition(WIDTH - buttonSettings.getWidth()*3/2f, HEIGHT - buttonSettings.getHeight() * 9/2f);
+        // characters selection button
+        Texture textureCharacter = manager.get("menu/cd-button-character.png");
+        characterSelection = new GenericButton(textureCharacter);
+        characterSelection.setPosition(WIDTH - characterSelection.getWidth()*3/2f, HEIGHT - characterSelection.getHeight() * 9/2f);
         characterSelection.getImageButton().addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -240,6 +241,7 @@ public class Home extends GenericScreen{
             manager.unload("menu/cd-button-start.png");
             manager.unload("menu/cd-button-help.png");
             manager.unload("menu/cd-button-settings.png");
+            manager.unload("menu/cd-button-character.png");
             manager.unload("menu/cd-button-back.png");
             manager.unload("menu/cd-about-us.png");
             manager.unload("Music/MainMenu.mp3");
