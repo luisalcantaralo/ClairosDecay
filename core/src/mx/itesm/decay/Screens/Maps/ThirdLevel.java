@@ -254,7 +254,6 @@ public class ThirdLevel extends GenericScreen {
             sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
 
             sceneHUD.draw();
-            System.out.println(clairo.getY());
             if(clairo.currentState == Clairo.State.DEAD) {
                 state = GameStates.GAME_OVER;
             }
@@ -341,6 +340,39 @@ public class ThirdLevel extends GenericScreen {
         for(Enemy enemy: enemies){
             enemy.update(time);
             enemy.draw(batch);
+
+
+            float distancex = enemy.getX() - clairo.getClairoX();
+            float distancey = enemy.getY() - clairo.getClairoY();
+
+            if (distancey <= 20 && distancey >= -20) {
+                if (distancex <= 50 && distancex >= 0) {
+
+                    if(enemy.currentState == Enemy.State.SHOOTING){
+                        enemy.isLeft = true;
+                        Bullet b = enemy.shoot(true, 1);
+                        bullets.add(b);
+                        enemy.setTimerBullet(0);
+                    }
+                    enemy.currentState = Enemy.State.SHOOTING;
+
+                } else if (distancex >= -50 && distancex <= 0) {
+
+                    if(enemy.currentState == Enemy.State.SHOOTING) {
+
+                        enemy.isLeft = false;
+                        Bullet b = enemy.shoot(false, 1);
+                        bullets.add(b);
+                        enemy.setTimerBullet(0);
+                    }
+                    enemy.currentState = Enemy.State.SHOOTING;
+
+
+                }else {
+                    enemy.currentState = Enemy.State.PATROLLING;
+                }
+            }
+
         }
     }
 
@@ -561,7 +593,6 @@ public class ThirdLevel extends GenericScreen {
             if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();
                 clairo.canJump = true;
-                System.out.println(clairo.canJump);
             }
             clairo.setDefault();
             return false;

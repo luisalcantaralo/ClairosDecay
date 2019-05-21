@@ -129,7 +129,6 @@ public class Enemy extends Sprite {
             }
         } else if (currentState == State.SHOOTING) {
 
-            System.out.println(currentState);
             if (isLeft) {
                 isRunningRight = false;
                 //body.setLinearVelocity(new Vector2(-2*enemySpeed, 0));
