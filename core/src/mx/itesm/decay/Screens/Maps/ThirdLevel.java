@@ -254,7 +254,6 @@ public class ThirdLevel extends GenericScreen {
             sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
 
             sceneHUD.draw();
-            System.out.println(clairo.getY());
             if(clairo.currentState == Clairo.State.DEAD) {
                 state = GameStates.GAME_OVER;
             }
@@ -594,7 +593,6 @@ public class ThirdLevel extends GenericScreen {
             if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();
                 clairo.canJump = true;
-                System.out.println(clairo.canJump);
             }
             clairo.setDefault();
             return false;

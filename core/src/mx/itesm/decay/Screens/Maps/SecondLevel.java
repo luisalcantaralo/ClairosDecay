@@ -616,7 +616,6 @@ public class SecondLevel extends GenericScreen {
             if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();
                 clairo.canJump = true;
-                System.out.println(clairo.canJump);
             }
             clairo.setDefault();
             return false;
