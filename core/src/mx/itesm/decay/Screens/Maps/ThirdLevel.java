@@ -498,6 +498,9 @@ public class ThirdLevel extends GenericScreen {
         map.dispose();
         mapRenderer.dispose();
         sceneHUD.dispose();
+        world.dispose();
+        b2dr.dispose();
+
         manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");

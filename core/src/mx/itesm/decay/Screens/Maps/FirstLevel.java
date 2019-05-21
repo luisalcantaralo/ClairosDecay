@@ -566,6 +566,8 @@ public class FirstLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
+        world.dispose();
+        b2dr.dispose();
         sceneHUD.dispose();
 
         manager.unload("backgrounds/cd-map-01-background.png");
