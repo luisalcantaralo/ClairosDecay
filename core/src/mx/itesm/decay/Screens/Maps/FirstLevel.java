@@ -126,7 +126,6 @@ public class FirstLevel extends GenericScreen {
 
     @Override
     public void show() {
-
         loadMap();
         loadMusic();
         loadItems();
@@ -136,7 +135,6 @@ public class FirstLevel extends GenericScreen {
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
         bullets = new Array<Bullet>();
-        clairoDialog = new CharacterDialog("Hello my name is Luis", clairo.body);
         text= new Text("fonts/GameDialogue.fnt");
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
@@ -262,6 +260,12 @@ public class FirstLevel extends GenericScreen {
             game.setScreen(new Win(game, Screens.LEVEL_ONE));
         }
 
+        if(clairo.getX() > 100 && clairo.getY() > 530){
+            Decay.prefs.putString("girl", "ON");
+            Decay.prefs.flush();
+            unlockGirl();
+        }
+
 
         if(state==GameStates.PLAYING){
 
@@ -324,6 +328,13 @@ public class FirstLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
+            Gdx.app.log("X: ", String.valueOf(clairo.getX()));
+            Gdx.app.log("Y: ", String.valueOf(clairo.getY()));
+
+    }
+
+    private void unlockGirl() {
+
     }
 
 
