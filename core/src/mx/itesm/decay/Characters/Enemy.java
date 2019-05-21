@@ -84,15 +84,9 @@ public class Enemy extends Sprite {
         frames.clear();
 
 
-         for (int i = 0; i < 6; i++)
-         frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 426, 0, 426, 402));
-         enemyRunning= new Animation(0.1f, frames);
-
-         frames.clear();
-
         for (int i = 0; i < 11; i++)
             frames.add(new TextureRegion(new Texture("Characters/Enemy/Pushing/Enemy Push.png"), i * 348, 0, 348-20, 402+40));
-        enemyRunning= new Animation(0.1f, frames);
+        enemyPushing= new Animation(0.1f, frames);
 
         frames.clear();
 
@@ -132,21 +126,17 @@ public class Enemy extends Sprite {
                 if (body.getPosition().x <= (startPositionX - enemyRatioXP)){
                     isRunningRight=true;
                 }
-
             }
-        } else  if (currentState == State.RUNNING) {
+        } else  if (currentState == State.SHOOTING) {
 
             System.out.println(currentState);
             if (isLeft) {
                 isRunningRight = false;
                 body.setLinearVelocity(new Vector2(-5*enemySpeed, 0));
 
-
-
             }else{
                 isRunningRight = true;
                 body.setLinearVelocity(new Vector2(5*enemySpeed, 0));
-
 
             }
         }

@@ -366,14 +366,30 @@ public class FirstLevel extends GenericScreen {
             float distancey = enemy.getY() - clairo.getClairoY();
 
             if (distancey <= 20 && distancey >= -20) {
-                if (distancex <= 200 && distancex >= 0) {
-                    Bullet b = enemy.shoot(true, 1);
-                    bullets.add(b);
-                    enemy.setTimerBullet(0);
-                } else if (distancex >= -200 && distancex <= 0) {
-                    Bullet b = enemy.shoot(false, 1);
-                    bullets.add(b);
-                    enemy.setTimerBullet(0);
+                if (distancex <= 10 && distancex >= 0) {
+
+                    if(enemy.currentState == Enemy.State.SHOOTING){
+                        enemy.isLeft = true;
+                        Bullet b = enemy.shoot(true, 1);
+                        bullets.add(b);
+                        enemy.setTimerBullet(0);
+                    }
+                    enemy.currentState = Enemy.State.SHOOTING;
+
+                } else if (distancex >= -10 && distancex <= 0) {
+
+                    if(enemy.currentState == Enemy.State.SHOOTING) {
+
+                        enemy.isLeft = false;
+                        Bullet b = enemy.shoot(false, 1);
+                        bullets.add(b);
+                        enemy.setTimerBullet(0);
+                    }
+                    enemy.currentState = Enemy.State.SHOOTING;
+
+
+                }else {
+                    enemy.currentState = Enemy.State.PATROLLING;
                 }
             }
 
