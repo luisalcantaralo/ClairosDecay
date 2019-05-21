@@ -362,24 +362,20 @@ public class FirstLevel extends GenericScreen {
             enemy.draw(batch);
 
 
-             float distancex = enemy.getX() - clairo.getClairoX();
-             float distancey = enemy.getY() - clairo.getClairoY();
+            float distancex = enemy.getX() - clairo.getClairoX();
+            float distancey = enemy.getY() - clairo.getClairoY();
 
-             if (distancey <= 20 && distancey >= -20) {
-                 enemy.currentState = Enemy.State.RUNNING;
-                 if (distancex < 5 && distancex > 0) {
-                 if(!enemy.isTouching){
-                 enemy.isLeft = true;
-                 }
-                 } else if (distancex > -5 && distancex < 0) {
-                 if(!enemy.isTouching){
-                 enemy.isLeft = false;
-                 }
-                 }
-
-             }else {
-             enemy.currentState = Enemy.State.PATROLLING;
-             }
+            if (distancey <= 20 && distancey >= -20) {
+                if (distancex <= 200 && distancex >= 0) {
+                    Bullet b = enemy.shoot(true, 1);
+                    bullets.add(b);
+                    enemy.setTimerBullet(0);
+                } else if (distancex >= -200 && distancex <= 0) {
+                    Bullet b = enemy.shoot(false, 1);
+                    bullets.add(b);
+                    enemy.setTimerBullet(0);
+                }
+            }
 
         }
     }
@@ -422,13 +418,13 @@ public class FirstLevel extends GenericScreen {
                 if(b.izquierda){
                     if (b.getBulletSprite().getX() - clairo.getX() < 7) {
                         bullets.removeIndex(i);
-                        health--;
+                        //health--;
                     }
                 }
                 else{
                     if ( clairo.getX() - b.getBulletSprite().getX()  < -5) {
                         bullets.removeIndex(i);
-                        health--;
+                        //health--;
                     }
                 }
             }
