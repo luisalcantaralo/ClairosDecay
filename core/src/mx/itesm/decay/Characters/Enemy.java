@@ -132,11 +132,11 @@ public class Enemy extends Sprite {
             System.out.println(currentState);
             if (isLeft) {
                 isRunningRight = false;
-                body.setLinearVelocity(new Vector2(-5*enemySpeed, 0));
+                //body.setLinearVelocity(new Vector2(-5*enemySpeed, 0));
 
             }else{
                 isRunningRight = true;
-                body.setLinearVelocity(new Vector2(5*enemySpeed, 0));
+                //body.setLinearVelocity(new Vector2(5*enemySpeed, 0));
 
             }
         }
@@ -187,7 +187,7 @@ public class Enemy extends Sprite {
 
 
     public Bullet shoot(boolean izquierda, int speed){
-        Bullet b = new Bullet(body.getPosition().x,body.getPosition().y, izquierda, speed);
+        Bullet b = new Bullet(body.getPosition().x+5,body.getPosition().y, izquierda, speed);
         return b;
     }
 
