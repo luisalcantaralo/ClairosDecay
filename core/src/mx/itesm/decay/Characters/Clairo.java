@@ -163,6 +163,7 @@ public class Clairo extends Sprite {
             clairoPushing = new Animation(0.1f, frames);
 
 
+
         }
         setBounds(startPositionX,startPositionY,25, 25);
 
