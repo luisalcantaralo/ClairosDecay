@@ -127,7 +127,7 @@ public class Enemy extends Sprite {
                     isRunningRight=true;
                 }
             }
-        } else  if (currentState == State.SHOOTING) {
+        } else if (currentState == State.SHOOTING) {
 
             System.out.println(currentState);
             if (isLeft) {
@@ -187,7 +187,7 @@ public class Enemy extends Sprite {
 
 
     public Bullet shoot(boolean izquierda, int speed){
-        Bullet b = new Bullet(body.getPosition().x,body.getPosition().y, izquierda, speed);
+        Bullet b = new Bullet(body.getPosition().x+5,body.getPosition().y, izquierda, speed);
         return b;
     }
 
