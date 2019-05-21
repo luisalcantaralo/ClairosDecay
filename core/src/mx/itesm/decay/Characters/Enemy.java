@@ -85,7 +85,7 @@ public class Enemy extends Sprite {
 
 
         for (int i = 0; i < 11; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Pushing/Enemy Push.png"), i * 348, 0, 348-20, 402+40));
+            frames.add(new TextureRegion(new Texture("Characters/Enemy/Pushing/Enemy_Push.png"), i * 348, 40, 348-20, 402-40));
         enemyPushing= new Animation(0.1f, frames);
 
         frames.clear();
