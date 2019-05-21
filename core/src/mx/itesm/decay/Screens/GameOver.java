@@ -42,6 +42,7 @@ public class GameOver extends GenericScreen {
         Image imageGameOver = new Image(gameOver);
         imageGameOver.setPosition(GenericScreen.WIDTH/2 - gameOver.getWidth()/2, GenericScreen.HEIGHT/2 - gameOver.getHeight()/2);
 
+
         //BackToMenuButton
         Texture menuTexture = new Texture("menu/cd-back-to-menu-button.png");
         GenericButton buttonMenu = new GenericButton(menuTexture);
