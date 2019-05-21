@@ -27,6 +27,9 @@ public class Home extends GenericScreen{
     private GenericButton buttonStart;
     private GenericButton buttonStart1;
 
+    private GenericButton characterSelection;
+
+
     private GenericButton buttonHelp;
     private GenericButton buttonSettings;
 
@@ -152,11 +155,26 @@ public class Home extends GenericScreen{
             }
         });
 
+        // settings button
+        characterSelection = new GenericButton(textureSettings);
+        characterSelection.setPosition(WIDTH - buttonSettings.getWidth()*3/2f, HEIGHT - buttonSettings.getHeight() * 9/2f);
+        characterSelection.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                // response
+                game.setScreen(new CharacterSelection(game));
+
+            }
+        });
+
 
         sceneMenu.addActor(buttonStart.getImageButton());
         sceneMenu.addActor(buttonStart1.getImageButton());
         sceneMenu.addActor(buttonHelp.getImageButton());
         sceneMenu.addActor(buttonSettings.getImageButton());
+        sceneMenu.addActor(characterSelection.getImageButton());
+
     }
 
     public void blinkButtonStart(){
