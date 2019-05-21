@@ -127,9 +127,9 @@ public class Clairo extends Sprite {
 
 
         running = Gdx.audio.newMusic(Gdx.files.internal("SFX/Running.mp3"));
-        running.setVolume(0.8f);
+        running.setVolume(0.2f);
         jumping = Gdx.audio.newMusic(Gdx.files.internal("SFX/Propulsor.mp3"));
-        jumping.setVolume(0.6f);
+        jumping.setVolume(0.2f);
 
     }
 
@@ -334,10 +334,11 @@ public class Clairo extends Sprite {
 
             if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 body.setLinearVelocity(0, body.getLinearVelocity().y);
-            } else {
-                body.setLinearVelocity(0, 0);
-                currentState = State.IDLE;
             }
+        }
+        else {
+            body.setLinearVelocity(0,0);
+            currentState = State.IDLE;
         }
     }
 
