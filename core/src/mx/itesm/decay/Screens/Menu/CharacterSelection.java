@@ -18,7 +18,8 @@ public class CharacterSelection extends GenericScreen {
     // main textures
     private Texture settingsBackground;
     private Texture settingsBuildings;
-    private Texture settingsMonitor;
+    private Texture characterGirlLocked;
+    private Texture characterLocked;
     private Texture settingsTitle;
     // buttons
     private GenericButton buttonBack;
@@ -53,7 +54,8 @@ public class CharacterSelection extends GenericScreen {
         //background
         settingsBackground = manager.get("backgrounds/cd-simple-background.png");
         settingsBuildings = manager.get("menu/cd-menu-buildings.png");
-        settingsMonitor = manager.get("menu/cd-settings-monitor.png");
+        characterGirlLocked = manager.get("menu/cd-girl-blocked.png");
+        characterLocked = manager.get("menu/cd-unlocked.png");
         settingsTitle = manager.get("menu/cd-characters.png");
 
         // back button
@@ -87,7 +89,8 @@ public class CharacterSelection extends GenericScreen {
         batch.draw(settingsBackground, 0, 0);
         batch.draw(settingsBuildings, -640, 0);
         batch.draw(settingsTitle, WIDTH/2 - settingsTitle.getWidth()/2, HEIGHT - settingsTitle.getHeight() * 1.5f);
-        batch.draw(settingsMonitor, WIDTH/2 - settingsMonitor.getWidth()/2, HEIGHT/2 - settingsMonitor.getHeight()/2);
+        batch.draw(characterGirlLocked, WIDTH/3 - characterGirlLocked.getWidth()/2, HEIGHT/2 - characterGirlLocked.getHeight()/2);
+        batch.draw(characterLocked, WIDTH/3 + characterLocked.getWidth(), HEIGHT/2 - characterLocked.getHeight()/2);
 
         batch.end();
 

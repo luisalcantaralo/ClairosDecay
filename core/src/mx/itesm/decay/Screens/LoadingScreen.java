@@ -159,6 +159,11 @@ public class LoadingScreen extends GenericScreen{
         manager.load("menu/cd-button-settings.png", Texture.class);
         manager.load("menu/cd-button-character.png", Texture.class);
         manager.load("menu/cd-button-character2.png", Texture.class);
+        manager.load("menu/cd-girl-blocked.png", Texture.class);
+        manager.load("menu/cd-girl-locked.png", Texture.class);
+        manager.load("menu/cd-girl-unlocked.png", Texture.class);
+        manager.load("menu/cd-locked.png", Texture.class);
+        manager.load("menu/cd-unlocked.png", Texture.class);
         manager.load("menu/cd-characters.png", Texture.class);
         manager.load("menu/cd-button-back.png", Texture.class);
         manager.load("menu/cd-about-us.png", Texture.class);
