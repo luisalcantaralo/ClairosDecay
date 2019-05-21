@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import mx.itesm.decay.Display.Text;
+
 public class Bullet {
 
     private float speed;
@@ -17,13 +19,13 @@ public class Bullet {
     private Texture bulletTexture;
     private Sprite bulletSprite;
 
-    public Bullet(float x, float y, boolean izquierda, int speed, float damage){
+    public Bullet(float x, float y, boolean izquierda, int speed, float damage, Texture bulletTexture){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.damage = damage;
 
-        bulletTexture = new Texture("Turret/bullet.png");
+        this.bulletTexture = bulletTexture;
         bulletSprite = new Sprite(bulletTexture);
         bulletSprite.setPosition(x, y);
         this.izquierda = izquierda;

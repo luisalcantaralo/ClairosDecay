@@ -89,6 +89,7 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Music/lvl1.mp3",Music.class);
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
+        manager.load("Turret/bullet.png",Texture.class);
     }
 
     private void loadLevel2Resources() {
@@ -106,6 +107,7 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Music/lvl1.mp3",Music.class);
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
+        manager.load("Turret/bullet.png",Texture.class);
     }
 
     private void loadLevel1Resources() {
@@ -123,6 +125,7 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Music/lvl1.mp3",Music.class);
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
+        manager.load("Turret/bullet.png",Texture.class);
         //manager.finishLoading();
 
     }

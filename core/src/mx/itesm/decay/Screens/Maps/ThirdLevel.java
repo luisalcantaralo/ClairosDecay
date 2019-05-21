@@ -90,6 +90,7 @@ public class ThirdLevel extends GenericScreen {
     Array<Turret> turrets;
     Array<Enemy> enemies;
     Array<Bullet> bullets;
+    private Texture bulletTexture;
 
     float objectiveTimer=0;
 
@@ -108,6 +109,7 @@ public class ThirdLevel extends GenericScreen {
         setPhysics();
         clairo = new Clairo(world, 100,95);
         background = manager.get("backgrounds/cd-map-01-background.png");
+        bulletTexture = manager.get("Turret/bullet.png");
         bullets = new Array<Bullet>();
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -295,11 +297,11 @@ public class ThirdLevel extends GenericScreen {
             if (turret.getTimerBullet() >= 2) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
-                        Bullet b = turret.shoot(true,2);
+                        Bullet b = turret.shoot(true,2,bulletTexture);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     } else if (distancex >= -200 && distancex <= 0) {
-                        Bullet b = turret.shoot(false,2);
+                        Bullet b = turret.shoot(false,2,bulletTexture);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     }
@@ -364,7 +366,7 @@ public class ThirdLevel extends GenericScreen {
 
                     if(enemy.currentState == Enemy.State.SHOOTING){
                         enemy.isLeft = true;
-                        Bullet b = enemy.shoot(true, 1);
+                        Bullet b = enemy.shoot(true, 1,bulletTexture);
                         bullets.add(b);
                         enemy.setTimerBullet(0);
                     }
@@ -375,7 +377,7 @@ public class ThirdLevel extends GenericScreen {
                     if(enemy.currentState == Enemy.State.SHOOTING) {
 
                         enemy.isLeft = false;
-                        Bullet b = enemy.shoot(false, 1);
+                        Bullet b = enemy.shoot(false, 1,bulletTexture);
                         bullets.add(b);
                         enemy.setTimerBullet(0);
                     }
@@ -506,6 +508,7 @@ public class ThirdLevel extends GenericScreen {
         manager.unload("Music/lvl1.mp3");
         manager.unload("Items/LifeBarContainer.png");
         manager.unload("Items/TimeBar.png");
+        manager.unload("Turret/bullet.png");
         clairo.dispose();
     }
 

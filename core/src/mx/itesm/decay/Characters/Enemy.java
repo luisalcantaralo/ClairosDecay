@@ -185,8 +185,8 @@ public class Enemy extends Sprite {
     }
 
 
-    public Bullet shoot(boolean izquierda, int speed){
-        Bullet b = new Bullet(body.getPosition().x+5,body.getPosition().y, izquierda, speed, 0.01f);
+    public Bullet shoot(boolean izquierda, int speed, Texture bulletTexture){
+        Bullet b = new Bullet(body.getPosition().x+5,body.getPosition().y, izquierda, speed, 0.01f,bulletTexture);
         return b;
     }
 
