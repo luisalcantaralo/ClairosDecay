@@ -270,8 +270,6 @@ public class FirstLevel extends GenericScreen {
             batch.draw(background,0,0, background.getWidth(), background.getHeight());
             batch.end();
 
-            mapRenderer.setView(camera);
-            mapRenderer.render();
             if(objectiveTimer < 10.5){
                 showObjective(delta);
             }
