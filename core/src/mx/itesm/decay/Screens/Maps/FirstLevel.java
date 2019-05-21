@@ -263,6 +263,7 @@ public class FirstLevel extends GenericScreen {
         if(clairo.getX() > 100 && clairo.getY() > 530){
             Decay.prefs.putString("girl", "ON");
             Decay.prefs.flush();
+            text.showText(batch,"NEW SKIN UNLOCKED", 100, 530);
             unlockGirl();
         }
 
