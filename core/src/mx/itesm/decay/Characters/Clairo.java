@@ -115,6 +115,10 @@ public class Clairo extends Sprite {
 
         frames.clear();
 
+         for(int i = 1; i < 10; i++)
+             frames.add(new TextureRegion(new Texture("Characters/Detective/Shoot/Detective_IdleDraw.png"), i * 288, 50, 234, 268));
+        clairoShoot = new Animation(0.1f, frames);
+
         setBounds(startPositionX,startPositionY,25, 25);
 
         defineClairo(startPositionX, startPositionY);
@@ -192,7 +196,7 @@ public class Clairo extends Sprite {
         Vector2 clairoWorldCenter = body.getWorldCenter();
 
         if (!disableControls) {
-
+        /*
             if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING) {
                 body.setLinearVelocity(new Vector2(0, 5f));
             }
@@ -253,7 +257,7 @@ public class Clairo extends Sprite {
             if (!rightKeyPressed && !leftKeyPressed) {
                 body.setLinearVelocity(0, body.getLinearVelocity().y);
             }
-
+            */
 
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP) && currentState == State.CLIMBING) {
@@ -267,7 +271,7 @@ public class Clairo extends Sprite {
                 body.applyLinearImpulse(new Vector2(0, 400f), clairoWorldCenter, true);
             }
 
-            /*
+
             if (currentState == State.RUNNING) {
 
                 jumping.stop();
@@ -330,7 +334,7 @@ public class Clairo extends Sprite {
 
             if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 body.setLinearVelocity(0, body.getLinearVelocity().y);
-            }*/
+            }
         }
         else {
             body.setLinearVelocity(0,0);
@@ -438,7 +442,6 @@ public class Clairo extends Sprite {
 
     public void dispose(){
         getTexture().dispose();
-
         running.dispose();
         jumping.dispose();
 

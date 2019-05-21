@@ -225,6 +225,7 @@ public class Home extends GenericScreen{
     public void dispose() {
         sceneMenu.dispose();
         batch.dispose();
+
         if (menuBoolean) {
             manager.unload("menu/cd-menu-buildings.png");
             manager.unload("menu/cd-menu-background.png");
