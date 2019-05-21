@@ -90,6 +90,10 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
         manager.load("Turret/bullet.png",Texture.class);
+        manager.load("Items/Box.png",Texture.class);
+        manager.load("Turret/turret.png",Texture.class);
+        manager.load("Characters/Enemy/Walking/Enemy_Walking.png", Texture.class);
+        manager.load("Characters/Enemy/Pushing/Enemy_Push.png", Texture.class);
     }
 
     private void loadLevel2Resources() {
@@ -108,6 +112,10 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
         manager.load("Turret/bullet.png",Texture.class);
+        manager.load("Items/Box.png",Texture.class);
+        manager.load("Turret/turret.png",Texture.class);
+        manager.load("Characters/Enemy/Walking/Enemy_Walking.png", Texture.class);
+        manager.load("Characters/Enemy/Pushing/Enemy_Push.png", Texture.class);
     }
 
     private void loadLevel1Resources() {
@@ -126,6 +134,10 @@ public class LoadingScreen extends GenericScreen{
         manager.load("Items/LifeBarContainer.png",Texture.class);
         manager.load("Items/TimeBar.png",Texture.class);
         manager.load("Turret/bullet.png",Texture.class);
+        manager.load("Items/Box.png",Texture.class);
+        manager.load("Turret/turret.png",Texture.class);
+        manager.load("Characters/Enemy/Walking/Enemy_Walking.png", Texture.class);
+        manager.load("Characters/Enemy/Pushing/Enemy_Push.png", Texture.class);
         //manager.finishLoading();
 
     }

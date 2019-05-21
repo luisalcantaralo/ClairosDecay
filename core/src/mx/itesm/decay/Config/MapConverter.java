@@ -1,5 +1,6 @@
 package mx.itesm.decay.Config;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import mx.itesm.decay.Characters.Box;
 import mx.itesm.decay.Characters.Turret;
 import mx.itesm.decay.Characters.Enemy;
+import mx.itesm.decay.Display.Text;
 
 public class MapConverter {
     private static final float TAM_BLOQUE = 5;
@@ -61,37 +63,37 @@ public class MapConverter {
             }
     }
 
-    public static Array<Box> createBoxes(TiledMap mapa, World mundo){
+    public static Array<Box> createBoxes(TiledMap mapa, World mundo,Texture boxTexture){
         Array<Box> boxes;
         boxes = new Array<Box>();
         MapObjects objetos = mapa.getLayers().get("Boxes").getObjects();
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
-            boxes.add(new Box(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE));
+            boxes.add(new Box(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE, boxTexture));
         }
         return boxes;
     }
 
-    public static Array<Turret> createTurrets(TiledMap mapa, World mundo){
+    public static Array<Turret> createTurrets(TiledMap mapa, World mundo, Texture turretTexture){
         Array<Turret> turrets;
         turrets = new Array<Turret>();
         MapObjects objetos = mapa.getLayers().get("Turrets").getObjects();
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
-            turrets.add(new Turret(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE));
+            turrets.add(new Turret(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE, turretTexture));
         }
         return turrets;
     }
-    public static Array<Enemy> createEnemies(TiledMap mapa, World mundo){
+    public static Array<Enemy> createEnemies(TiledMap mapa, World mundo, Texture walkingTexture, Texture pushigTexture){
         Array<Enemy> enemies;
         enemies = new Array<Enemy>();
         MapObjects objetos = mapa.getLayers().get("Enemies").getObjects();
         for (MapObject objeto: objetos) {
             Shape rectangulo = getRectangle((RectangleMapObject)objeto);
 
-            enemies.add(new Enemy(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE));
+            enemies.add(new Enemy(mundo, ((RectangleMapObject) objeto).getRectangle().x/TAM_BLOQUE, ((RectangleMapObject) objeto).getRectangle().y/TAM_BLOQUE, walkingTexture, pushigTexture));
         }
         return enemies;
     }

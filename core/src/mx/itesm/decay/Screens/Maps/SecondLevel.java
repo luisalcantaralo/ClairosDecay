@@ -91,6 +91,10 @@ public class SecondLevel extends GenericScreen {
     Array<Enemy> enemies;
     Array<Bullet> bullets;
     Texture bulletTexture;
+    Texture boxTexture;
+    Texture turretTexture;
+    Texture walkingTexture;
+    Texture pushingTexture;
 
     float objectiveTimer=0;
 
@@ -106,10 +110,10 @@ public class SecondLevel extends GenericScreen {
     public void show() {
 
         loadMap();
+        loadItems();
         setPhysics();
-        clairo = new Clairo(world, 120,100);
+        clairo = new Clairo(world, 520,450);
         background = manager.get("backgrounds/cd-map-01-background.png");
-        bulletTexture = manager.get("Turret/bullet.png");
         bullets = new Array<Bullet>();
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -119,6 +123,15 @@ public class SecondLevel extends GenericScreen {
         camera.position.x = 520;
         camera.position.y = 430;
         camera.update();
+
+    }
+
+    private void loadItems(){
+        boxTexture = manager.get("Items/Box.png");
+        bulletTexture = manager.get("Turret/bullet.png");
+        turretTexture = manager.get("Turret/turret.png");
+        walkingTexture = manager.get("Characters/Enemy/Walking/Enemy_Walking.png");
+        pushingTexture = manager.get("Characters/Enemy/Pushing/Enemy_Push.png");
 
     }
 
@@ -191,10 +204,10 @@ public class SecondLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        boxes = MapConverter.createBoxes(map, world);
-        turrets = MapConverter.createTurrets(map, world);
+        boxes = MapConverter.createBoxes(map, world,boxTexture);
+        turrets = MapConverter.createTurrets(map, world,turretTexture);
 
-        enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world,walkingTexture,pushingTexture);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -212,7 +225,7 @@ public class SecondLevel extends GenericScreen {
 
         map = assetManager.get("maps/cd-map-02.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-        assetManager.dispose();
+
 
     }
 
@@ -231,7 +244,7 @@ public class SecondLevel extends GenericScreen {
 
                     if(enemy.currentState == Enemy.State.SHOOTING){
                         enemy.isLeft = true;
-                        Bullet b = enemy.shoot(true, 1, bulletTexture);
+                        Bullet b = enemy.shoot(true, 1,bulletTexture);
                         bullets.add(b);
                         enemy.setTimerBullet(0);
                     }
@@ -242,7 +255,7 @@ public class SecondLevel extends GenericScreen {
                     if(enemy.currentState == Enemy.State.SHOOTING) {
 
                         enemy.isLeft = false;
-                        Bullet b = enemy.shoot(false, 1, bulletTexture);
+                        Bullet b = enemy.shoot(false, 1,bulletTexture);
                         bullets.add(b);
                         enemy.setTimerBullet(0);
                     }
@@ -280,7 +293,6 @@ public class SecondLevel extends GenericScreen {
             batch.begin();
             batch.draw(background,0,0, background.getWidth(), background.getHeight());
             batch.end();
-
 
             if(objectiveTimer < 6.0){
                 showObjective(delta);
@@ -499,9 +511,7 @@ public class SecondLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
-        pauseScene.dispose();
-        sceneHUD.dispose();
-        manager.unload("backgrounds/cd-map-01-background.png");
+        sceneHUD.dispose();manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");
         manager.unload("UI/cd-a-button.png");
@@ -516,6 +526,10 @@ public class SecondLevel extends GenericScreen {
         manager.unload("Items/LifeBarContainer.png");
         manager.unload("Items/TimeBar.png");
         manager.unload("Turret/bullet.png");
+        manager.unload("Items/Box.png");
+        manager.unload("Turret/turret.png");
+        manager.unload("Characters/Enemy/Walking/Enemy_Walking.png");
+        manager.unload("Characters/Enemy/Pushing/Enemy_Push.png");
         clairo.dispose();
     }
 
@@ -648,4 +662,3 @@ public class SecondLevel extends GenericScreen {
     }
 
 }
-

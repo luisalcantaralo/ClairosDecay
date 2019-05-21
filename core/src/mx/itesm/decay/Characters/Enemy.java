@@ -33,6 +33,9 @@ public class Enemy extends Sprite {
     private BodyDef bdef = new BodyDef();
     private float timerBullet;
 
+    //Textures
+    private Texture walkingTexture;
+    private Texture pushTexture;
 
     FixtureDef fix;
 
@@ -63,10 +66,12 @@ public class Enemy extends Sprite {
 
     // Movement
 
-    public Enemy(World world, float x, float y) {
+    public Enemy(World world, float x, float y, Texture walkingTexture, Texture pushTexture) {
         this.world = world;
         this.startPositionX = x;
         this.startPositionY = y;
+        this.walkingTexture = walkingTexture;
+        this.pushTexture = pushTexture;
 
         currentState = State.PATROLLING;
         previousState = State.RUNNING;
@@ -77,7 +82,7 @@ public class Enemy extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 0; i < 16; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Walking/Enemy_Walking.png"), i * 426+120, 80, 426-220, 332));
+            frames.add(new TextureRegion(walkingTexture, i * 426+120, 80, 426-220, 332));
         enemyPatrolling = new Animation(0.1f, frames);
 
 
@@ -85,7 +90,7 @@ public class Enemy extends Sprite {
 
 
         for (int i = 0; i < 11; i++)
-            frames.add(new TextureRegion(new Texture("Characters/Enemy/Pushing/Enemy_Push.png"), i * 348, 40, 348-20, 402-40));
+            frames.add(new TextureRegion(pushTexture, i * 348, 40, 348-20, 402-40));
         enemyPushing= new Animation(0.1f, frames);
 
         frames.clear();

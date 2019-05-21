@@ -96,7 +96,11 @@ public class FirstLevel extends GenericScreen {
     Array<Turret> turrets;
     Array<Enemy> enemies;
     Array<Bullet> bullets;
-
+    Texture bulletTexture;
+    Texture boxTexture;
+    Texture turretTexture;
+    Texture walkingTexture;
+    Texture pushingTexture;
     boolean isDisable;
 
     // Text
@@ -125,8 +129,9 @@ public class FirstLevel extends GenericScreen {
 
         loadMap();
         loadMusic();
+        loadItems();
         setPhysics();
-        clairo = new Clairo(world, 600,600);
+        clairo = new Clairo(world, 100,100);
         fatGuy= new FatGuy(world, 700,550);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -139,6 +144,15 @@ public class FirstLevel extends GenericScreen {
         camera.position.x = 600;
         camera.position.y = 540;
         camera.update();
+
+    }
+
+    private void loadItems(){
+        boxTexture = manager.get("Items/Box.png");
+        bulletTexture = manager.get("Turret/bullet.png");
+        turretTexture = manager.get("Turret/turret.png");
+        walkingTexture = manager.get("Characters/Enemy/Walking/Enemy_Walking.png");
+        pushingTexture = manager.get("Characters/Enemy/Pushing/Enemy_Push.png");
 
     }
 
@@ -219,9 +233,9 @@ public class FirstLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        boxes = MapConverter.createBoxes(map, world);
-        turrets = MapConverter.createTurrets(map, world);
-        enemies = MapConverter.createEnemies(map, world);
+        boxes = MapConverter.createBoxes(map, world,boxTexture);
+        turrets = MapConverter.createTurrets(map, world,turretTexture);
+        enemies = MapConverter.createEnemies(map, world,walkingTexture,pushingTexture);
 
         b2dr = new Box2DDebugRenderer();
     }
@@ -236,7 +250,6 @@ public class FirstLevel extends GenericScreen {
 
         map = assetManager.get("maps/cd-map-04.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-        assetManager.dispose();
     }
 
     @Override
@@ -369,7 +382,7 @@ public class FirstLevel extends GenericScreen {
 
                     if(enemy.currentState == Enemy.State.SHOOTING){
                         enemy.isLeft = true;
-                        Bullet b = enemy.shoot(true, 1);
+                        Bullet b = enemy.shoot(true, 1,bulletTexture);
                         bullets.add(b);
                         enemy.setTimerBullet(0);
                     }
@@ -380,7 +393,7 @@ public class FirstLevel extends GenericScreen {
                     if(enemy.currentState == Enemy.State.SHOOTING) {
 
                         enemy.isLeft = false;
-                        Bullet b = enemy.shoot(false, 1);
+                        Bullet b = enemy.shoot(false, 1,bulletTexture);
                         bullets.add(b);
                         enemy.setTimerBullet(0);
                     }
@@ -404,11 +417,11 @@ public class FirstLevel extends GenericScreen {
             if (turret.getTimerBullet() >= 2 && !isDisable) {
                 if (distancey <= 20 && distancey >= -20) {
                     if (distancex <= 200 && distancex >= 0) {
-                        Bullet b = turret.shoot(true, 1);
+                        Bullet b = turret.shoot(true, 1,bulletTexture);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     } else if (distancex >= -200 && distancex <= 0) {
-                        Bullet b = turret.shoot(false, 1);
+                        Bullet b = turret.shoot(false, 1,bulletTexture);
                         bullets.add(b);
                         turret.setTimerBullet(0);
                     }
@@ -566,9 +579,6 @@ public class FirstLevel extends GenericScreen {
         map.dispose();
         mapRenderer.dispose();
         sceneHUD.dispose();
-        clairo.dispose();
-
-
         manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");
@@ -583,6 +593,12 @@ public class FirstLevel extends GenericScreen {
         manager.unload("Music/lvl1.mp3");
         manager.unload("Items/LifeBarContainer.png");
         manager.unload("Items/TimeBar.png");
+        manager.unload("Turret/bullet.png");
+        manager.unload("Items/Box.png");
+        manager.unload("Turret/turret.png");
+        manager.unload("Characters/Enemy/Walking/Enemy_Walking.png");
+        manager.unload("Characters/Enemy/Pushing/Enemy_Push.png");
+        clairo.dispose();
 
     }
 

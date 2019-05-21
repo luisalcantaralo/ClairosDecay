@@ -90,7 +90,11 @@ public class ThirdLevel extends GenericScreen {
     Array<Turret> turrets;
     Array<Enemy> enemies;
     Array<Bullet> bullets;
-    private Texture bulletTexture;
+    Texture bulletTexture;
+    Texture boxTexture;
+    Texture turretTexture;
+    Texture walkingTexture;
+    Texture pushingTexture;
 
     float objectiveTimer=0;
 
@@ -106,10 +110,10 @@ public class ThirdLevel extends GenericScreen {
     public void show() {
 
         loadMap();
+        loadItems();
         setPhysics();
         clairo = new Clairo(world, 100,95);
         background = manager.get("backgrounds/cd-map-01-background.png");
-        bulletTexture = manager.get("Turret/bullet.png");
         bullets = new Array<Bullet>();
         createHUD();
         Gdx.input.setInputProcessor(sceneHUD);
@@ -119,6 +123,15 @@ public class ThirdLevel extends GenericScreen {
         camera.position.x = 520;
         camera.position.y = 300;
         camera.update();
+
+    }
+
+    private void loadItems(){
+        boxTexture = manager.get("Items/Box.png");
+        bulletTexture = manager.get("Turret/bullet.png");
+        turretTexture = manager.get("Turret/turret.png");
+        walkingTexture = manager.get("Characters/Enemy/Walking/Enemy_Walking.png");
+        pushingTexture = manager.get("Characters/Enemy/Pushing/Enemy_Push.png");
 
     }
 
@@ -191,10 +204,11 @@ public class ThirdLevel extends GenericScreen {
 
         MapConverter.createBodies(map, world);
         MapConverter.createStairs(map, world);
-        boxes = MapConverter.createBoxes(map, world);
-        turrets = MapConverter.createTurrets(map, world);
+        boxes = MapConverter.createBoxes(map, world,boxTexture);
+        turrets = MapConverter.createTurrets(map, world,turretTexture);
 
-        enemies = MapConverter.createEnemies(map, world);
+        enemies = MapConverter.createEnemies(map, world,walkingTexture,pushingTexture);
+
 
         b2dr = new Box2DDebugRenderer();
     }
@@ -211,8 +225,13 @@ public class ThirdLevel extends GenericScreen {
 
         map = assetManager.get("maps/cd-map-03.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-        assetManager.dispose();
+
+
     }
+
+
+
+
 
     @Override
     public void render(float delta) {
@@ -492,9 +511,7 @@ public class ThirdLevel extends GenericScreen {
         batch.dispose();
         map.dispose();
         mapRenderer.dispose();
-        sceneHUD.dispose();
-        pauseScene.dispose();
-        manager.unload("backgrounds/cd-map-01-background.png");
+        sceneHUD.dispose();manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");
         manager.unload("UI/cd-a-button.png");
@@ -509,6 +526,10 @@ public class ThirdLevel extends GenericScreen {
         manager.unload("Items/LifeBarContainer.png");
         manager.unload("Items/TimeBar.png");
         manager.unload("Turret/bullet.png");
+        manager.unload("Items/Box.png");
+        manager.unload("Turret/turret.png");
+        manager.unload("Characters/Enemy/Walking/Enemy_Walking.png");
+        manager.unload("Characters/Enemy/Pushing/Enemy_Push.png");
         clairo.dispose();
     }
 

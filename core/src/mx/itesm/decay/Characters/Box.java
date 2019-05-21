@@ -24,12 +24,12 @@ public class Box extends Sprite {
     float initialX;
     float initialY;
 
-    public Box(World world, float x, float y){
+    public Box(World world, float x, float y, Texture boxTexture){
         this.world = world;
         this.initialX = x;
         this.initialY = y;
 
-        boxTexture = new Texture("Items/Box.png");
+        this.boxTexture = boxTexture;
 
         setBounds(x,y,128/7,128/7);
         defineBox(x,y);
