@@ -102,7 +102,7 @@ public class Home extends GenericScreen{
 
                 //menuTheme.stop();
                 menuBoolean = true;
-                game.setScreen(new LoadingScreen(game,Screens.LEVEL_THREE));
+                game.setScreen(new LoadingScreen(game,Screens.LEVEL_ONE));
 
             }
         });
@@ -118,7 +118,7 @@ public class Home extends GenericScreen{
 
                 //menuTheme.stop();
                 menuBoolean = true;
-                game.setScreen(new LoadingScreen(game,Screens.LEVEL_THREE));
+                game.setScreen(new LoadingScreen(game,Screens.LEVEL_ONE));
 
             }
         });
