@@ -91,6 +91,8 @@ public class ThirdLevel extends GenericScreen {
     Array<Enemy> enemies;
     Array<Bullet> bullets;
 
+    float objectiveTimer=0;
+
 
     public ThirdLevel(Decay game){
         super(5);
@@ -111,6 +113,10 @@ public class ThirdLevel extends GenericScreen {
         Gdx.input.setInputProcessor(sceneHUD);
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setCatchBackKey(true);
+
+        camera.position.x = 520;
+        camera.position.y = 300;
+        camera.update();
 
     }
 
@@ -237,7 +243,12 @@ public class ThirdLevel extends GenericScreen {
 
             mapRenderer.setView(camera);
             mapRenderer.render();
-            updateCamera();
+            if(objectiveTimer < 10){
+                showObjective(delta);
+            }
+            else{
+                updateCamera();
+            }
             mapRenderer.setView(camera);
             mapRenderer.render();
 
@@ -269,7 +280,17 @@ public class ThirdLevel extends GenericScreen {
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
-        updateCamera();
+    }
+
+    private void showObjective(float dt) {
+        objectiveTimer += dt;
+
+        if(objectiveTimer > 6){
+            camera.position.x -= 1.65;
+            camera.position.y -= 0.95;
+        }
+
+        camera.update();
     }
 
     private void updateTurrets(float dt) {

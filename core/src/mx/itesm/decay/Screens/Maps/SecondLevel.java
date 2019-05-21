@@ -106,7 +106,7 @@ public class SecondLevel extends GenericScreen {
 
         loadMap();
         setPhysics();
-        clairo = new Clairo(world, 150,95);
+        clairo = new Clairo(world, 520,450);
         background = manager.get("backgrounds/cd-map-01-background.png");
         bullets = new Array<Bullet>();
         createHUD();
