@@ -22,7 +22,7 @@ public class Text {
         glyph.setText(font, message);
         float textWidth = glyph.width;
         font.draw(batch, glyph, x-textWidth/2, y);
-        
+
     }
 
     public void showTimer(SpriteBatch batch, String message, float x, float y) {

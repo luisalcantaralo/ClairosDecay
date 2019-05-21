@@ -47,10 +47,10 @@ public class LoadingScreen extends GenericScreen{
 
         if(Decay.prefs.getString("music") == null) Decay.prefs.putString("music", "ON");
         if(Decay.prefs.getString("vfx") == null) Decay.prefs.putString("vfx", "ON");
-        if(Decay.prefs.getString("girl") == null) Decay.prefs.putString("girl", "OFF");
+        Decay.prefs.putString("girl", "ON");
 
 
-        if(Decay.prefs.getString("choice") == null) Decay.prefs.putString("choice", "clairo");
+        if(Decay.prefs.getString("choice")==null) Decay.prefs.putString("choice", "clairo");
 
         Decay.prefs.putBoolean("sound", true);
         Decay.prefs.putString("level", "1");

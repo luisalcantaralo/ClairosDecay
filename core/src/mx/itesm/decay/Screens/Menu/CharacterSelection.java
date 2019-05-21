@@ -109,10 +109,9 @@ public class CharacterSelection extends GenericScreen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 // response
-                if(Decay.prefs.getString("girl").equals("ON")){
                     Decay.prefs.putString("choice", "kase");
                     Decay.prefs.flush();
-                }
+
                 Decay.prefs.flush();
                 game.setScreen(new Home(game));
 

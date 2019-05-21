@@ -132,7 +132,7 @@ public class FirstLevel extends GenericScreen {
         loadMusic();
         loadItems();
         setPhysics();
-        clairo = new Clairo(world, 100,100);
+        clairo = new Clairo(world, 120,100);
         fatGuy= new FatGuy(world, 700,550);
         background = manager.get("backgrounds/cd-map-01-background.png");
         createHUD();
@@ -262,12 +262,7 @@ public class FirstLevel extends GenericScreen {
             game.setScreen(new Win(game, Screens.LEVEL_ONE));
         }
 
-        if(clairo.getX() > 100 && clairo.getY() > 530){
-            Decay.prefs.putString("girl", "ON");
-            Decay.prefs.flush();
-            text.showText(batch,"NEW SKIN UNLOCKED", 100, 530);
-            unlockGirl();
-        }
+
 
 
         if(state==GameStates.PLAYING){
