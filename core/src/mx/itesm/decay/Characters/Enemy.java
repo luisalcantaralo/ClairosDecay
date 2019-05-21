@@ -198,4 +198,8 @@ public class Enemy extends Sprite {
         this.timerBullet = timerBullet;
     }
 
+    public void dispose(){
+        getTexture().dispose();
+    }
+
 }

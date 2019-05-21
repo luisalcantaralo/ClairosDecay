@@ -567,6 +567,8 @@ public class FirstLevel extends GenericScreen {
         map.dispose();
         mapRenderer.dispose();
         sceneHUD.dispose();
+        clairo.dispose();;
+
         manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");
@@ -575,8 +577,12 @@ public class FirstLevel extends GenericScreen {
         manager.unload("UI/pause-screen.png");
         manager.unload("UI/cd-pause-pressed-button.png");
         manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Items/LifeBarContainer.png");
+        manager.unload("Items/TimeBar.png");
+        manager.unload("Items/LifeBarContainer.png");
         manager.unload("Music/lvl1.mp3");
-        clairo.dispose();
+        manager.unload("Items/LifeBarContainer.png");
+        manager.unload("Items/TimeBar.png");
 
     }
 
@@ -706,5 +712,7 @@ public class FirstLevel extends GenericScreen {
             return false;
         }
     }
+
+
 
 }

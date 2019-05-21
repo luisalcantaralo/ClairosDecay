@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -499,6 +500,9 @@ public class SecondLevel extends GenericScreen {
         map.dispose();
         mapRenderer.dispose();
         sceneHUD.dispose();
+        clairo.dispose();;
+
+
         manager.unload("backgrounds/cd-map-01-background.png");
         manager.unload("UI/cd-button-right.png");
         manager.unload("UI/cd-button-left.png");
@@ -507,8 +511,13 @@ public class SecondLevel extends GenericScreen {
         manager.unload("UI/pause-screen.png");
         manager.unload("UI/cd-pause-pressed-button.png");
         manager.unload("menu/cd-back-to-menu-button.png");
+        manager.unload("Items/LifeBarContainer.png");
+        manager.unload("Items/TimeBar.png");
+        manager.unload("Items/LifeBarContainer.png");
         manager.unload("Music/lvl1.mp3");
-        clairo.dispose();
+        manager.unload("Items/LifeBarContainer.png");
+        manager.unload("Items/TimeBar.png");
+
     }
 
     private class PauseScene extends Stage {
