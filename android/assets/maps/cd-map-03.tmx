@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="64" tileheight="64" infinite="0" nextlayerid="24" nextobjectid="109">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="64" tileheight="64" infinite="0" nextlayerid="24" nextobjectid="111">
  <tileset firstgid="1" name="cd-grey-tilesheet-64x64" tilewidth="64" tileheight="64" tilecount="130" columns="13">
   <image source="../tilesets/cd-grey-tilesheet-64x64.png" width="832" height="640"/>
  </tileset>
@@ -469,9 +469,9 @@
  </objectgroup>
  <objectgroup id="23" name="Enemies">
   <object id="104" x="2752" y="1600" width="128" height="128"/>
-  <object id="105" x="256" y="2688" width="128" height="128"/>
   <object id="106" x="1024" y="1920" width="128" height="128"/>
   <object id="108" x="1728" y="2112" width="128" height="128"/>
+  <object id="110" x="2624" y="2752" width="128" height="128"/>
  </objectgroup>
  <layer id="17" name="Floor" width="64" height="48">
   <data encoding="csv">
