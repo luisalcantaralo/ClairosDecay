@@ -509,6 +509,7 @@ public class FirstLevel extends GenericScreen {
         camera.update();
     }
 
+
     private void createCollisionListener() {
         world.setContactListener(new ContactListener() {
 
