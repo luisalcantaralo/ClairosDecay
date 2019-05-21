@@ -242,73 +242,73 @@ public class FirstLevel extends GenericScreen {
     public void render(float delta) {
         if(health <= 0) state = GameStates.GAME_OVER;
         float time = Gdx.graphics.getDeltaTime();
-            if(clairo.getX() > 700 && clairo.getY() > 530){
-                Decay.prefs.putString("level", "2");
-                state = GameStates.NEXT;
-                game.setScreen(new Win(game, Screens.LEVEL_ONE));
+        if(clairo.getX() > 700 && clairo.getY() > 530){
+            Decay.prefs.putString("level", "2");
+            state = GameStates.NEXT;
+            game.setScreen(new Win(game, Screens.LEVEL_ONE));
+        }
+
+
+        if(state==GameStates.PLAYING){
+
+            Gdx.gl.glClearColor(1,1,1,0);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            world.step(delta, 6,2);
+
+            clairo.update(time);
+            fatGuy.update(time);
+
+            if(clairo.getX() > 650 && clairo.getY()>=fatGuy.getY()){
+                talkBegin=true;
+                isDisable = true;
             }
 
+            batch.setProjectionMatrix(camera.combined);
+            batch.begin();
+            batch.draw(background,0,0, background.getWidth(), background.getHeight());
+            batch.end();
 
-            if(state==GameStates.PLAYING){
-
-                Gdx.gl.glClearColor(1,1,1,0);
-                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-                world.step(delta, 6,2);
-
-                clairo.update(time);
-                fatGuy.update(time);
-
-                if(clairo.getX() > 650 && clairo.getY()>=fatGuy.getY()){
-                    talkBegin=true;
-                    isDisable = true;
-                }
-
-                batch.setProjectionMatrix(camera.combined);
-                batch.begin();
-                batch.draw(background,0,0, background.getWidth(), background.getHeight());
-                batch.end();
-
-                mapRenderer.setView(camera);
-                mapRenderer.render();
-                if(objectiveTimer < 10.5){
-                    showObjective(delta);
-                }
-                else {
-                    updateCamera();
-                }
-                mapRenderer.setView(camera);
-                mapRenderer.render();
-
-                batch.begin();
-
-                updateBoxes();
-                updateTurrets(time);
-                updateEnemies(time);
-                if (bullets.size >= 1){
-                    updateBullets();
-                }
-                clairo.draw(batch);
-                fatGuy.draw(batch);
-                if(talkBegin && talking == 0) {talk(delta);}
-                batch.end();
-                batch.setProjectionMatrix(camaraHUD.combined);
-                sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
-
-                sceneHUD.draw();
-
-                if(clairo.currentState == Clairo.State.DEAD) {
-                    state = GameStates.GAME_OVER;
-                }
-
+            mapRenderer.setView(camera);
+            mapRenderer.render();
+            if(objectiveTimer < 10.5){
+                showObjective(delta);
             }
-            if(state==GameStates.GAME_OVER){
-                game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
+            else {
+                updateCamera();
             }
+            mapRenderer.setView(camera);
+            mapRenderer.render();
+
+            batch.begin();
+
+            updateBoxes();
+            updateTurrets(time);
+            updateEnemies(time);
+            if (bullets.size >= 1){
+                updateBullets();
+            }
+            clairo.draw(batch);
+            fatGuy.draw(batch);
+            if(talkBegin && talking == 0) {talk(delta);}
+            batch.end();
+            batch.setProjectionMatrix(camaraHUD.combined);
+            sceneHUD.getActors().get(1).setWidth((float) 57.6*health);
+
+            sceneHUD.draw();
+
+            if(clairo.currentState == Clairo.State.DEAD) {
+                state = GameStates.GAME_OVER;
+            }
+
+        }
+        if(state==GameStates.GAME_OVER){
+            game.setScreen(new GameOver(game, Screens.LEVEL_ONE));
+        }
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-                state=GameStates.PAUSE;
-                pauseScene = new PauseScene(vistaHUD, batch, game);
-                Gdx.input.setInputProcessor(pauseScene);
+            state=GameStates.PAUSE;
+            pauseScene = new PauseScene(vistaHUD, batch, game);
+            Gdx.input.setInputProcessor(pauseScene);
         }
         if(state==GameStates.PAUSE){
             pauseScene.draw();}
@@ -361,25 +361,25 @@ public class FirstLevel extends GenericScreen {
             enemy.update(time);
             enemy.draw(batch);
 
-            /**
-            float distancex = enemy.getX() - clairo.getClairoX();
-            float distancey = enemy.getY() - clairo.getClairoY();
 
-            if (distancey <= 20 && distancey >= -20) {
-                enemy.currentState = Enemy.State.RUNNING;
-                if (distancex < 5 && distancex > 0) {
-                    if(!enemy.isTouching){
-                        enemy.isLeft = true;
-                    }
-                } else if (distancex > -5 && distancex < 0) {
-                    if(!enemy.isTouching){
-                        enemy.isLeft = false;
-                    }
-                }
+             float distancex = enemy.getX() - clairo.getClairoX();
+             float distancey = enemy.getY() - clairo.getClairoY();
 
-            }else {
-                enemy.currentState = Enemy.State.PATROLLING;
-            }**/
+             if (distancey <= 20 && distancey >= -20) {
+                 enemy.currentState = Enemy.State.RUNNING;
+                 if (distancex < 5 && distancex > 0) {
+                 if(!enemy.isTouching){
+                 enemy.isLeft = true;
+                 }
+                 } else if (distancex > -5 && distancex < 0) {
+                 if(!enemy.isTouching){
+                 enemy.isLeft = false;
+                 }
+                 }
+
+             }else {
+             enemy.currentState = Enemy.State.PATROLLING;
+             }
 
         }
     }
@@ -642,7 +642,7 @@ public class FirstLevel extends GenericScreen {
 
                 clairo.setRight();
 
-                }
+            }
             else if (v3.x >1086 && v3.x< 1188 && v3.y>48 && v3.y<144 ){
                 clairo.setUpKey();
                 clairo.canJump = false;
@@ -656,13 +656,13 @@ public class FirstLevel extends GenericScreen {
                     // Activar escenaPausa y pasarle el control
                     pauseScene = new FirstLevel.PauseScene(vistaHUD, batch, game);
                     Gdx.input.setInputProcessor(pauseScene);
-            }}
+                }}
             else{
                 clairo.setDefault();
 
             }
             return false;
-            }
+        }
 
 
         @Override

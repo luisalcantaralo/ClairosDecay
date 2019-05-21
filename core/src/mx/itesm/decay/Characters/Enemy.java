@@ -31,6 +31,7 @@ public class Enemy extends Sprite {
     private World world;
     private Body body;
     private BodyDef bdef = new BodyDef();
+    private float timerBullet;
 
 
     FixtureDef fix;
@@ -82,7 +83,6 @@ public class Enemy extends Sprite {
 
         frames.clear();
 
-        /**
 
          for (int i = 0; i < 6; i++)
          frames.add(new TextureRegion(new Texture("Characters/Enemy/Running/Enemy_Run.png"), i * 426, 0, 426, 402));
@@ -95,7 +95,7 @@ public class Enemy extends Sprite {
         enemyRunning= new Animation(0.1f, frames);
 
         frames.clear();
-         **/
+
 
 
         timer = 0;
@@ -134,9 +134,7 @@ public class Enemy extends Sprite {
                 }
 
             }
-        }
-
-        /**else  if (currentState == State.RUNNING) {
+        } else  if (currentState == State.RUNNING) {
 
             System.out.println(currentState);
             if (isLeft) {
@@ -151,7 +149,7 @@ public class Enemy extends Sprite {
 
 
             }
-        }**/
+        }
 
     }
 
@@ -163,9 +161,9 @@ public class Enemy extends Sprite {
             case RUNNING:
                 region = enemyRunning.getKeyFrame(timer, true);
                 break;
-            /**case PATROLLING:
+            case PATROLLING:
                 region = enemyPatrolling.getKeyFrame(timer, true);
-                break;**/
+                break;
             default:
                 region = enemyPatrolling.getKeyFrame(timer, true);
 
@@ -195,6 +193,20 @@ public class Enemy extends Sprite {
         fix.friction = 0;
         Fixture fixture = body.createFixture(fix);
         body.setUserData("enemy");
+    }
+
+
+    public Bullet shoot(boolean izquierda, int speed){
+        Bullet b = new Bullet(body.getPosition().x,body.getPosition().y, izquierda, speed);
+        return b;
+    }
+
+    public float getTimerBullet() {
+        return timerBullet;
+    }
+
+    public void setTimerBullet(float timerBullet) {
+        this.timerBullet = timerBullet;
     }
 
 }
