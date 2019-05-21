@@ -64,6 +64,7 @@ public class Clairo extends Sprite {
 
     public boolean touchingBox;
     public boolean pushingBox;
+    public boolean vfx;
 
     public boolean transform;
 
@@ -82,6 +83,14 @@ public class Clairo extends Sprite {
         timer = 0;
         canJump = true;
         transform = false;
+
+        if(Decay.prefs.getString("vfx").equals("ON") || Decay.prefs.getString("vfx") == null) {
+            vfx = true;
+        }
+        else {
+            vfx = false;
+        }
+
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 0; i < 13; i++)
@@ -151,22 +160,26 @@ public class Clairo extends Sprite {
     private void updateState(float dt) {
 
         if(body.getPosition().y < 0){
+            jumping.stop();
+            running.stop();
             currentState = State.DEAD;
         }
         else{
             if (body.getLinearVelocity().y > 0 && dt < 0.5 && !canClimb && !touchingBox) {
-                if(Decay.prefs.getBoolean("sound")) {
-                    jumping.setVolume(0.01f);
+                if(Decay.prefs.getString("vfx").equals("ON")) {
+                    jumping.setVolume(0.1f);
                     jumping.play();
                 }
                 currentState = State.JUMPING;
             }
             else if (body.getLinearVelocity().y > 0 && dt < 0.5 && canClimb) {
+                jumping.stop();
+                running.stop();
                 currentState = State.CLIMBING;
             }
             else if (body.getLinearVelocity().y < 0 && !canClimb && !touchingBox) {
-                if(Decay.prefs.getBoolean("sound")) {
-                    jumping.setVolume(0.01f);
+                if(Decay.prefs.getString("vfx").equals("ON")) {
+                    jumping.setVolume(0.1f);
                     jumping.play();
                 }
                 currentState = State.FALLING;
@@ -175,17 +188,21 @@ public class Clairo extends Sprite {
                 currentState = State.CLIMBING;
             }
             else if (body.getLinearVelocity().x != 0 && !pushingBox && (body.getLinearVelocity().x < -50 || body.getLinearVelocity().x > 50)) {
-                if(Decay.prefs.getBoolean("sound")){
-                    running.setVolume(0.01f);
+                if(Decay.prefs.getString("vfx").equals("ON")) {
+                    running.setVolume(0.1f);
                     running.play();
                 }
                 currentState = State.RUNNING;
 
             }
             else if (body.getLinearVelocity().x != 0 && pushingBox && Math.abs(body.getLinearVelocity().x) > 2) {
+                jumping.stop();
+                running.stop();
                 currentState = State.PUSHING;
             }
             else if (body.getLinearVelocity().y == 0 && body.getLinearVelocity().x == 0 && !isShooting && currentState != State.CLIMBING) {
+                jumping.stop();
+                running.stop();
                 currentState = State.IDLE;
             }
         }

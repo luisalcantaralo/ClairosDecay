@@ -25,6 +25,8 @@ Settings extends GenericScreen {
     private GenericButton buttonOnMusic;
     private GenericButton buttonOffMusic;
 
+    private GenericButton buttonOnVFX;
+    private GenericButton buttonOffVFX;
 
     // stage
     private Stage sceneSettings;
@@ -106,13 +108,59 @@ Settings extends GenericScreen {
             }
         });
 
+        // off button
+
+
+        Texture textureOffVFX = new Texture("menu/cd-off-button.png");
+        buttonOffVFX = new GenericButton(textureOffVFX);
+        buttonOffVFX.setPosition(WIDTH/2+50, HEIGHT/2-25);
+        buttonOffVFX.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Decay.prefs.putString("vfx", "ON");
+                Decay.prefs.flush();
+                sceneSettings.addActor(buttonOnVFX.getImageButton());
+                buttonOffVFX.remove();
+
+            }
+        });
+
+
+        // on button
+
+        Texture textureOnVFX = new Texture("menu/cd-on-button.png");
+        buttonOnVFX = new GenericButton(textureOnVFX);
+        buttonOnVFX.setPosition(WIDTH/2+50, HEIGHT/2-25);
+        buttonOnVFX.getImageButton().addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Decay.prefs.putString("vfx", "OFF");
+                Decay.prefs.flush();
+                sceneSettings.addActor(buttonOffVFX.getImageButton());
+                buttonOnVFX.remove();
+            }
+        });
 
 
 
 
 
+        if(Decay.prefs.getString("music").equals("ON")) {
+            sceneSettings.addActor(buttonOnMusic.getImageButton());
+        }
+        else {
+            sceneSettings.addActor(buttonOffMusic.getImageButton());
+        }
+
+        if(Decay.prefs.getString("vfx").equals("ON")) {
+            sceneSettings.addActor(buttonOnVFX.getImageButton());
+        }
+        else {
+            sceneSettings.addActor(buttonOffVFX.getImageButton());
+        }
         sceneSettings.addActor(buttonBack.getImageButton());
-        sceneSettings.addActor(buttonOnMusic.getImageButton());
 
     }
 
