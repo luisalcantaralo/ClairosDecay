@@ -219,9 +219,41 @@ public class SecondLevel extends GenericScreen {
         for(Enemy enemy: enemies){
             enemy.update(time);
             enemy.draw(batch);
-    }
-    }
 
+
+            float distancex = enemy.getX() - clairo.getClairoX();
+            float distancey = enemy.getY() - clairo.getClairoY();
+
+            if (distancey <= 20 && distancey >= -20) {
+                if (distancex <= 50 && distancex >= 0) {
+
+                    if(enemy.currentState == Enemy.State.SHOOTING){
+                        enemy.isLeft = true;
+                        Bullet b = enemy.shoot(true, 1);
+                        bullets.add(b);
+                        enemy.setTimerBullet(0);
+                    }
+                    enemy.currentState = Enemy.State.SHOOTING;
+
+                } else if (distancex >= -50 && distancex <= 0) {
+
+                    if(enemy.currentState == Enemy.State.SHOOTING) {
+
+                        enemy.isLeft = false;
+                        Bullet b = enemy.shoot(false, 1);
+                        bullets.add(b);
+                        enemy.setTimerBullet(0);
+                    }
+                    enemy.currentState = Enemy.State.SHOOTING;
+
+
+                }else {
+                    enemy.currentState = Enemy.State.PATROLLING;
+                }
+            }
+
+        }
+    }
 
 
     @Override
