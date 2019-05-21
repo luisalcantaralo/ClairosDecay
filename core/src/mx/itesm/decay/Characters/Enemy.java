@@ -132,11 +132,11 @@ public class Enemy extends Sprite {
             System.out.println(currentState);
             if (isLeft) {
                 isRunningRight = false;
-                body.setLinearVelocity(new Vector2(-5*enemySpeed, 0));
+                //body.setLinearVelocity(new Vector2(-2*enemySpeed, 0));
 
             }else{
                 isRunningRight = true;
-                body.setLinearVelocity(new Vector2(5*enemySpeed, 0));
+                //body.setLinearVelocity(new Vector2(2*enemySpeed, 0));
 
             }
         }
