@@ -194,7 +194,6 @@ public class ThirdLevel extends GenericScreen {
 
         enemies = MapConverter.createEnemies(map, world);
 
-
         b2dr = new Box2DDebugRenderer();
     }
 
@@ -210,13 +209,8 @@ public class ThirdLevel extends GenericScreen {
 
         map = assetManager.get("maps/cd-map-03.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f/5f);
-
-
+        assetManager.dispose();
     }
-
-
-
-
 
     @Override
     public void render(float delta) {
