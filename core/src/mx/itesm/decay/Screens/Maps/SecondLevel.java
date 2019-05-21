@@ -384,13 +384,14 @@ public class SecondLevel extends GenericScreen {
                 if(b.izquierda){
                     if (b.getBulletSprite().getX() - clairo.getX() < 7) {
                         bullets.removeIndex(i);
-                        health--;
+
+                        health -= b.getDamage();
                     }
                 }
                 else{
                     if ( clairo.getX() - b.getBulletSprite().getX()  < -5) {
                         bullets.removeIndex(i);
-                        health--;
+                        health -= b.getDamage();
                     }
                 }
             }

@@ -159,7 +159,7 @@ public class Clairo extends Sprite {
             frames.clear();
 
             for (int i = 0; i < 16; i++)
-                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/Push/DetectiveGirl-Push.png"), i * 426, 0, 426, 402));
+                frames.add(new TextureRegion(new Texture("Characters/GirlDetective/push/DetectiveGirl-Push.png"), i * 426, 0, 426, 402));
             clairoPushing = new Animation(0.1f, frames);
 
 
