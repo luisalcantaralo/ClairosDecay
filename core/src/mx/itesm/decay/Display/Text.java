@@ -31,4 +31,8 @@ public class Text {
         float textWidth = glyph.width;
         font.draw(batch, glyph, x, y);
     }
+
+    public void dispose(){
+        font.dispose();
+    }
 }
