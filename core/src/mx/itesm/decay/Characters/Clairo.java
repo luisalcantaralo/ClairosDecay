@@ -93,7 +93,7 @@ public class Clairo extends Sprite {
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
-        if(Decay.prefs.getString("choice") == null) Decay.prefs.putString("choice", "clairo");
+        if(Decay.prefs.getString("choice").equals("")) Decay.prefs.putString("choice", "clairo");
         if(Decay.prefs.getString("choice").equals("clairo")) {
             for (int i = 0; i < 13; i++)
                 frames.add(new TextureRegion(new Texture("Characters/Detective/Idle/Detective_Idle.png"), i * 288, 0, 288, 288));
